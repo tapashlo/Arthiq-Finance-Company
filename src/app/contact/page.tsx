@@ -7,7 +7,7 @@ import { process, site } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Contact",
   description:
-    "Book a 45-minute introductory call with Arthiq. No documents required, and no obligation.",
+    "Book a 45-minute introductory call with ArthIQ. No documents required, and no obligation.",
 };
 
 export default function ContactPage() {

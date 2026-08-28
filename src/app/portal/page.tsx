@@ -14,7 +14,7 @@ import {
 export const metadata: Metadata = {
   title: "Client portal",
   description:
-    "A demonstration of the Arthiq client portal: holdings, allocation drift, performance and documents.",
+    "A demonstration of the ArthIQ client portal: holdings, allocation drift, performance and documents.",
   robots: { index: false, follow: false },
 };
 

@@ -6,7 +6,7 @@ import { disclosures, site, testimonialDisclosure } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Disclosures",
   description:
-    "Regulatory disclosures, privacy practices and Form ADV information for Arthiq Wealth Management, LLC.",
+    "Regulatory disclosures, privacy practices and Form ADV information for ArthIQ Wealth Management, LLC.",
   robots: { index: false, follow: true },
 };
 
@@ -64,7 +64,7 @@ export default function DisclosuresPage() {
                 <div className="rounded-xs border border-gold/30 bg-gold/6 p-7">
                   <h2 className="label text-gold">Demonstration site</h2>
                   <p className="mt-4 text-base leading-relaxed text-ink-soft">
-                    Arthiq is a fictional firm created for a website design.
+                    ArthIQ is a fictional firm created for a website design.
                     Every name, figure, biography, holding and testimonial on
                     this site is an illustrative placeholder. Nothing here has
                     been reviewed for regulatory compliance, and it must not be

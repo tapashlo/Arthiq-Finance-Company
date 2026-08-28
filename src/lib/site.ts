@@ -7,11 +7,11 @@
  */
 
 export const site = {
-  name: "Arthiq",
-  legalName: "Arthiq Wealth Management, LLC",
+  name: "ArthIQ",
+  legalName: "ArthIQ Wealth Management, LLC",
   tagline: "Wealth management, reconsidered.",
   description:
-    "Arthiq is a fee-only fiduciary wealth manager in San Francisco. Portfolio management and retirement and tax planning for California families.",
+    "ArthIQ is a fee-only fiduciary wealth manager in San Francisco. Portfolio management and retirement and tax planning for families across the United States.",
   url: "https://arthiq.com",
   founded: 2016,
   address: {
@@ -37,7 +37,7 @@ export const nav = [
 
 export const stats = [
   { value: "$1.24B", label: "Assets under advice", note: "as of Jun 30, 2026" },
-  { value: "382", label: "Client households", note: "across 14 states" },
+  { value: "382", label: "Client households", note: "across 31 states" },
   { value: "0.65%", label: "Starting annual fee", note: "declining with scale" },
   { value: "9", label: "Years fee-only", note: "founded 2016" },
 ] as const;
@@ -87,7 +87,7 @@ export const services = [
     summary:
       "A multi-decade projection of income, taxes and withdrawals — revisited every year, and used to decide what actually happens this April.",
     detail:
-      "Planning at Arthiq is a running model, not a bound document. We project your income, brackets and required distributions out through your nineties, then work backwards to the decisions in front of you this year.",
+      "Planning at ArthIQ is a running model, not a bound document. We project your income, brackets and required distributions out through your nineties, then work backwards to the decisions in front of you this year.",
     points: [
       {
         title: "Multi-year tax projection",
@@ -152,7 +152,7 @@ export const team = [
     name: "Maya Lindqvist, CFA",
     role: "Founder & Chief Investment Officer",
     initials: "ML",
-    bio: "Founded Arthiq in 2016 after eleven years building multi-asset portfolios at a Bay Area endowment. Chairs the investment committee and owns the allocation framework every client portfolio is built from.",
+    bio: "Founded ArthIQ in 2016 after eleven years building multi-asset portfolios at a Bay Area endowment. Chairs the investment committee and owns the allocation framework every client portfolio is built from.",
     detail: "Previously: multi-asset portfolio management, university endowment. CFA charterholder.",
   },
   {
@@ -251,7 +251,7 @@ export const testimonials = [
 ] as const;
 
 export const testimonialDisclosure =
-  "The statements above are from current clients of Arthiq Wealth Management, LLC. No cash or non-cash compensation was provided in exchange for these statements. A client's experience is not necessarily representative of the experience of other clients, and these statements are not a guarantee of any future result or outcome. Because these individuals are clients, a material conflict of interest exists: clients have an incentive to describe their experience favorably. Names shown are illustrative placeholders for design purposes.";
+  "The statements above are from current clients of ArthIQ Wealth Management, LLC. No cash or non-cash compensation was provided in exchange for these statements. A client's experience is not necessarily representative of the experience of other clients, and these statements are not a guarantee of any future result or outcome. Because these individuals are clients, a material conflict of interest exists: clients have an incentive to describe their experience favorably. Names shown are illustrative placeholders for design purposes.";
 
 /* ------------------------------------------------------------------ faq -- */
 
@@ -266,11 +266,11 @@ export const faqs = [
   },
   {
     q: "Are you a fiduciary all of the time?",
-    a: "Yes. Arthiq is a registered investment adviser and owes a fiduciary duty of care and loyalty to every client in every interaction. That standard does not switch off when a product is discussed, because we do not sell products.",
+    a: "Yes. ArthIQ is a registered investment adviser and owes a fiduciary duty of care and loyalty to every client in every interaction. That standard does not switch off when a product is discussed, because we do not sell products.",
   },
   {
     q: "Who actually holds my money?",
-    a: "Your assets are custodied at Schwab Advisor Services in accounts titled in your name. Arthiq never takes possession of client funds. We have trading and fee-deduction authority; we cannot move money to a third party.",
+    a: "Your assets are custodied at Schwab Advisor Services in accounts titled in your name. ArthIQ never takes possession of client funds. We have trading and fee-deduction authority; we cannot move money to a third party.",
   },
   {
     q: "How long does it take to switch from my current advisor?",
@@ -402,7 +402,7 @@ export const articles: Article[] = [
 export const disclosures = [
   {
     title: "Investment advisory",
-    body: "Arthiq Wealth Management, LLC is a registered investment adviser. Registration does not imply a certain level of skill or training, and does not constitute an endorsement by any securities regulator. Advisory services are offered only to residents of states in which the firm is registered or exempt from registration.",
+    body: "ArthIQ Wealth Management, LLC is a registered investment adviser. Registration does not imply a certain level of skill or training, and does not constitute an endorsement by any securities regulator. Advisory services are offered only to residents of states in which the firm is registered or exempt from registration.",
   },
   {
     title: "No investment advice on this site",
@@ -414,7 +414,7 @@ export const disclosures = [
   },
   {
     title: "Tax matters",
-    body: "Arthiq does not prepare tax returns and does not provide legal advice. Tax strategies described here depend on individual circumstances and on tax law that may change. Coordinate with your CPA or attorney before implementing any strategy discussed on this site.",
+    body: "ArthIQ does not prepare tax returns and does not provide legal advice. Tax strategies described here depend on individual circumstances and on tax law that may change. Coordinate with your CPA or attorney before implementing any strategy discussed on this site.",
   },
   {
     title: "Figures shown",

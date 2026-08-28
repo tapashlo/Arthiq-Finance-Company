@@ -3,6 +3,8 @@ import { CtaBand } from "@/components/CtaBand";
 import { HeroChart } from "@/components/HeroChart";
 import { Reveal } from "@/components/Reveal";
 import { Faq } from "@/components/Faq";
+import { ReturnsTable, SparklineSheet } from "@/components/MarketBoard";
+import { Topography } from "@/components/Topography";
 import { Arrow, Button, Eyebrow, SectionHeading, Stat } from "@/components/ui";
 import {
   articles,
@@ -54,9 +56,9 @@ export default function HomePage() {
                 className="fade-up mt-9 max-w-xl text-xl leading-relaxed text-ink-soft md:text-[1.4rem]"
                 style={{ animationDelay: "300ms" }}
               >
-                Fee-only fiduciary advice for California families. One portfolio
-                across every account you hold, one fee we publish plainly, and
-                nothing to sell you.
+                Fee-only fiduciary advice for families anywhere in the United
+                States. One portfolio across every account you hold, one fee we
+                publish plainly, and nothing to sell you.
               </p>
 
               <div
@@ -171,9 +173,54 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ---------------------------------------------------- market board */}
+      <section className="border-y border-rule bg-cream-deep py-24 md:py-36">
+        <div className="shell">
+          <Reveal>
+            <SectionHeading
+              eyebrow="The record"
+              title={
+                <>
+                  Green years, red years,
+                  <br />
+                  and a plan that survives both.
+                </>
+              }
+              lede="We do not hide the losing years, because managing them is most of the job. This is what a diversified portfolio actually looks like — year by year, and holding by holding."
+            />
+          </Reveal>
+
+          <div className="mt-18 grid items-start gap-8 md:mt-24 lg:grid-cols-12">
+            <Reveal className="lg:col-span-7">
+              <Board title="Annual return by asset class">
+                <ReturnsTable />
+              </Board>
+            </Reveal>
+            <Reveal className="lg:col-span-5" delay={100}>
+              <Board title="Holdings · last 52 weeks">
+                <SparklineSheet />
+              </Board>
+            </Reveal>
+          </div>
+
+          <Reveal>
+            <p className="mt-10 max-w-3xl text-sm leading-relaxed text-ink-faint">
+              <span className="label-sm mr-2">Disclosure</span>
+              Illustrative placeholder figures created for design purposes. They
+              do not represent any actual index, account or result. Past
+              performance does not guarantee future results.
+            </p>
+          </Reveal>
+        </div>
+      </section>
+
       {/* ------------------------------------------------------ philosophy */}
-      <section className="border-y border-rule bg-forest text-cream">
-        <div className="shell py-24 md:py-36">
+      <section className="relative overflow-hidden border-y border-rule bg-forest text-cream">
+        <Topography
+          className="pointer-events-none absolute -top-32 right-0 h-[52rem] w-[80rem] text-gain opacity-55"
+          tone="currentColor"
+        />
+        <div className="shell relative py-24 md:py-36">
           <Reveal>
             <Eyebrow className="text-sage-pale">How we think</Eyebrow>
             <h2 className="mt-6 max-w-4xl text-4xl leading-[1.08] sm:text-5xl md:text-[3.5rem]">
@@ -335,5 +382,23 @@ export default function HomePage() {
       {/* ------------------------------------------------------------- cta */}
       <CtaBand />
     </>
+  );
+}
+
+function Board({
+  title,
+  children,
+}: {
+  title: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <section className="h-full overflow-hidden rounded-xs border border-rule bg-paper shadow-lift">
+      <header className="flex items-center justify-between gap-6 border-b border-rule px-7 py-5">
+        <h3 className="label text-forest">{title}</h3>
+        <span className="label-sm text-ink-faint">Illustrative</span>
+      </header>
+      <div className="px-7 py-6">{children}</div>
+    </section>
   );
 }

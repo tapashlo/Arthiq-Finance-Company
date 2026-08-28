@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 /* ------------------------------------------------------------------
-   Arthiq design tokens
+   ArthIQ design tokens
    Palette: money green + warm cream. Editorial private-bank register.
    Type: Newsreader (display + body), Inter (labels, UI, tabular figures).
 ------------------------------------------------------------------- */
@@ -27,7 +27,15 @@
   --color-ink-soft: #46564e;
   --color-ink-faint: #7b8a82;
 
-  /* Accents — used sparingly */
+  /* Market colours. Green is gain, red is loss — red is part of the game and
+     is used at full strength, not hidden. */
+  --color-gain: #2a8a62;
+  --color-gain-soft: #d6ece0;
+  --color-loss: #c2412d;
+  --color-loss-soft: #f6ddd6;
+  --color-loss-deep: #8f2c1d;
+
+  /* Accents */
   --color-gold: #b08a3e;
   --color-gold-pale: #ddc48a;
   --color-clay: #a2513c;
@@ -47,6 +55,18 @@
 }
 
 @layer base {
+  :root {
+    /* The wordmark's snowcap. Bright green on cream grounds. */
+    --logo-accent: var(--color-gain);
+    --logo-accent-opacity: 1;
+  }
+
+  /* On the forest ground the whole mark is cream; keep the cap distinguishable. */
+  .on-forest {
+    --logo-accent: var(--color-gain);
+    --logo-accent-opacity: 1;
+  }
+
   * {
     border-color: var(--color-rule);
   }
@@ -284,6 +304,25 @@
   animation: rise 1s cubic-bezier(0.22, 0.68, 0.24, 1) forwards;
 }
 
+/* Candles grow from their own midpoint, staggered left to right. */
+@keyframes grow-candle {
+  from {
+    transform: scaleY(0.06);
+    opacity: 0;
+  }
+  to {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+}
+
+.chart-candle {
+  opacity: 0;
+  transform-origin: center;
+  transform-box: fill-box;
+  animation: grow-candle 0.5s cubic-bezier(0.22, 0.68, 0.24, 1) forwards;
+}
+
 .chart-node {
   opacity: 0;
   animation: fade-up 0.7s ease-out forwards;
@@ -314,6 +353,7 @@
   .chart-line,
   .chart-area,
   .chart-bar,
+  .chart-candle,
   .chart-node,
   .chart-halo,
   .fade-up {

@@ -16,8 +16,8 @@ export function SiteFooter() {
           <div className="lg:col-span-5">
             <Wordmark className="w-full max-w-sm text-cream" />
             <p className="mt-8 max-w-sm text-xl leading-relaxed text-cream/70">
-              Fee-only fiduciary wealth management for families in California
-              and beyond.
+              Fee-only fiduciary wealth management for families across the
+              United States.
             </p>
 
             <address className="mt-10 space-y-1 text-base not-italic leading-relaxed text-cream/60">

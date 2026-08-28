@@ -1,159 +1,134 @@
 /**
- * Arthiq wordmark.
+ * ArthIQ wordmark.
  *
- * Three ideas, drawn quietly enough to survive at 24px:
- *   A   — Himalayan peaks. A symmetric A whose apex carries a single ridge
- *         notch and a lower shoulder summit. The counter stays open, so the
- *         letter reads first and the mountain reads second.
- *   RTH — a transit line over a market. An ascending polyline runs behind the
- *         three letters with station nodes landing in the letter gaps, above a
- *         faint column series along the baseline.
- *   IQ  — a magnifying glass. The Q's bowl is the lens and its tail leaves the
- *         circle at 45° as a weighted, round-capped handle.
+ *   A   — Everest. An asymmetric filled peak: long left shoulder, steep right
+ *         face, jagged snowline, and a true counter (knocked out with
+ *         evenodd, not filled with a background colour) so the mark inverts.
+ *   rth — lowercase, drawn clean. The candlestick language this name is built
+ *         on lives on the site at full size, where it reads as a chart; at
+ *         wordmark scale it only ever read as coloured blocks stuck on letters.
+ *   IQ  — uppercase, both lenses. The I is a bar passing through a small ring;
+ *         the Q's bowl is the larger lens with its tail as the handle.
  *
- * Everything is currentColor, so the mark inverts on dark grounds for free.
- * Geometry: cap top y=21, baseline y=92, monoline stroke 9.
+ * Body is currentColor throughout. The snowcap takes --logo-accent so it can
+ * be tuned per ground, falling back to currentColor.
  */
+
+const A_OUTLINE = "M2 92 L40 16 L70 92 Z M38 55 L28 78 L51 78 Z";
+const SNOWLINE = "M0 0 H80 V42 L60 37 L52 44 L44 27 L37 41 L29 33 L20 45 L0 39 Z";
 
 type WordmarkProps = {
   className?: string;
   title?: string;
-  /** Drop the chart furniture. Use below roughly 110px of rendered width. */
+  /** Drop the I's lens ring, which fills in below ~120px of rendered width. */
   simplified?: boolean;
+  /** Unique per instance: clipPath ids must not collide across inline SVGs. */
+  id?: string;
 };
-
-/** Station nodes sit in the gaps between letters, never on a stroke. */
-const NODES = [
-  [126, 76],
-  [196, 66],
-  [263, 50],
-] as const;
 
 export function Wordmark({
   className,
-  title = "Arthiq",
+  title = "ArthIQ",
   simplified = false,
+  id = "wm",
 }: WordmarkProps) {
   return (
     <svg
-      viewBox="0 0 384 118"
+      viewBox="0 0 330 120"
       className={className}
       role="img"
       aria-label={title}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      {!simplified && (
-        <g aria-hidden="true">
-          {/* Column series along the baseline — the "graphs" half of the idea. */}
-          <g fill="currentColor" opacity="0.075">
-            <rect x="78" y="83" width="8" height="9" />
-            <rect x="108" y="80" width="8" height="12" />
-            <rect x="138" y="81" width="8" height="11" />
-            <rect x="168" y="77" width="8" height="15" />
-            <rect x="198" y="74" width="8" height="18" />
-            <rect x="228" y="72" width="8" height="20" />
-          </g>
+      <defs>
+        <clipPath id={`${id}-peak`}>
+          <path d={A_OUTLINE} clipRule="evenodd" />
+        </clipPath>
+      </defs>
 
-          {/* Transit line. Kept low and visibly stepped so it reads as a chart
-              passing behind the letters rather than as a rule struck through them. */}
-          <path
-            d="M72 86L126 76L160 80L196 66L228 70L263 50"
-            stroke="currentColor"
-            strokeWidth="2.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            opacity="0.4"
-          />
-          <circle
-            cx="72"
-            cy="86"
-            r="2.75"
-            stroke="currentColor"
-            strokeWidth="2"
-            opacity="0.4"
-          />
-          <g fill="currentColor" opacity="0.55">
-            {NODES.map(([cx, cy]) => (
-              <circle key={cx} cx={cx} cy={cy} r="3.4" />
-            ))}
-          </g>
-        </g>
-      )}
+      {/* A — the peak, with its snowcap clipped to the letterform. */}
+      <g clipPath={`url(#${id}-peak)`}>
+        <rect x="0" y="0" width="80" height="120" fill="currentColor" />
+        <path
+          d={SNOWLINE}
+          fill="var(--logo-accent, currentColor)"
+          opacity="var(--logo-accent-opacity, 0.5)"
+        />
+      </g>
 
       <g
         stroke="currentColor"
         strokeWidth="9"
-        strokeLinecap="butt"
+        fill="none"
+        strokeLinecap="round"
         strokeLinejoin="round"
       >
-        {/* A — summit, ridge notch, shoulder, descent. */}
-        <path d="M4 92L32 21L38 38L44.5 27L63 92" />
-        <path d="M15 66H55" strokeWidth="8" />
+        {/* r */}
+        <path d="M92 46V92" />
+        <path d="M92 59c0-9 7-14 18-14" />
 
-        {/* R */}
-        <path d="M80 21V92" />
-        <path d="M80 21h21a17 17 0 0 1 0 34H80" />
-        <path d="M95 55L113 92" />
+        {/* t */}
+        <path d="M130 26V92" />
+        <path d="M119 46h23" />
 
-        {/* T */}
-        <path d="M139 21H189" strokeLinecap="square" />
-        <path d="M164 25V92" />
+        {/* h */}
+        <path d="M160 18V92" />
+        <path d="M160 58c0-10 7-13 14-13s12 6 12 14v33" />
 
-        {/* H */}
-        <path d="M203 21V92" />
-        <path d="M253 21V92" />
-        <path d="M203 56H253" />
+        {/* I — bar through a lens */}
+        <path d="M212 20V92" />
+        {!simplified && <circle cx="212" cy="50" r="13" strokeWidth="4.5" />}
 
-        {/* I */}
-        <path d="M273 21V92" />
-
-        {/* Q — the lens */}
-        <circle cx="329" cy="56" r="36" />
+        {/* Q — the larger lens */}
+        <circle cx="272" cy="56" r="32" />
+        <path
+          d="M253 39a23 23 0 0 1 13-8"
+          strokeWidth="4"
+          opacity="0.32"
+        />
       </g>
 
-      {/* Q tail as the magnifier handle: heavier weight, round cap. */}
+      {/* Q tail as the magnifier handle. */}
       <path
-        d="M354.5 81.5L373 100"
+        d="M294.6 78.6L312 96"
         stroke="currentColor"
         strokeWidth="12"
         strokeLinecap="round"
-      />
-
-      {/* Lens glint. Barely there; drops out at small sizes anyway. */}
-      <path
-        d="M308 41a26 26 0 0 1 15-9"
-        stroke="currentColor"
-        strokeWidth="4"
-        strokeLinecap="round"
-        opacity="0.32"
       />
     </svg>
   );
 }
 
-/**
- * Monogram — the summit A alone, for favicons, avatars and tight spaces.
- * Same construction as the wordmark's A, recentred on a 64-unit square.
- */
-export function Monogram({ className }: { className?: string }) {
+/** Monogram — the Everest A alone, for favicons, avatars and tight spaces. */
+export function Monogram({
+  className,
+  id = "mg",
+}: {
+  className?: string;
+  id?: string;
+}) {
   return (
     <svg
-      viewBox="0 0 64 64"
+      viewBox="0 0 72 108"
       className={className}
       role="img"
-      aria-label="Arthiq"
+      aria-label="ArthIQ"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g
-        stroke="currentColor"
-        strokeWidth="6.5"
-        strokeLinecap="butt"
-        strokeLinejoin="round"
-      >
-        <path d="M8 54L29 13L33 23L37 16.5L56 54" />
-        <path d="M16 40H48" strokeWidth="5.75" />
+      <defs>
+        <clipPath id={`${id}-peak`}>
+          <path d={A_OUTLINE} clipRule="evenodd" />
+        </clipPath>
+      </defs>
+      <g clipPath={`url(#${id}-peak)`}>
+        <rect x="0" y="0" width="80" height="120" fill="currentColor" />
+        <path
+          d={SNOWLINE}
+          fill="var(--logo-accent, currentColor)"
+          opacity="var(--logo-accent-opacity, 0.5)"
+        />
       </g>
     </svg>
   );

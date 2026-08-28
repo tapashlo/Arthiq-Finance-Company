@@ -8,7 +8,7 @@ import { notDoing, philosophy, process, site, stats, team } from "@/lib/site";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "Arthiq is a fee-only fiduciary wealth manager in San Francisco, founded in 2016. Meet the team and how we work.",
+    "ArthIQ is a fee-only fiduciary wealth manager in San Francisco, founded in 2016. Meet the team and how we work.",
 };
 
 export default function AboutPage() {
@@ -23,7 +23,7 @@ export default function AboutPage() {
             purpose.
           </>
         }
-        lede="Arthiq was founded in 2016 on a straightforward premise: that most people paying for wealth management were paying for products, and that the advice underneath was worth more than the products ever were."
+        lede="ArthIQ was founded in 2016 on a straightforward premise: that most people paying for wealth management were paying for products, and that the advice underneath was worth more than the products ever were."
       />
 
       {/* ---------------------------------------------------------- story */}
@@ -50,7 +50,7 @@ export default function AboutPage() {
                   will state in dollars.
                 </p>
                 <p>
-                  Arthiq exists to give households the first arrangement. One
+                  ArthIQ exists to give households the first arrangement. One
                   portfolio built on evidence, one fee we publish, no products,
                   no commissions, and a planning model that runs to age
                   ninety-five rather than to the end of the current quarter.
@@ -265,8 +265,8 @@ export default function AboutPage() {
             <Reveal delay={100}>
               <p className="max-w-xl text-xl leading-relaxed text-ink-soft">
                 We meet clients at {site.address.line1} and, far more often,
-                wherever is easier. Roughly two thirds of our households are
-                outside San Francisco, and nothing about the work requires a
+                wherever is easier. Most of our households are outside California — we are
+                licensed across 31 states, and nothing about the work requires a
                 conference room.
               </p>
               <address className="mt-10 space-y-1 text-lg not-italic leading-relaxed text-forest">

@@ -1,7 +1,7 @@
-# Arthiq
+# ArthIQ
 
-Marketing site and client-portal mockup for **Arthiq**, a fee-only fiduciary
-wealth manager in San Francisco.
+Marketing site and client-portal mockup for **ArthIQ**, a fee-only fiduciary
+wealth manager in San Francisco, serving households across the United States.
 
 Built with Next.js 16 (App Router), TypeScript and Tailwind CSS v4. Every route
 is statically prerendered; there is no database, no API and no runtime
@@ -24,18 +24,21 @@ font — so it stays sharp at any size and needs no webfont to render.
 
 | Letters | Idea | How it is drawn |
 | --- | --- | --- |
-| **A** | Himalayan peaks | A symmetric A whose apex carries a ridge notch and a shoulder summit. The counter stays open so the letter reads first and the mountain second. |
-| **RTH** | A transit line over a market | An ascending polyline runs behind the three letters with station nodes landing in the gaps, above a faint rising column series. |
-| **IQ** | A magnifying glass | The Q's bowl is the lens; its tail leaves the circle at 45° as a weighted, round-capped handle. |
+| **A** | Everest | An asymmetric filled peak — long left shoulder, steep right face, jagged snowline. The counter is knocked out with `evenodd`, not filled with a background colour, so the mark inverts cleanly on any ground. |
+| **rth** | lowercase | Drawn clean. Candlesticks were tried *inside* the wordmark three ways and abandoned: at logo scale they read as coloured blocks stuck on letters, and they destroyed "rth". That language lives on the site instead, at a size where it reads as a chart. |
+| **IQ** | uppercase, two lenses | The I is a bar passing through a small ring; the Q's bowl is the larger lens with its tail leaving the circle at 45° as the handle. |
+
+The snowcap colour comes from `--logo-accent` (falling back to `currentColor`),
+so it can be tuned per ground without forking the component.
 
 Two lockups are exported:
 
-- `<Wordmark />` — the full mark. Needs roughly 200px of width before the chart
-  furniture reads; used large in the footer and on `/about#the-mark`.
-- `<Wordmark simplified />` — letterforms only, for nav-scale placements where
-  the line and nodes would fall below a pixel. Used in the site header.
-- `<Monogram />` — the summit A alone, for avatars and tight spaces.
-  `src/app/icon.svg` is the favicon built from the same geometry.
+- `<Wordmark />` — the full mark.
+- `<Wordmark simplified />` — drops the I's lens ring, which fills in below
+  roughly 120px of rendered width. Used in the site header.
+- `<Monogram />` — the Everest A alone, for favicons and tight spaces.
+
+Each instance takes an `id` prop: the clipPath id must be unique per inline SVG.
 
 ---
 
@@ -43,19 +46,26 @@ Two lockups are exported:
 
 Tokens live in `src/app/globals.css` under `@theme`.
 
-- **Palette** — money green on warm cream. `--color-forest` through
-  `--color-green-bright` carry the greens, `--color-cream`/`--color-paper` the
-  grounds, with `--color-gold` and `--color-clay` used sparingly for accents and
-  negative figures.
+- **Palette** — money green on warm cream, with red as a first-class market
+  colour. `--color-gain` and `--color-loss` drive every chart: green for up
+  periods, red for down, used at full strength rather than hidden. Grounds are
+  `--color-cream`/`--color-paper`; `--color-gold` is a sparing accent.
 - **Type** — [Newsreader](https://fonts.google.com/specimen/Newsreader) for
   headlines *and* body; [Inter](https://fonts.google.com/specimen/Inter) only
   for small uppercase UI labels (`.label`) and tabular figures (`.tnum`). Both
   are self-hosted by `next/font`, so no external font request is made at runtime.
 - **Texture** — `.grain` overlays an inline SVG noise field so large cream
   fields do not read as flat digital white.
-- **Motion** — `<Reveal>` fades sections in on scroll; the hero and portal
-  charts draw themselves with CSS dash animations. Everything is fully disabled
-  under `prefers-reduced-motion: reduce`.
+- **Charts** — all hand-authored SVG, no charting library. The hero is a
+  candlestick chart with volume and a five-quarter moving average; the home page
+  also carries a periodic-table-of-returns heatmap and a sparkline sheet, and
+  the portal has a performance area chart and an allocation ring. Every series
+  is generated deterministically at module scope so server and client agree.
+- **Artwork** — `<Topography />` draws nested contour rings from fixed
+  harmonics: an elevation map of the peak in the wordmark. No image requests.
+- **Motion** — `<Reveal>` fades sections in on scroll; charts draw themselves
+  with CSS dash and stagger animations. Everything is fully disabled under
+  `prefers-reduced-motion: reduce`.
 
 ---
 

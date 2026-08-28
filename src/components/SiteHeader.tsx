@@ -43,7 +43,7 @@ export function SiteHeader() {
       <div className="shell flex h-20 items-center justify-between gap-8 md:h-24">
         <Link
           href="/"
-          aria-label="Arthiq — home"
+          aria-label="ArthIQ — home"
           className="shrink-0 text-forest transition-opacity duration-300 hover:opacity-70"
         >
           <Wordmark simplified className="h-8 w-auto md:h-9" />
