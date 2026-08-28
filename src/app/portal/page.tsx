@@ -14,7 +14,7 @@ import {
 export const metadata: Metadata = {
   title: "Client portal",
   description:
-    "A demonstration of the Arthiq client portal: holdings, allocation drift, performance and documents.",
+    "A demonstration of the ArthIQ client portal: holdings, allocation drift, performance and documents.",
   robots: { index: false, follow: false },
 };
 
@@ -126,11 +126,11 @@ export default function PortalPage() {
 
         <div className="mt-12 grid gap-8 lg:grid-cols-12">
           {/* --------------------------------------------------- chart */}
-          <Reveal className="lg:col-span-8">
+          <Reveal className="min-w-0 lg:col-span-8">
             <Panel
               title="Portfolio value"
               action={
-                <div className="flex gap-1">
+                <div className="flex shrink-0 gap-1">
                   {["1Y", "3Y", "5Y", "All"].map((r) => (
                     <span
                       key={r}
@@ -154,7 +154,7 @@ export default function PortalPage() {
           </Reveal>
 
           {/* ---------------------------------------------- allocation */}
-          <Reveal className="lg:col-span-4" delay={90}>
+          <Reveal className="min-w-0 lg:col-span-4" delay={90}>
             <Panel title="Allocation" action={<span className="label-sm text-ink-faint">vs target</span>}>
               <div className="flex flex-col items-center gap-8 p-7">
                 <AllocationRing />
@@ -186,7 +186,7 @@ export default function PortalPage() {
           </Reveal>
 
           {/* ------------------------------------------------- holdings */}
-          <Reveal className="lg:col-span-8" delay={60}>
+          <Reveal className="min-w-0 lg:col-span-8" delay={60}>
             <Panel title="Holdings" action={<span className="label-sm text-ink-faint">8 positions</span>}>
               <div className="overflow-x-auto">
                 <table className="w-full min-w-[36rem] border-collapse text-left">
@@ -243,7 +243,7 @@ export default function PortalPage() {
           </Reveal>
 
           {/* ------------------------------------------------- activity */}
-          <Reveal className="lg:col-span-4" delay={120}>
+          <Reveal className="min-w-0 lg:col-span-4" delay={120}>
             <Panel title="Recent activity">
               <ul className="divide-y divide-rule-soft">
                 {activity.map((a) => (
@@ -275,7 +275,7 @@ export default function PortalPage() {
           </Reveal>
 
           {/* ------------------------------------------------ documents */}
-          <Reveal className="lg:col-span-8" delay={60}>
+          <Reveal className="min-w-0 lg:col-span-8" delay={60}>
             <Panel title="Documents">
               <ul className="divide-y divide-rule-soft">
                 {documents.map((d) => (
@@ -300,7 +300,7 @@ export default function PortalPage() {
           </Reveal>
 
           {/* ----------------------------------------------------- team */}
-          <Reveal className="lg:col-span-4" delay={120}>
+          <Reveal className="min-w-0 lg:col-span-4" delay={120}>
             <div className="flex h-full flex-col justify-between rounded-xs border border-rule bg-forest p-8 text-cream">
               <div>
                 <h2 className="label text-sage-pale">Your team</h2>
@@ -367,7 +367,7 @@ function Panel({
 }) {
   return (
     <section className="h-full overflow-hidden rounded-xs border border-rule bg-paper">
-      <header className="flex items-center justify-between gap-6 border-b border-rule px-7 py-5">
+      <header className="flex flex-wrap items-center justify-between gap-x-6 gap-y-3 border-b border-rule px-7 py-5">
         <h2 className="label text-forest">{title}</h2>
         {action}
       </header>

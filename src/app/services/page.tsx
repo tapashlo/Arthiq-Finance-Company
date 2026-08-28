@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { CtaBand } from "@/components/CtaBand";
+import { ImageBand } from "@/components/Media";
+import { images } from "@/lib/images";
 import { Faq } from "@/components/Faq";
 import { Reveal } from "@/components/Reveal";
 import { Eyebrow, PageHero, SectionHeading } from "@/components/ui";
@@ -30,7 +32,7 @@ export default function ServicesPage() {
             <a
               key={s.slug}
               href={`#${s.slug}`}
-              className="label link-reveal flex items-center gap-3 text-green hover:text-forest"
+              className="label link-reveal tap gap-3 text-green hover:text-forest"
             >
               <span className="tnum text-ink-faint">{s.number}</span>
               {s.title}
@@ -89,6 +91,13 @@ export default function ServicesPage() {
           </div>
         </section>
       ))}
+
+      <ImageBand
+        image={images.tower}
+        height="short"
+        eyebrow="Institutional terms"
+        title="The arrangement institutions get, for households."
+      />
 
       {/* -------------------------------------------------------- process */}
       <section

@@ -1,28 +1,23 @@
 "use client";
 
-import { useEffect, useRef, useState, type ElementType, type ReactNode } from "react";
-
-type RevealProps = {
-  children: ReactNode;
-  /** Stagger, in ms, applied as a CSS transition-delay. */
-  delay?: number;
-  className?: string;
-  as?: ElementType;
-};
+import {
+  useEffect,
+  useRef,
+  useState,
+  type ElementType,
+  type ReactNode,
+} from "react";
 
 /**
- * Fades and lifts its children into view once, the first time they cross the
- * viewport. The CSS in globals.css neutralises the whole effect under
- * prefers-reduced-motion, and we still fire the observer so nothing depends on
- * the animation having run.
+ * Marks an element the first time it reaches the fold.
+ *
+ * Observer callbacks are delivered asynchronously and can be coalesced, so a
+ * fast scroll may report an element that has already left the viewport above.
+ * Treating "has reached the fold" as shown means nothing is ever stranded
+ * invisible behind a flick scroll.
  */
-export function Reveal({
-  children,
-  delay = 0,
-  className = "",
-  as: Tag = "div",
-}: RevealProps) {
-  const ref = useRef<HTMLElement>(null);
+function useInView<T extends HTMLElement>() {
+  const ref = useRef<T>(null);
   const [shown, setShown] = useState(false);
 
   useEffect(() => {
@@ -38,13 +33,10 @@ export function Reveal({
     const observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
-          // Observer callbacks are delivered asynchronously and can be coalesced,
-          // so a fast scroll may report an element that has already left the
-          // viewport above. Treating "has reached the fold" as shown means
-          // nothing is ever stranded invisible behind a flick scroll.
-          const reachedFold =
-            entry.boundingClientRect.top < window.innerHeight;
-          if (entry.isIntersecting || reachedFold) {
+          if (
+            entry.isIntersecting ||
+            entry.boundingClientRect.top < window.innerHeight
+          ) {
             setShown(true);
             observer.disconnect();
           }
@@ -57,13 +49,59 @@ export function Reveal({
     return () => observer.disconnect();
   }, []);
 
+  return { ref, shown };
+}
+
+type RevealProps = {
+  children: ReactNode;
+  /** Stagger, in ms, applied as a CSS transition-delay. */
+  delay?: number;
+  className?: string;
+  as?: ElementType;
+};
+
+/** Fades and lifts its children into view once. Neutralised by reduced motion. */
+export function Reveal({
+  children,
+  delay = 0,
+  className = "",
+  as: Tag = "div",
+}: RevealProps) {
+  const { ref, shown } = useInView<HTMLElement>();
+
   return (
     <Tag
       ref={ref}
       className={`reveal ${className}`}
       data-shown={shown ? "true" : "false"}
-      style={delay ? ({ "--reveal-delay": `${delay}ms` } as React.CSSProperties) : undefined}
+      style={
+        delay
+          ? ({ "--reveal-delay": `${delay}ms` } as React.CSSProperties)
+          : undefined
+      }
     >
+      {children}
+    </Tag>
+  );
+}
+
+/**
+ * Sets data-shown without applying the fade-and-lift itself — for elements
+ * that carry their own entrance, such as `.img-frame`.
+ */
+export function InView({
+  children,
+  className = "",
+  as: Tag = "div",
+}: {
+  children: ReactNode;
+  className?: string;
+  as?: ElementType;
+}) {
+  const { ref, shown } = useInView<HTMLElement>();
+
+  return (
+    <Tag ref={ref} className={className} data-shown={shown ? "true" : "false"}>
       {children}
     </Tag>
   );

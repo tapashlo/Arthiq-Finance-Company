@@ -1,251 +1,308 @@
 /**
- * Hero growth chart.
+ * Hero candlestick chart.
  *
- * The series is generated deterministically at module scope — same values on
- * the server and in the browser, so there is nothing for hydration to argue
- * about — and the line draws itself with a pure-CSS dash animation. Paths carry
- * pathLength="1" so the dash geometry does not depend on the rendered size.
+ * Thirty-two quarters of OHLC, generated deterministically at module scope so
+ * server and client render identically. Green candles are up quarters, red are
+ * down — red at full strength, because losing quarters are part of the record.
+ * A five-quarter moving average draws itself over the top, and volume sits in
+ * a band along the bottom.
  *
- * The figures are hypothetical and labelled as such on the card.
+ * Figures are hypothetical and the card says so.
  */
 
-const YEARS = 20;
-const QUARTERS = YEARS * 4;
-const START_VALUE = 500_000;
+const N = 32;
+const START = 100;
 
-/** Twenty annual returns, hand-set to include two believable drawdowns. */
-const ANNUAL_RETURNS = [
-  0.11, 0.07, 0.14, 0.09, 0.04, -0.18, 0.21, 0.13, 0.08, 0.11, 0.06, 0.15,
-  -0.12, 0.19, 0.1, 0.07, 0.12, 0.05, 0.14, 0.09,
-];
-
-/** Small deterministic LCG so the quarterly path has texture but no randomness. */
-function makeNoise(seed: number) {
-  let state = seed;
+function lcg(seed: number) {
+  let s = seed;
   return () => {
-    state = (state * 1664525 + 1013904223) % 4294967296;
-    return state / 4294967296 - 0.5;
+    s = (s * 1664525 + 1013904223) % 4294967296;
+    return s / 4294967296;
   };
 }
 
-function buildSeries() {
-  const noise = makeNoise(20260628);
-  const values: number[] = [START_VALUE];
+type Candle = {
+  open: number;
+  high: number;
+  low: number;
+  close: number;
+  up: boolean;
+  volume: number;
+};
 
-  for (let q = 0; q < QUARTERS; q++) {
-    const annual = ANNUAL_RETURNS[Math.floor(q / 4)];
-    const quarterly = Math.pow(1 + annual, 0.25) - 1;
-    const wobble = noise() * 0.055;
-    const prev = values[values.length - 1];
-    values.push(prev * (1 + quarterly + wobble));
+const CANDLES: Candle[] = (() => {
+  const rnd = lcg(20260828);
+  // Drift per quarter, with two deliberate drawdown stretches.
+  const drift = (i: number) =>
+    i >= 9 && i <= 12 ? -0.052 : i >= 21 && i <= 23 ? -0.038 : 0.031;
+
+  const out: Candle[] = [];
+  let prev = START;
+
+  for (let i = 0; i < N; i++) {
+    const open = prev;
+    const shock = (rnd() - 0.5) * 0.075;
+    const close = open * (1 + drift(i) + shock);
+    const hi = Math.max(open, close) * (1 + rnd() * 0.032);
+    const lo = Math.min(open, close) * (1 - rnd() * 0.032);
+    const up = close >= open;
+    out.push({
+      open,
+      high: hi,
+      low: lo,
+      close,
+      up,
+      volume: 0.35 + rnd() * 0.45 + (up ? 0 : 0.22),
+    });
+    prev = close;
   }
+  return out;
+})();
 
-  return values;
-}
+/** Five-quarter simple moving average of closes. */
+const MA = CANDLES.map((_, i) => {
+  const from = Math.max(0, i - 4);
+  const slice = CANDLES.slice(from, i + 1);
+  return slice.reduce((a, c) => a + c.close, 0) / slice.length;
+});
 
-const SERIES = buildSeries();
-const FINAL = SERIES[SERIES.length - 1];
+const FINAL = CANDLES[N - 1].close;
+const annualized = Math.pow(FINAL / START, 1 / (N / 4)) - 1;
+
+/** Peak-to-trough on closes — the number most sites leave off. */
+const maxDrawdown = (() => {
+  let peak = -Infinity;
+  let worst = 0;
+  for (const c of CANDLES) {
+    peak = Math.max(peak, c.close);
+    worst = Math.min(worst, c.close / peak - 1);
+  }
+  return worst;
+})();
 
 // Geometry
-const W = 780;
-const H = 440;
-const PAD = { top: 46, right: 74, bottom: 62, left: 4 };
+const W = 840;
+const H = 470;
+const PAD = { top: 44, right: 76, bottom: 30, left: 10 };
+const VOL_H = 62;
 const PLOT_W = W - PAD.left - PAD.right;
-const PLOT_H = H - PAD.top - PAD.bottom;
+const PLOT_H = H - PAD.top - PAD.bottom - VOL_H - 26;
 
-const MAX = 2_400_000;
-const MIN = 0;
+const LO = Math.min(...CANDLES.map((c) => c.low)) * 0.985;
+const HI = Math.max(...CANDLES.map((c) => c.high)) * 1.015;
 
-const sx = (i: number) => PAD.left + (i / (SERIES.length - 1)) * PLOT_W;
-const sy = (v: number) => PAD.top + (1 - (v - MIN) / (MAX - MIN)) * PLOT_H;
+const step = PLOT_W / N;
+const cx = (i: number) => PAD.left + step * (i + 0.5);
+const py = (v: number) => PAD.top + (1 - (v - LO) / (HI - LO)) * PLOT_H;
 
-const POINTS = SERIES.map((v, i) => [sx(i), sy(v)] as const);
+const BODY_W = Math.min(step * 0.6, 17);
+const VOL_TOP = PAD.top + PLOT_H + 26;
+const MAX_VOL = Math.max(...CANDLES.map((c) => c.volume));
 
-/** Cubic through the points with horizontal control handles — smooth, no overshoot. */
-function smoothPath(pts: ReadonlyArray<readonly [number, number]>) {
-  let d = `M${pts[0][0].toFixed(2)} ${pts[0][1].toFixed(2)}`;
+const maPath = (() => {
+  const pts = MA.map((v, i) => [cx(i), py(v)] as const);
+  let d = `M${pts[0][0].toFixed(1)} ${pts[0][1].toFixed(1)}`;
   for (let i = 0; i < pts.length - 1; i++) {
     const [x0, y0] = pts[i];
     const [x1, y1] = pts[i + 1];
     const h = (x1 - x0) / 3;
-    d += `C${(x0 + h).toFixed(2)} ${y0.toFixed(2)} ${(x1 - h).toFixed(2)} ${y1.toFixed(2)} ${x1.toFixed(2)} ${y1.toFixed(2)}`;
+    d += `C${(x0 + h).toFixed(1)} ${y0.toFixed(1)} ${(x1 - h).toFixed(1)} ${y1.toFixed(1)} ${x1.toFixed(1)} ${y1.toFixed(1)}`;
   }
   return d;
-}
+})();
 
-const LINE_D = smoothPath(POINTS);
-const AREA_D = `${LINE_D}L${POINTS[POINTS.length - 1][0].toFixed(2)} ${(H - PAD.bottom).toFixed(2)}L${POINTS[0][0].toFixed(2)} ${(H - PAD.bottom).toFixed(2)}Z`;
-
-const GRID = [600_000, 1_200_000, 1_800_000, 2_400_000];
-const gridLabel = (v: number) => `$${(v / 1_000_000).toFixed(1)}M`;
-
-/** Annual contributions, drawn as a faint column series along the baseline. */
-const BARS = Array.from({ length: YEARS }, (_, y) => {
-  const noise = makeNoise(7717 + y * 31)();
-  return 0.45 + (y / YEARS) * 0.5 + noise * 0.16;
-});
-
-const END = POINTS[POINTS.length - 1];
-const annualized = Math.pow(FINAL / START_VALUE, 1 / YEARS) - 1;
+const GRID_COUNT = 4;
+const GRID = Array.from(
+  { length: GRID_COUNT },
+  (_, i) => LO + ((HI - LO) * (i + 1)) / GRID_COUNT,
+);
 
 export function HeroChart() {
   return (
-    <figure className="relative overflow-hidden rounded-xs border border-rule bg-paper shadow-lift">
-      <figcaption className="flex flex-wrap items-end justify-between gap-6 border-b border-rule-soft px-7 pt-7 pb-6 md:px-9 md:pt-8">
+    <figure className="relative overflow-hidden rounded-xs border border-rule bg-paper shadow-deep">
+      <figcaption className="flex flex-wrap items-end justify-between gap-x-8 gap-y-5 border-b border-rule px-7 pt-7 pb-6 md:px-9">
         <div>
-          <p className="label text-ink-faint">Balanced growth composite</p>
+          <p className="label flex items-center gap-2.5 text-ink-faint">
+            <span
+              aria-hidden="true"
+              className="block h-1.5 w-1.5 rounded-full bg-gain"
+            />
+            Balanced composite · quarterly
+          </p>
           <p className="mt-4 text-2xl leading-tight text-forest md:text-[1.75rem]">
-            Twenty years, one portfolio
+            Eight years, every quarter
           </p>
         </div>
-        <div className="text-right">
-          <p className="tnum text-4xl leading-none text-green-mid md:text-[2.75rem]">
-            +{(annualized * 100).toFixed(1)}%
-          </p>
-          <p className="label mt-3 text-ink-faint">Annualized</p>
+
+        <div className="flex items-end gap-8">
+          <div>
+            <p className="tnum text-4xl leading-none text-gain md:text-[2.75rem]">
+              +{(annualized * 100).toFixed(1)}%
+            </p>
+            <p className="label mt-3 text-ink-faint">Annualized</p>
+          </div>
+          <div>
+            <p className="tnum text-4xl leading-none text-loss md:text-[2.75rem]">
+              {(maxDrawdown * 100).toFixed(1)}%
+            </p>
+            <p className="label mt-3 text-ink-faint">Max drawdown</p>
+          </div>
         </div>
       </figcaption>
 
-      <div className="px-2 pt-2 pb-1 md:px-3">
+      <div className="px-2 pt-3 pb-1 md:px-3">
         <svg
           viewBox={`0 0 ${W} ${H}`}
           className="h-auto w-full"
           role="img"
-          aria-label={`Hypothetical growth of a $${(START_VALUE / 1000).toFixed(0)},000 balanced portfolio over ${YEARS} years, ending near $${(FINAL / 1_000_000).toFixed(2)} million, an annualized return of ${(annualized * 100).toFixed(1)} percent.`}
+          aria-label={`Hypothetical quarterly candlestick chart of a balanced portfolio over eight years, annualized return ${(annualized * 100).toFixed(1)} percent, worst peak-to-trough decline ${Math.abs(maxDrawdown * 100).toFixed(1)} percent.`}
         >
-          <defs>
-            <linearGradient id="area-fill" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="var(--color-green-mid)" stopOpacity="0.20" />
-              <stop offset="55%" stopColor="var(--color-green-mid)" stopOpacity="0.06" />
-              <stop offset="100%" stopColor="var(--color-green-mid)" stopOpacity="0" />
-            </linearGradient>
-            <linearGradient id="line-stroke" x1="0" y1="1" x2="1" y2="0">
-              <stop offset="0%" stopColor="var(--color-green)" />
-              <stop offset="100%" stopColor="var(--color-green-bright)" />
-            </linearGradient>
-          </defs>
-
-          {/* Gridlines and value axis */}
+          {/* Gridlines and price axis */}
           <g aria-hidden="true">
-            {GRID.map((v, i) => (
+            {GRID.map((v) => (
               <g key={v}>
                 <line
                   x1={PAD.left}
-                  x2={W - PAD.right + 12}
-                  y1={sy(v)}
-                  y2={sy(v)}
-                  stroke="var(--color-rule)"
+                  x2={W - PAD.right + 10}
+                  y1={py(v)}
+                  y2={py(v)}
+                  stroke="var(--color-rule-soft)"
                   strokeWidth="1"
-                  strokeDasharray={i === 0 ? undefined : "2 5"}
-                  opacity={i === 0 ? 0.75 : 1}
                 />
                 <text
-                  x={W - PAD.right + 22}
-                  y={sy(v) + 4}
+                  x={W - PAD.right + 20}
+                  y={py(v) + 4}
                   className="ui tnum"
                   fontSize="12.5"
                   fill="var(--color-ink-faint)"
                 >
-                  {gridLabel(v)}
+                  {v.toFixed(0)}
                 </text>
               </g>
             ))}
-            <line
-              x1={PAD.left}
-              x2={W - PAD.right + 12}
-              y1={H - PAD.bottom}
-              y2={H - PAD.bottom}
-              stroke="var(--color-rule)"
-              strokeWidth="1"
-            />
           </g>
 
-          {/* Annual contributions */}
-          <g aria-hidden="true" fill="var(--color-sage)" opacity="0.28">
-            {BARS.map((h, i) => {
-              const bw = PLOT_W / YEARS - 9;
-              const bh = h * 42;
+          {/* Candles */}
+          <g>
+            {CANDLES.map((c, i) => {
+              const colour = c.up ? "var(--color-gain)" : "var(--color-loss)";
+              const bodyTop = py(Math.max(c.open, c.close));
+              const bodyH = Math.max(2.5, py(Math.min(c.open, c.close)) - bodyTop);
               return (
-                <rect
+                <g
                   key={i}
-                  className="chart-bar"
-                  x={PAD.left + (i * PLOT_W) / YEARS + 4.5}
-                  y={H - PAD.bottom - bh}
-                  width={bw}
-                  height={bh}
-                  rx="1"
-                  style={{ animationDelay: `${450 + i * 42}ms` }}
-                />
+                  className="chart-candle"
+                  style={{ animationDelay: `${260 + i * 42}ms` }}
+                >
+                  <line
+                    x1={cx(i)}
+                    x2={cx(i)}
+                    y1={py(c.high)}
+                    y2={py(c.low)}
+                    stroke={colour}
+                    strokeWidth="1.9"
+                  />
+                  <rect
+                    x={cx(i) - BODY_W / 2}
+                    y={bodyTop}
+                    width={BODY_W}
+                    height={bodyH}
+                    rx="1.5"
+                    fill={colour}
+                  />
+                </g>
               );
             })}
           </g>
 
-          <path d={AREA_D} className="chart-area" fill="url(#area-fill)" />
-
+          {/* Five-quarter moving average */}
           <path
-            d={LINE_D}
+            d={maPath}
             pathLength={1}
             className="chart-line"
             fill="none"
-            stroke="url(#line-stroke)"
-            strokeWidth="2.75"
+            stroke="var(--color-forest)"
+            strokeWidth="2.5"
             strokeLinecap="round"
             strokeLinejoin="round"
+            opacity="0.85"
           />
 
-          {/* Terminal marker */}
-          <g className="chart-node" style={{ animationDelay: "2.75s" }}>
-            <circle
-              className="chart-halo"
-              cx={END[0]}
-              cy={END[1]}
-              r="6"
-              fill="var(--color-green-bright)"
+          {/* Volume band */}
+          <g aria-hidden="true">
+            <line
+              x1={PAD.left}
+              x2={W - PAD.right + 10}
+              y1={VOL_TOP + VOL_H}
+              y2={VOL_TOP + VOL_H}
+              stroke="var(--color-rule)"
+              strokeWidth="1"
             />
-            <circle cx={END[0]} cy={END[1]} r="5.5" fill="var(--color-paper)" />
-            <circle
-              cx={END[0]}
-              cy={END[1]}
-              r="4"
-              fill="var(--color-green-bright)"
-            />
-          </g>
-
-          {/* Opening marker */}
-          <g className="chart-node" style={{ animationDelay: "0.3s" }}>
-            <circle
-              cx={POINTS[0][0] + 2}
-              cy={POINTS[0][1]}
-              r="3.25"
-              fill="none"
-              stroke="var(--color-sage)"
-              strokeWidth="1.75"
-            />
+            {CANDLES.map((c, i) => {
+              const h = (c.volume / MAX_VOL) * VOL_H;
+              return (
+                <rect
+                  key={i}
+                  className="chart-bar"
+                  x={cx(i) - BODY_W / 2}
+                  y={VOL_TOP + VOL_H - h}
+                  width={BODY_W}
+                  height={h}
+                  fill={c.up ? "var(--color-gain)" : "var(--color-loss)"}
+                  opacity="0.3"
+                  style={{ animationDelay: `${420 + i * 42}ms` }}
+                />
+              );
+            })}
+            <text
+              x={W - PAD.right + 20}
+              y={VOL_TOP + 14}
+              className="ui"
+              fontSize="11.5"
+              fill="var(--color-ink-faint)"
+            >
+              Vol
+            </text>
           </g>
 
           {/* Year axis */}
-          <g aria-hidden="true" className="ui" fontSize="12.5" fill="var(--color-ink-faint)">
-            {[0, 5, 10, 15, 20].map((y) => (
+          <g
+            aria-hidden="true"
+            className="ui"
+            fontSize="12.5"
+            fill="var(--color-ink-faint)"
+          >
+            {[0, 8, 16, 24, 31].map((i, n) => (
               <text
-                key={y}
-                x={PAD.left + (y / YEARS) * PLOT_W}
-                y={H - PAD.bottom + 28}
-                textAnchor={y === 0 ? "start" : y === YEARS ? "end" : "middle"}
+                key={i}
+                x={cx(i)}
+                y={H - 8}
+                textAnchor={n === 0 ? "start" : n === 4 ? "end" : "middle"}
               >
-                {y === 0 ? "Year 0" : `Year ${y}`}
+                {`Y${Math.floor(i / 4) + 1}`}
               </text>
             ))}
           </g>
         </svg>
       </div>
 
-      <div className="flex flex-wrap items-center justify-between gap-x-8 gap-y-3 border-t border-rule-soft px-7 py-5 md:px-9">
-        <p className="ui text-[0.8125rem] leading-relaxed text-ink-faint">
-          <span className="tnum">$500,000</span> initial ·{" "}
-          <span className="tnum">$24,000</span> annual contribution
-        </p>
+      <div className="flex flex-wrap items-center justify-between gap-x-8 gap-y-3 border-t border-rule px-7 py-5 md:px-9">
+        <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
+          <Key colour="bg-gain" label="Up quarter" />
+          <Key colour="bg-loss" label="Down quarter" />
+          <Key colour="bg-forest" label="5q average" />
+        </div>
         <p className="label-sm text-ink-faint">Hypothetical · not a forecast</p>
       </div>
     </figure>
+  );
+}
+
+function Key({ colour, label }: { colour: string; label: string }) {
+  return (
+    <span className="ui flex items-center gap-2.5 text-[0.8125rem] text-ink-faint">
+      <span aria-hidden="true" className={`block h-2.5 w-2.5 rounded-xs ${colour}`} />
+      {label}
+    </span>
   );
 }

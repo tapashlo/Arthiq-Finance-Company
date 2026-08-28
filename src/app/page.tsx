@@ -3,6 +3,10 @@ import { CtaBand } from "@/components/CtaBand";
 import { HeroChart } from "@/components/HeroChart";
 import { Reveal } from "@/components/Reveal";
 import { Faq } from "@/components/Faq";
+import { ReturnsTable, SparklineSheet } from "@/components/MarketBoard";
+import { Topography } from "@/components/Topography";
+import { ImageBand, Figure } from "@/components/Media";
+import { images } from "@/lib/images";
 import { Arrow, Button, Eyebrow, SectionHeading, Stat } from "@/components/ui";
 import {
   articles,
@@ -54,9 +58,9 @@ export default function HomePage() {
                 className="fade-up mt-9 max-w-xl text-xl leading-relaxed text-ink-soft md:text-[1.4rem]"
                 style={{ animationDelay: "300ms" }}
               >
-                Fee-only fiduciary advice for California families. One portfolio
-                across every account you hold, one fee we publish plainly, and
-                nothing to sell you.
+                Fee-only fiduciary advice for families anywhere in the United
+                States. One portfolio across every account you hold, one fee we
+                publish plainly, and nothing to sell you.
               </p>
 
               <div
@@ -142,7 +146,7 @@ export default function HomePage() {
                     </h3>
                     <Link
                       href={`/services#${service.slug}`}
-                      className="label link-reveal mt-8 inline-flex items-center gap-3 text-green transition-colors duration-300 hover:text-forest"
+                      className="label link-reveal tap mt-5 gap-3 text-green transition-colors duration-300 hover:text-forest"
                     >
                       Explore
                       <Arrow />
@@ -171,9 +175,68 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ------------------------------------------------------ image band */}
+      <ImageBand
+        image={images.ridge}
+        eyebrow="The long view"
+        title={
+          <>
+            Built on a timescale
+            <br />
+            that outlasts the quarter.
+          </>
+        }
+        body="Allocation is set against your actual spending horizon — decades, not the next earnings season."
+      />
+
+      {/* ---------------------------------------------------- market board */}
+      <section className="border-y border-rule bg-cream-deep py-24 md:py-36">
+        <div className="shell">
+          <Reveal>
+            <SectionHeading
+              eyebrow="The record"
+              title={
+                <>
+                  Green years, red years,
+                  <br />
+                  and a plan that survives both.
+                </>
+              }
+              lede="We do not hide the losing years, because managing them is most of the job. This is what a diversified portfolio actually looks like — year by year, and holding by holding."
+            />
+          </Reveal>
+
+          <div className="mt-18 grid items-start gap-8 md:mt-24 lg:grid-cols-12">
+            <Reveal className="min-w-0 lg:col-span-7">
+              <Board title="Annual return by asset class">
+                <ReturnsTable />
+              </Board>
+            </Reveal>
+            <Reveal className="min-w-0 lg:col-span-5" delay={100}>
+              <Board title="Holdings · last 52 weeks">
+                <SparklineSheet />
+              </Board>
+            </Reveal>
+          </div>
+
+          <Reveal>
+            <p className="mt-10 max-w-3xl text-sm leading-relaxed text-ink-faint">
+              <span className="label-sm mr-2">Disclosure</span>
+              Illustrative placeholder figures created for design purposes. They
+              do not represent any actual index, account or result. Past
+              performance does not guarantee future results.
+            </p>
+          </Reveal>
+        </div>
+      </section>
+
       {/* ------------------------------------------------------ philosophy */}
-      <section className="border-y border-rule bg-forest text-cream">
-        <div className="shell py-24 md:py-36">
+      <section className="relative overflow-hidden border-y border-rule bg-forest text-cream">
+        <Topography
+          className="pointer-events-none absolute -top-32 right-0 h-[52rem] w-[80rem] text-gain opacity-55"
+          tone="currentColor"
+        />
+        <div className="shell relative py-24 md:py-36">
           <Reveal>
             <Eyebrow className="text-sage-pale">How we think</Eyebrow>
             <h2 className="mt-6 max-w-4xl text-4xl leading-[1.08] sm:text-5xl md:text-[3.5rem]">
@@ -271,7 +334,7 @@ export default function HomePage() {
               <SectionHeading eyebrow="Insights" title="Written for clients." />
               <Link
                 href="/insights"
-                className="label link-reveal inline-flex items-center gap-3 pb-3 text-green hover:text-forest"
+                className="label link-reveal tap gap-3 text-green hover:text-forest"
               >
                 All writing
                 <Arrow />
@@ -284,12 +347,18 @@ export default function HomePage() {
               <Reveal key={a.slug} delay={i * 90}>
                 <Link
                   href={`/insights/${a.slug}`}
-                  className="group flex h-full flex-col border-t border-rule pt-7 transition-colors duration-300 hover:border-green"
+                  className="group flex h-full flex-col"
                 >
-                  <div className="flex items-center gap-3">
+                  <Figure
+                    image={images[a.image]}
+                    aspect="aspect-3/2"
+                    sizes="(min-width: 768px) 30vw, 100vw"
+                    className="mb-7 rounded-xs"
+                  />
+                  <div className="flex items-center gap-3 border-t border-rule pt-6 transition-colors duration-300 group-hover:border-green">
                     <span className="label text-green-mid">{a.category}</span>
                   </div>
-                  <h3 className="mt-6 text-2xl leading-snug text-forest transition-colors duration-300 group-hover:text-green md:text-[1.625rem]">
+                  <h3 className="mt-5 text-2xl leading-snug text-forest transition-colors duration-300 group-hover:text-green md:text-[1.625rem]">
                     {a.title}
                   </h3>
                   <p className="mt-4 flex-1 text-base leading-relaxed text-ink-soft">
@@ -335,5 +404,23 @@ export default function HomePage() {
       {/* ------------------------------------------------------------- cta */}
       <CtaBand />
     </>
+  );
+}
+
+function Board({
+  title,
+  children,
+}: {
+  title: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <section className="h-full overflow-hidden rounded-xs border border-rule bg-paper shadow-lift">
+      <header className="flex items-center justify-between gap-6 border-b border-rule px-7 py-5">
+        <h3 className="label text-forest">{title}</h3>
+        <span className="label-sm text-ink-faint">Illustrative</span>
+      </header>
+      <div className="px-7 py-6">{children}</div>
+    </section>
   );
 }

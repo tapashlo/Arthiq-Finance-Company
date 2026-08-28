@@ -16,8 +16,8 @@ export function SiteFooter() {
           <div className="lg:col-span-5">
             <Wordmark className="w-full max-w-sm text-cream" />
             <p className="mt-8 max-w-sm text-xl leading-relaxed text-cream/70">
-              Fee-only fiduciary wealth management for families in California
-              and beyond.
+              Fee-only fiduciary wealth management for families across the
+              United States.
             </p>
 
             <address className="mt-10 space-y-1 text-base not-italic leading-relaxed text-cream/60">
@@ -27,16 +27,16 @@ export function SiteFooter() {
               </div>
             </address>
 
-            <div className="mt-6 flex flex-col gap-2 text-base">
+            <div className="mt-4 flex flex-col text-base">
               <a
                 href={site.phoneHref}
-                className="link-reveal w-fit tnum text-cream/80 hover:text-cream"
+                className="link-reveal tap w-fit tnum text-cream/80 hover:text-cream"
               >
                 {site.phone}
               </a>
               <a
                 href={`mailto:${site.email}`}
-                className="link-reveal w-fit text-cream/80 hover:text-cream"
+                className="link-reveal tap w-fit text-cream/80 hover:text-cream"
               >
                 {site.email}
               </a>
@@ -117,7 +117,7 @@ function FooterCol({
   return (
     <div>
       <h2 className="label text-cream/40">{title}</h2>
-      <ul className="mt-6 space-y-3.5">{children}</ul>
+      <ul className="mt-5 space-y-1">{children}</ul>
     </div>
   );
 }
@@ -133,7 +133,7 @@ function FooterLink({
     <li>
       <Link
         href={href}
-        className="link-reveal text-base text-cream/70 transition-colors duration-300 hover:text-cream"
+        className="link-reveal tap text-base text-cream/70 transition-colors duration-300 hover:text-cream"
       >
         {children}
       </Link>

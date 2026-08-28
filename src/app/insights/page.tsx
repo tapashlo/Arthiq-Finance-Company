@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { CtaBand } from "@/components/CtaBand";
+import { Figure } from "@/components/Media";
 import { Reveal } from "@/components/Reveal";
+import { images } from "@/lib/images";
 import { Arrow, PageHero } from "@/components/ui";
 import { articles } from "@/lib/site";
 
@@ -44,6 +46,12 @@ export default function InsightsPage() {
               </div>
 
               <div className="lg:col-span-7">
+                <Figure
+                  image={images[featured.image]}
+                  aspect="aspect-16/9"
+                  sizes="(min-width: 1024px) 55vw, 100vw"
+                  className="mb-10 rounded-xs"
+                />
                 <h2 className="text-4xl leading-[1.1] text-forest transition-colors duration-300 group-hover:text-green sm:text-5xl">
                   {featured.title}
                 </h2>

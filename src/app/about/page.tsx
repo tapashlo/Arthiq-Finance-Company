@@ -2,13 +2,15 @@ import type { Metadata } from "next";
 import { CtaBand } from "@/components/CtaBand";
 import { Reveal } from "@/components/Reveal";
 import { Wordmark } from "@/components/Logo";
+import { Figure, ImageBand } from "@/components/Media";
+import { images } from "@/lib/images";
 import { Eyebrow, PageHero, SectionHeading, Stat } from "@/components/ui";
 import { notDoing, philosophy, process, site, stats, team } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "About",
   description:
-    "Arthiq is a fee-only fiduciary wealth manager in San Francisco, founded in 2016. Meet the team and how we work.",
+    "ArthIQ is a fee-only fiduciary wealth manager in San Francisco, founded in 2016. Meet the team and how we work.",
 };
 
 export default function AboutPage() {
@@ -23,7 +25,7 @@ export default function AboutPage() {
             purpose.
           </>
         }
-        lede="Arthiq was founded in 2016 on a straightforward premise: that most people paying for wealth management were paying for products, and that the advice underneath was worth more than the products ever were."
+        lede="ArthIQ was founded in 2016 on a straightforward premise: that most people paying for wealth management were paying for products, and that the advice underneath was worth more than the products ever were."
       />
 
       {/* ---------------------------------------------------------- story */}
@@ -50,7 +52,7 @@ export default function AboutPage() {
                   will state in dollars.
                 </p>
                 <p>
-                  Arthiq exists to give households the first arrangement. One
+                  ArthIQ exists to give households the first arrangement. One
                   portfolio built on evidence, one fee we publish, no products,
                   no commissions, and a planning model that runs to age
                   ninety-five rather than to the end of the current quarter.
@@ -65,6 +67,13 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
+
+      <ImageBand
+        image={images.aboveClouds}
+        height="short"
+        eyebrow="Est. 2016"
+        title="Patient capital, plainly managed."
+      />
 
       {/* ---------------------------------------------------------- stats */}
       <section className="border-y border-rule bg-cream-deep">
@@ -262,11 +271,17 @@ export default function AboutPage() {
             </Reveal>
           </div>
           <div className="lg:col-span-7">
+            <Figure
+              image={images.office}
+              aspect="aspect-16/9"
+              sizes="(min-width: 1024px) 55vw, 100vw"
+              className="mb-10 rounded-xs"
+            />
             <Reveal delay={100}>
               <p className="max-w-xl text-xl leading-relaxed text-ink-soft">
                 We meet clients at {site.address.line1} and, far more often,
-                wherever is easier. Roughly two thirds of our households are
-                outside San Francisco, and nothing about the work requires a
+                wherever is easier. Most of our households are outside California — we are
+                licensed across 31 states, and nothing about the work requires a
                 conference room.
               </p>
               <address className="mt-10 space-y-1 text-lg not-italic leading-relaxed text-forest">
@@ -278,13 +293,13 @@ export default function AboutPage() {
               <div className="mt-6 flex flex-wrap gap-x-8 gap-y-2 text-lg">
                 <a
                   href={site.phoneHref}
-                  className="link-reveal tnum text-green hover:text-forest"
+                  className="link-reveal tap tnum text-green hover:text-forest"
                 >
                   {site.phone}
                 </a>
                 <a
                   href={`mailto:${site.email}`}
-                  className="link-reveal text-green hover:text-forest"
+                  className="link-reveal tap text-green hover:text-forest"
                 >
                   {site.email}
                 </a>
