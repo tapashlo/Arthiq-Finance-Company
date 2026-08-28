@@ -144,6 +144,15 @@
     letter-spacing: -0.005em;
   }
 
+  /* Guarantees a 44px touch target on controls whose text box is smaller.
+     Inline links inside running prose are deliberately excluded — WCAG 2.5.8
+     exempts them, and padding them would break the line box. */
+  .tap {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+
   /* Eyebrow with a leading rule — recurring section marker. */
   .eyebrow {
     display: inline-flex;
@@ -339,6 +348,26 @@
   animation: fade-up 1s cubic-bezier(0.22, 0.68, 0.24, 1) forwards;
 }
 
+/* Photography settles into place rather than popping in. The scale is on the
+   image, the clip is on the frame, so nothing outside the frame ever moves. */
+.img-frame {
+  overflow: hidden;
+}
+
+.img-frame img {
+  opacity: 0;
+  transform: scale(1.07);
+  transition:
+    opacity 1.1s cubic-bezier(0.22, 0.68, 0.24, 1),
+    transform 1.5s cubic-bezier(0.22, 0.68, 0.24, 1);
+}
+
+.reveal[data-shown="true"] .img-frame img,
+.img-frame[data-shown="true"] img {
+  opacity: 1;
+  transform: none;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -361,6 +390,12 @@
     opacity: 1;
     stroke-dashoffset: 0;
     transform: none;
+  }
+
+  .img-frame img {
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
 
   *,

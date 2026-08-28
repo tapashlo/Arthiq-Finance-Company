@@ -5,11 +5,13 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { site } from "@/lib/site";
 import "./globals.css";
 
+// No `weight` array: that pins static instances and emitted 13 files at
+// 431 KB. Omitting it serves the variable font — one file per style, covering
+// every weight the design uses.
 const newsreader = Newsreader({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-newsreader",
-  weight: ["300", "400", "500", "600"],
   style: ["normal", "italic"],
 });
 
@@ -17,7 +19,6 @@ const inter = Inter({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-inter",
-  weight: ["400", "500", "600"],
 });
 
 export const metadata: Metadata = {

@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { CtaBand } from "@/components/CtaBand";
 import { Reveal } from "@/components/Reveal";
 import { Wordmark } from "@/components/Logo";
+import { Figure, ImageBand } from "@/components/Media";
+import { images } from "@/lib/images";
 import { Eyebrow, PageHero, SectionHeading, Stat } from "@/components/ui";
 import { notDoing, philosophy, process, site, stats, team } from "@/lib/site";
 
@@ -65,6 +67,13 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
+
+      <ImageBand
+        image={images.aboveClouds}
+        height="short"
+        eyebrow="Est. 2016"
+        title="Patient capital, plainly managed."
+      />
 
       {/* ---------------------------------------------------------- stats */}
       <section className="border-y border-rule bg-cream-deep">
@@ -262,6 +271,12 @@ export default function AboutPage() {
             </Reveal>
           </div>
           <div className="lg:col-span-7">
+            <Figure
+              image={images.office}
+              aspect="aspect-16/9"
+              sizes="(min-width: 1024px) 55vw, 100vw"
+              className="mb-10 rounded-xs"
+            />
             <Reveal delay={100}>
               <p className="max-w-xl text-xl leading-relaxed text-ink-soft">
                 We meet clients at {site.address.line1} and, far more often,
@@ -278,13 +293,13 @@ export default function AboutPage() {
               <div className="mt-6 flex flex-wrap gap-x-8 gap-y-2 text-lg">
                 <a
                   href={site.phoneHref}
-                  className="link-reveal tnum text-green hover:text-forest"
+                  className="link-reveal tap tnum text-green hover:text-forest"
                 >
                   {site.phone}
                 </a>
                 <a
                   href={`mailto:${site.email}`}
-                  className="link-reveal text-green hover:text-forest"
+                  className="link-reveal tap text-green hover:text-forest"
                 >
                   {site.email}
                 </a>

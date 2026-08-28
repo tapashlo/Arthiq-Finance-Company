@@ -43,12 +43,12 @@ export default function DisclosuresPage() {
           <nav aria-label="Disclosures" className="lg:col-span-4">
             <div className="lg:sticky lg:top-32">
               <h2 className="label text-ink-faint">On this page</h2>
-              <ul className="mt-6 space-y-3.5">
+              <ul className="mt-5 space-y-0.5">
                 {sections.map((s) => (
                   <li key={s.title}>
                     <a
                       href={`#${s.id ?? slugify(s.title)}`}
-                      className="link-reveal text-base text-ink-soft hover:text-forest"
+                      className="link-reveal tap text-base text-ink-soft hover:text-forest"
                     >
                       {s.title}
                     </a>

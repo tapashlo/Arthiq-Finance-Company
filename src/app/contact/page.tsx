@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { ContactForm } from "@/components/ContactForm";
+import { Figure } from "@/components/Media";
+import { images } from "@/lib/images";
 import { Reveal } from "@/components/Reveal";
 import { Eyebrow } from "@/components/ui";
 import { process, site } from "@/lib/site";
@@ -36,14 +38,20 @@ export default function ContactPage() {
           </div>
 
           <aside className="lg:col-span-5 lg:pl-6">
+            <Figure
+              image={images.office}
+              aspect="aspect-4/3"
+              sizes="(min-width: 1024px) 38vw, 100vw"
+              className="mb-12 rounded-xs"
+            />
             <Reveal delay={120}>
               <div className="border-t border-rule pt-8">
                 <h2 className="label text-ink-faint">Directly</h2>
-                <div className="mt-7 space-y-4 text-2xl">
+                <div className="mt-5 text-2xl">
                   <div>
                     <a
                       href={site.phoneHref}
-                      className="link-reveal tnum text-forest hover:text-green"
+                      className="link-reveal tap tnum text-forest hover:text-green"
                     >
                       {site.phone}
                     </a>
@@ -51,7 +59,7 @@ export default function ContactPage() {
                   <div>
                     <a
                       href={`mailto:${site.email}`}
-                      className="link-reveal text-forest hover:text-green"
+                      className="link-reveal tap text-forest hover:text-green"
                     >
                       {site.email}
                     </a>
@@ -102,7 +110,7 @@ export default function ContactPage() {
                 </p>
                 <a
                   href="/portal"
-                  className="label link-reveal mt-6 inline-block text-forest hover:text-green"
+                  className="label link-reveal tap mt-3 text-forest hover:text-green"
                 >
                   Client login
                 </a>

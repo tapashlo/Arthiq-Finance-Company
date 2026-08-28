@@ -294,6 +294,8 @@ export const faqs = [
 
 export type Article = {
   slug: string;
+  /** Key into `images` in src/lib/images.ts. */
+  image: "summit" | "ridge" | "aboveClouds" | "highlands" | "office" | "tower";
   title: string;
   dek: string;
   category: string;
@@ -307,6 +309,7 @@ export type Article = {
 export const articles: Article[] = [
   {
     slug: "the-window-between-retirement-and-rmds",
+    image: "aboveClouds",
     title: "The window between retirement and required distributions",
     dek: "For most households the lowest-tax years of an entire lifetime arrive uninvited, last about a decade, and are usually spent doing nothing.",
     category: "Tax planning",
@@ -327,6 +330,7 @@ export const articles: Article[] = [
   },
   {
     slug: "what-direct-indexing-is-actually-for",
+    image: "highlands",
     title: "What direct indexing is actually for",
     dek: "It is not a way to beat the index. It is a way to keep more of it — and only in a taxable account, only above a certain size.",
     category: "Portfolio construction",
@@ -346,6 +350,7 @@ export const articles: Article[] = [
   },
   {
     slug: "rebalancing-bands-beat-calendars",
+    image: "summit",
     title: "Rebalancing bands beat calendars",
     dek: "Rebalancing on a date is a decision made by a date. Rebalancing on drift is a decision made by the portfolio.",
     category: "Portfolio construction",
@@ -364,6 +369,7 @@ export const articles: Article[] = [
   },
   {
     slug: "reading-your-own-tax-return",
+    image: "office",
     title: "Reading your own tax return",
     dek: "Four lines on a filed return tell you most of what a planner would want to know about the year you just had.",
     category: "Tax planning",
@@ -382,6 +388,7 @@ export const articles: Article[] = [
   },
   {
     slug: "the-fee-conversation",
+    image: "tower",
     title: "The fee conversation nobody starts",
     dek: "Advisory fees are quoted as a percentage and paid in dollars. The gap between those two framings is where a great deal hides.",
     category: "The firm",

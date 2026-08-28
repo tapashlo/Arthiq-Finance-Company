@@ -63,9 +63,15 @@ Tokens live in `src/app/globals.css` under `@theme`.
   is generated deterministically at module scope so server and client agree.
 - **Artwork** — `<Topography />` draws nested contour rings from fixed
   harmonics: an elevation map of the peak in the wordmark. No image requests.
-- **Motion** — `<Reveal>` fades sections in on scroll; charts draw themselves
-  with CSS dash and stagger animations. Everything is fully disabled under
-  `prefers-reduced-motion: reduce`.
+- **Photography** — six Unsplash images in `src/images/`, imported as modules
+  so Next emits intrinsic dimensions and a blur placeholder (CLS stays at 0).
+  See `ATTRIBUTION.md`.
+- **Motion** — `<Reveal>` fades sections in on scroll, photographs settle from a
+  slight scale, figures count up, and charts draw themselves with CSS dash and
+  stagger animations. Everything is fully disabled under
+  `prefers-reduced-motion: reduce`, verified in the browser rather than assumed.
+- **Touch targets** — the `.tap` utility guarantees 44px on controls whose text
+  box is smaller. Inline links inside prose are exempt, per WCAG 2.5.8.
 
 ---
 
@@ -91,6 +97,33 @@ src/
 
 Content is separated from layout: to change copy, services, team, FAQs or
 articles, edit `src/lib/site.ts` and nothing else.
+
+---
+
+## Measured
+
+On a cold mobile visit (390px, throttling off), production build:
+
+| | |
+| --- | --- |
+| Total transferred | 439 KB |
+| — fonts | 167 KB |
+| — JavaScript | 150 KB |
+| — HTML | 66 KB |
+| — RSC payload | 46 KB |
+| — CSS | 10 KB |
+| First Contentful Paint | 212 ms |
+| Cumulative Layout Shift | 0 |
+
+Images are lazy below the fold and served as WebP at the size each layout
+actually paints — 212 KB for the whole home page at 2× DPR.
+
+Fonts are the largest single cost. Dropping Inter for a system sans stack would
+save roughly 50 KB; the labels are small uppercase tracked text where the
+difference is hard to see. It has been left in for cross-platform consistency.
+
+Checked at 360, 390, 430, 768, 1024, 1280 and 1440px across all eight routes:
+no horizontal overflow, no touch target under 44px.
 
 ---
 

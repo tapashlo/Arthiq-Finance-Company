@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { CtaBand } from "@/components/CtaBand";
+import { Figure } from "@/components/Media";
 import { Reveal } from "@/components/Reveal";
+import { images } from "@/lib/images";
 import { Arrow } from "@/components/ui";
 import { articles, site } from "@/lib/site";
 
@@ -52,7 +54,7 @@ export default async function ArticlePage({
           <div className="shell relative mx-auto max-w-[44rem]">
             <Link
               href="/insights"
-              className="label link-reveal inline-flex items-center gap-3 text-ink-faint hover:text-forest"
+              className="label link-reveal tap gap-3 text-ink-faint hover:text-forest"
             >
               <Arrow className="rotate-180" />
               All insights
@@ -76,8 +78,14 @@ export default async function ArticlePage({
           </div>
         </header>
 
-        <div className="grain relative py-20 md:py-28">
+        <div className="grain relative py-14 md:py-20">
           <div className="shell relative">
+            <Figure
+              image={images[article.image]}
+              aspect="aspect-16/9"
+              sizes="(min-width: 1024px) 60rem, 100vw"
+              className="mx-auto mb-16 max-w-4xl rounded-xs md:mb-20"
+            />
             <div className="mx-auto max-w-[40rem]">
               {article.body.map((paragraph, i) => (
                 <Reveal key={i} delay={Math.min(i, 4) * 40}>

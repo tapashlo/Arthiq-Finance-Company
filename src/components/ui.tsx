@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { CountUp } from "./CountUp";
 import type { ComponentProps, ReactNode } from "react";
 
 export function Eyebrow({
@@ -122,7 +123,7 @@ export function Stat({
           invert ? "text-cream" : "text-forest"
         }`}
       >
-        {value}
+        <CountUp value={value} />
       </div>
       <div
         className={`label mt-5 ${invert ? "text-cream/55" : "text-ink-faint"}`}

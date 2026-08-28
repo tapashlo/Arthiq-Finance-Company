@@ -44,7 +44,7 @@ export function SiteHeader() {
         <Link
           href="/"
           aria-label="ArthIQ — home"
-          className="shrink-0 text-forest transition-opacity duration-300 hover:opacity-70"
+          className="-my-2 shrink-0 py-2 text-forest transition-opacity duration-300 hover:opacity-70"
         >
           <Wordmark simplified className="h-8 w-auto md:h-9" />
         </Link>
@@ -58,7 +58,7 @@ export function SiteHeader() {
                 href={item.href}
                 aria-current={active ? "page" : undefined}
                 className={[
-                  "label link-reveal py-2 transition-colors duration-300",
+                  "label link-reveal tap transition-colors duration-300",
                   active ? "text-green" : "text-ink-soft hover:text-forest",
                 ].join(" ")}
               >
@@ -71,7 +71,7 @@ export function SiteHeader() {
         <div className="hidden items-center gap-6 lg:flex">
           <Link
             href="/portal"
-            className="label text-ink-soft transition-colors duration-300 hover:text-forest"
+            className="label tap text-ink-soft transition-colors duration-300 hover:text-forest"
           >
             Client login
           </Link>
@@ -88,7 +88,7 @@ export function SiteHeader() {
           onClick={() => setOpen((v) => !v)}
           aria-expanded={open}
           aria-controls="mobile-nav"
-          className="label -mr-2 flex items-center gap-3 px-2 py-3 text-forest lg:hidden"
+          className="label -mr-2 flex items-center gap-3 px-3 py-4 text-forest lg:hidden"
         >
           {open ? "Close" : "Menu"}
           <span aria-hidden="true" className="relative block h-3 w-5">

@@ -5,6 +5,8 @@ import { Reveal } from "@/components/Reveal";
 import { Faq } from "@/components/Faq";
 import { ReturnsTable, SparklineSheet } from "@/components/MarketBoard";
 import { Topography } from "@/components/Topography";
+import { ImageBand, Figure } from "@/components/Media";
+import { images } from "@/lib/images";
 import { Arrow, Button, Eyebrow, SectionHeading, Stat } from "@/components/ui";
 import {
   articles,
@@ -144,7 +146,7 @@ export default function HomePage() {
                     </h3>
                     <Link
                       href={`/services#${service.slug}`}
-                      className="label link-reveal mt-8 inline-flex items-center gap-3 text-green transition-colors duration-300 hover:text-forest"
+                      className="label link-reveal tap mt-5 gap-3 text-green transition-colors duration-300 hover:text-forest"
                     >
                       Explore
                       <Arrow />
@@ -173,6 +175,20 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ------------------------------------------------------ image band */}
+      <ImageBand
+        image={images.ridge}
+        eyebrow="The long view"
+        title={
+          <>
+            Built on a timescale
+            <br />
+            that outlasts the quarter.
+          </>
+        }
+        body="Allocation is set against your actual spending horizon — decades, not the next earnings season."
+      />
+
       {/* ---------------------------------------------------- market board */}
       <section className="border-y border-rule bg-cream-deep py-24 md:py-36">
         <div className="shell">
@@ -191,12 +207,12 @@ export default function HomePage() {
           </Reveal>
 
           <div className="mt-18 grid items-start gap-8 md:mt-24 lg:grid-cols-12">
-            <Reveal className="lg:col-span-7">
+            <Reveal className="min-w-0 lg:col-span-7">
               <Board title="Annual return by asset class">
                 <ReturnsTable />
               </Board>
             </Reveal>
-            <Reveal className="lg:col-span-5" delay={100}>
+            <Reveal className="min-w-0 lg:col-span-5" delay={100}>
               <Board title="Holdings · last 52 weeks">
                 <SparklineSheet />
               </Board>
@@ -318,7 +334,7 @@ export default function HomePage() {
               <SectionHeading eyebrow="Insights" title="Written for clients." />
               <Link
                 href="/insights"
-                className="label link-reveal inline-flex items-center gap-3 pb-3 text-green hover:text-forest"
+                className="label link-reveal tap gap-3 text-green hover:text-forest"
               >
                 All writing
                 <Arrow />
@@ -331,12 +347,18 @@ export default function HomePage() {
               <Reveal key={a.slug} delay={i * 90}>
                 <Link
                   href={`/insights/${a.slug}`}
-                  className="group flex h-full flex-col border-t border-rule pt-7 transition-colors duration-300 hover:border-green"
+                  className="group flex h-full flex-col"
                 >
-                  <div className="flex items-center gap-3">
+                  <Figure
+                    image={images[a.image]}
+                    aspect="aspect-3/2"
+                    sizes="(min-width: 768px) 30vw, 100vw"
+                    className="mb-7 rounded-xs"
+                  />
+                  <div className="flex items-center gap-3 border-t border-rule pt-6 transition-colors duration-300 group-hover:border-green">
                     <span className="label text-green-mid">{a.category}</span>
                   </div>
-                  <h3 className="mt-6 text-2xl leading-snug text-forest transition-colors duration-300 group-hover:text-green md:text-[1.625rem]">
+                  <h3 className="mt-5 text-2xl leading-snug text-forest transition-colors duration-300 group-hover:text-green md:text-[1.625rem]">
                     {a.title}
                   </h3>
                   <p className="mt-4 flex-1 text-base leading-relaxed text-ink-soft">
