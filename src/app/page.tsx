@@ -4,9 +4,10 @@ import { HeroChart } from "@/components/HeroChart";
 import { Faq } from "@/components/Faq";
 import { ImageBand, Figure } from "@/components/Media";
 import { ReturnsTable, SparklineSheet } from "@/components/MarketBoard";
+import { ArtifactStack, Artifact } from "@/components/showcase/Frame";
+import { ForecastBuild, KpiBoard, VarianceBridge } from "@/components/showcase/Charts";
 import { Reveal } from "@/components/Reveal";
 import { Topography } from "@/components/Topography";
-import { RunwayTool } from "@/components/tools/RunwayTool";
 import { Arrow, Button, Eyebrow, SectionHeading, Stat } from "@/components/ui";
 import { images } from "@/lib/images";
 import {
@@ -268,39 +269,64 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ------------------------------------------- a sample of the work */}
-      <section id="tool" className="scroll-mt-28 border-t border-rule py-20 md:py-28">
-        <div className="shell">
+      {/* -------------------------------------------------------- our work */}
+      <section className="relative overflow-hidden border-t border-rule bg-canvas py-20 md:py-28">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -top-40 -left-52 h-[36rem] w-[36rem] rounded-full bg-blue-wash blur-3xl"
+        />
+        <div className="shell relative">
           <Reveal>
-            <SectionHeading
-              eyebrow="A sample of the work"
-              title="The models we build, in miniature."
-              lede="These are stripped-down versions of what we build for clients — the same logic, a fraction of the depth. Free, no sign-up, and everything computes in your browser."
+            <div className="flex flex-wrap items-end justify-between gap-8">
+              <SectionHeading
+                eyebrow="Our work"
+                title="What you actually get back."
+                lede="Not a methodology diagram — the artifacts themselves. A forecast you can take apart, a variance bridge that names the cause, and the board page directors read before the meeting."
+              />
+              <Link href="/work" className="label link-reveal tap gap-3 text-blue hover:text-navy">
+                See all six
+                <Arrow />
+              </Link>
+            </div>
+          </Reveal>
+
+          <div className="mt-14 md:mt-20">
+            <ArtifactStack
+              back={
+                <Artifact label="Forecast · FY26–FY27" title="Revenue build by segment" meta="Updated monthly">
+                  <ForecastBuild />
+                </Artifact>
+              }
+              front={
+                <Artifact label="Board pack · Q3" title="Operating summary" meta="Page 2 of 14" tone="dark">
+                  <KpiBoard />
+                </Artifact>
+              }
             />
-          </Reveal>
+          </div>
 
-          <Reveal delay={80}>
-            <div className="mt-12 md:mt-16">
-              <RunwayTool />
-            </div>
-          </Reveal>
-
-          <Reveal delay={120}>
-            <div className="mt-8 flex flex-wrap items-center justify-between gap-6 rounded-xl border border-rule bg-canvas px-7 py-6">
-              <p className="max-w-2xl leading-relaxed text-ink-soft">
-                A calculator takes six inputs. The model we build for you takes
-                your actual drivers, ties to your general ledger, and has
-                somebody who owns it with you when the board asks a question it
-                does not answer.
+          <div className="mt-10 grid gap-6 lg:mt-14 lg:grid-cols-12 lg:items-center">
+            <Reveal className="min-w-0 lg:col-span-7">
+              <Artifact label="Q3 review" title="Plan to actual, bridged" meta="Revenue · $000s">
+                <VarianceBridge />
+              </Artifact>
+            </Reveal>
+            <Reveal className="lg:col-span-5" delay={90}>
+              <h3 className="display text-2xl leading-snug text-navy md:text-3xl">
+                Every gap has a cause.
+              </h3>
+              <p className="mt-4 max-w-md leading-relaxed text-ink-soft">
+                Most reporting tells you that revenue missed by $136K. A bridge
+                tells you that new logos and expansion were ahead, and that
+                churn and discounting took more than both together — which is a
+                different conversation, with different owners.
               </p>
-              <div className="flex flex-wrap gap-3">
-                <Link href="/tools" className="label link-reveal tap gap-3 text-blue hover:text-navy">
-                  All four tools
-                  <Arrow />
-                </Link>
-              </div>
-            </div>
-          </Reveal>
+              <Link href="/work" className="label link-reveal tap mt-5 gap-3 text-blue hover:text-navy">
+                Cohorts, close calendar and unit economics
+                <Arrow />
+              </Link>
+            </Reveal>
+          </div>
         </div>
       </section>
 

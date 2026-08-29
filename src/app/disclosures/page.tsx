@@ -6,7 +6,7 @@ import { disclosures, site, testimonialDisclosure } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Disclosures",
   description:
-    "Disclosures, privacy practices and the limits of the tools on this site.",
+    "Disclosures, privacy practices and the limits of the examples shown on this site.",
   robots: { index: false, follow: true },
 };
 
@@ -20,7 +20,7 @@ const sections = [
   {
     id: "privacy",
     title: "Privacy",
-    body: "This demonstration site sets no cookies, runs no analytics and transmits no form data. The interactive tools compute entirely in your browser; nothing you enter into them is sent to us, stored or logged. In production, information you provide through the contact form would be used solely to respond to your enquiry and would not be sold or shared for marketing.",
+    body: "This demonstration site sets no cookies, runs no analytics and transmits no form data. In production, information you provide through the contact form would be used solely to respond to your enquiry and would not be sold or shared for marketing.",
   },
 ];
 
@@ -61,8 +61,8 @@ export default function DisclosuresPage() {
                   <p className="mt-4 text-base leading-relaxed text-ink-soft">
                     ArthIQ is a fictional firm created for a website design.
                     Every name, figure, biography and testimonial on this site is
-                    an illustrative placeholder, and the interactive tools are
-                    simplified teaching models. Nothing here has been reviewed by
+                    an illustrative placeholder, including every chart in the work
+                    examples. Nothing here has been reviewed by
                     a lawyer or an accountant, and it must not be published as-is
                     by a real firm.
                   </p>

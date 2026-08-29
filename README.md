@@ -77,7 +77,7 @@ Tokens live in `src/app/globals.css` under `@theme`.
 src/
 ├── app/
 │   ├── page.tsx              Home (hero, live tool, services, board)
-│   ├── tools/                Four interactive calculators
+│   ├── work/                 Six deliverable examples
 │   ├── about/                Firm story, team, principles, process, the mark
 │   ├── services/             Investment management · Retirement & tax planning
 │   ├── insights/             Index + [slug] article pages
@@ -87,7 +87,7 @@ src/
 │   ├── globals.css           Design tokens, base, components, motion
 │   └── icon.svg              Favicon
 ├── components/
-│   ├── tools/                ToolKit + the four calculators
+│   ├── showcase/             Frame + the six work examples
 │   └── …                     Logo, header, footer, charts, form, primitives
 └── lib/
     ├── site.ts               All marketing copy and data
@@ -126,28 +126,25 @@ no horizontal overflow, no touch target under 44px.
 
 ---
 
-## The tools
+## The work examples
 
-Four calculators live under `/tools`, with the runway one also embedded on the
-home page. All four are client components that compute **entirely in the
-browser** — nothing a visitor types is transmitted, stored or logged, and there
-is no email gate.
+Six deliverables live under `/work`, with three of them stacked on the home
+page. They are static SVG — no charting library, no interactivity — and every
+series is generated deterministically at module scope so server and client
+render identically.
 
-They are positioned as a *sample of the work*, not the product. The site sells
-the engagement; the tools exist to show what the team builds. That is why they
-sit below the services, the proof and the philosophy on the home page rather
-than above them, and why `/tools` is last in the nav.
-
-| Tool | What it does |
+| Example | What it shows |
 | --- | --- |
-| Runway & burn | Cash projection with sliders; the curve stops at zero rather than drawing a recovery a company could not trade through. |
-| Scenario planner | Base/upside/downside ARR over 24 months, drawn as a cone. |
-| Budget vs actual | Department variance with drill-down to line items, and a dollars/percent toggle. |
-| SaaS metrics | LTV:CAC, payback, magic number, NRR, burn multiple and Rule of 40, each against a benchmark band. |
+| Revenue build | Stacked segment forecast (base, expansion, new logos) with the prior plan dashed over it. |
+| Variance bridge | Plan-to-actual waterfall naming each driver. Axis is deliberately truncated — a $290K step on a zero-based $4.8M scale is about ten pixels — and the chart says so. |
+| Cohort grid | Net revenue retention by signup cohort, coloured through red, blue and green as it crosses 100%. |
+| Board KPI page | Six tiles with sparklines, on the dark ground, framed as page 2 of a board pack. |
+| Close calendar | The monthly close as a Gantt, colour-split by who owns each task. |
+| Payback curve | Cumulative gross profit crossing fully loaded CAC, with the payback month marked. |
 
-They are deliberately simplified: no working-capital timing, no taxes, no
-financing, no seasonality, no distinction between bookings and revenue. The
-`/tools` page says so, and the disclosures page says it again.
+`Artifact` wraps each one in document chrome so they read as pages from a
+deliverable rather than decoration; `ArtifactStack` overlaps two of them on the
+home page.
 
 ---
 

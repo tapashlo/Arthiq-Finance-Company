@@ -25,7 +25,7 @@ export const nav = [
   { href: "/services", label: "Services" },
   { href: "/about", label: "How we work" },
   { href: "/insights", label: "Insights" },
-  { href: "/tools", label: "Free tools" },
+  { href: "/work", label: "Our work" },
 ] as const;
 
 /* ---------------------------------------------------------------- stats -- */
@@ -290,7 +290,7 @@ export const articles: Article[] = [
 
 export const disclosures = [
   { title: "Advisory services", body: "ArthIQ Advisory, LLC provides outsourced financial planning and analysis and fractional CFO services. We are not a registered investment adviser, a broker-dealer, a licensed public accounting firm or a law firm, and we do not provide investment advice, audit opinions, tax opinions or legal advice." },
-  { title: "Nothing here is advice", body: "Content on this site, including the interactive tools, is general information for illustration. It does not account for your circumstances and should not be relied on as the basis for a financial, hiring, fundraising or accounting decision. Speak to a qualified professional about your specific situation." },
-  { title: "The interactive tools", body: "Every calculator on this site runs entirely in your browser. Nothing you enter is transmitted to us, stored, or logged anywhere. The outputs are simplified models built for illustration — they omit taxes, working capital timing, financing effects and much else that matters in a real forecast." },
+  { title: "Nothing here is advice", body: "Content on this site is general information for illustration. It does not account for your circumstances and should not be relied on as the basis for a financial, hiring, fundraising or accounting decision. Speak to a qualified professional about your specific situation." },
+  { title: "The work examples", body: "Every chart, table and figure in the work examples is invented for illustration. They show the shape and structure of what we produce — a forecast build, a variance bridge, a cohort grid — not the results of any real engagement." },
   { title: "Figures shown", body: "All statistics, client names, team members, testimonials and example numbers on this site are illustrative placeholders created for design purposes. They do not represent actual engagements, actual people or actual results." },
 ] as const;
