@@ -10,7 +10,7 @@ import { PageHero } from "@/components/ui";
 export const metadata: Metadata = {
   title: "Free FP&A tools",
   description:
-    "Four working calculators for startup finance: runway and burn, scenario planning, budget variance and SaaS metrics. No sign-up, nothing stored.",
+    "Four working calculators for startup finance — runway and burn, scenario planning, budget variance and SaaS metrics. Miniature versions of the models our team builds for clients. No sign-up, nothing stored.",
 };
 
 const INDEX = [
@@ -25,8 +25,8 @@ export default function ToolsPage() {
     <>
       <PageHero
         eyebrow="Free tools"
-        title={<>Four calculators. No sign-up, nothing stored.</>}
-        lede="These are stripped-down versions of models we build for clients. Every one runs entirely in your browser — nothing you type leaves the page, and there is no email gate."
+        title={<>A small piece of what we build.</>}
+        lede="Four calculators, stripped down from the models we run for clients. Every one computes entirely in your browser — nothing you type leaves the page, and there is no email gate. They are here because the fastest way to explain what a finance team does is to let you use a bit of one."
       >
         <nav aria-label="Tools" className="mt-10 flex flex-wrap gap-x-3 gap-y-3">
           {INDEX.map((t) => (
@@ -64,8 +64,10 @@ export default function ToolsPage() {
               hard: no working-capital timing, no taxes, no financing, no
               seasonality, and no distinction between bookings, billings and
               revenue. They will tell you roughly where you stand and which
-              direction a lever moves. They will not tell you what to do — that
-              is what the real model, and the conversation around it, is for.
+              direction a lever moves. What they cannot do is tell you what to
+              do about it — that takes a model built around your actual drivers,
+              and someone who owns it with you. That is the engagement, and it
+              is the thing we actually sell.
             </p>
           </Reveal>
         </div>

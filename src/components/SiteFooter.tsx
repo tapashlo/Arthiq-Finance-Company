@@ -20,12 +20,9 @@ export function SiteFooter() {
               startups.
             </p>
 
-            <address className="mt-10 space-y-1 text-base not-italic leading-relaxed text-white/60">
-              <div>{site.address.line1}</div>
-              <div>
-                {site.address.city}, {site.address.state} {site.address.zip}
-              </div>
-            </address>
+            <p className="mt-9 text-base leading-relaxed text-white/60">
+              {site.based}
+            </p>
 
             <div className="mt-4 flex flex-col text-base">
               <a
@@ -96,9 +93,7 @@ export function SiteFooter() {
             <p className="label-sm text-white/40">
               © {new Date().getFullYear()} {site.legalName}
             </p>
-            <p className="label-sm text-white/40">
-              San Francisco, California
-            </p>
+            <p className="label-sm text-white/40">United States</p>
           </div>
         </div>
       </div>

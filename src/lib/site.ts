@@ -10,31 +10,28 @@ export const site = {
   legalName: "ArthIQ Advisory, LLC",
   tagline: "Financial planning and analysis for companies that move fast.",
   description:
-    "ArthIQ is an outsourced FP&A and fractional CFO team for venture-backed startups. Forecasting, board reporting, budgeting and unit economics — run by people who have sat in the seat.",
+    "ArthIQ is an outsourced FP&A and fractional CFO team for venture-backed startups across the United States. Forecasting, board reporting, budgeting and unit economics — run by people who have sat in the seat.",
   url: "https://arthiq.com",
   founded: 2019,
-  address: {
-    line1: "1 Sansome Street, Suite 3500",
-    city: "San Francisco",
-    state: "CA",
-    zip: "94104",
-  },
-  phone: "(415) 555-0142",
-  phoneHref: "tel:+14155550142",
+  /** Remote-first across the United States — no office to publish. */
+  based: "Remote across the United States",
+  hours: "Monday to Friday, 8am–6pm in every US time zone",
+  phone: "(555) 018-2200",
+  phoneHref: "tel:+15550182200",
   email: "hello@arthiq.com",
 } as const;
 
 export const nav = [
   { href: "/services", label: "Services" },
-  { href: "/tools", label: "Free tools" },
+  { href: "/about", label: "How we work" },
   { href: "/insights", label: "Insights" },
-  { href: "/about", label: "About" },
+  { href: "/tools", label: "Free tools" },
 ] as const;
 
 /* ---------------------------------------------------------------- stats -- */
 
 export const stats = [
-  { value: "140+", label: "Startups supported", note: "Seed through Series C" },
+  { value: "140+", label: "Startups supported", note: "in 34 states" },
   { value: "$2.8B", label: "Capital raised by clients", note: "with our models in the room" },
   { value: "6 days", label: "Median close", note: "down from 19 at onboarding" },
   { value: "94%", label: "Forecast accuracy", note: "revenue, trailing 4 quarters" },

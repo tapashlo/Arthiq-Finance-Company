@@ -1,8 +1,8 @@
 # ArthIQ
 
 Marketing site, free calculator suite and client-dashboard mockup for
-**ArthIQ**, an outsourced FP&A and fractional CFO team in San Francisco serving
-venture-backed startups from Seed to Series C.
+**ArthIQ**, a remote-first outsourced FP&A and fractional CFO team serving
+venture-backed startups across the United States, Seed to Series C.
 
 Built with Next.js 16 (App Router), TypeScript and Tailwind CSS v4. Every route
 is statically prerendered; there is no database, no API and no runtime
@@ -132,6 +132,11 @@ Four calculators live under `/tools`, with the runway one also embedded on the
 home page. All four are client components that compute **entirely in the
 browser** — nothing a visitor types is transmitted, stored or logged, and there
 is no email gate.
+
+They are positioned as a *sample of the work*, not the product. The site sells
+the engagement; the tools exist to show what the team builds. That is why they
+sit below the services, the proof and the philosophy on the home page rather
+than above them, and why `/tools` is last in the nav.
 
 | Tool | What it does |
 | --- | --- |

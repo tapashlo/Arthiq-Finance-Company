@@ -36,7 +36,7 @@ export default function HomePage() {
           <div className="grid items-center gap-14 lg:grid-cols-12 lg:gap-12">
             <div className="lg:col-span-5">
               <div className="fade-up" style={{ animationDelay: "60ms" }}>
-                <Eyebrow>Outsourced FP&amp;A · San Francisco</Eyebrow>
+                <Eyebrow>Outsourced FP&amp;A · United States</Eyebrow>
               </div>
 
               <h1
@@ -52,9 +52,10 @@ export default function HomePage() {
                 className="fade-up mt-7 max-w-lg text-lg leading-relaxed text-ink-soft md:text-xl"
                 style={{ animationDelay: "260ms" }}
               >
-                Financial planning and analysis for venture-backed startups.
-                Driver-based forecasting, board reporting and metrics that hold
-                up under diligence — run by people who have sat in the seat.
+                A finance team for venture-backed startups, anywhere in the
+                United States. Driver-based forecasting, board reporting and
+                metrics that hold up under diligence — run by people who have
+                sat in the seat.
               </p>
 
               <div
@@ -65,8 +66,8 @@ export default function HomePage() {
                   Book a diagnostic call
                   <Arrow />
                 </Button>
-                <Button href="/tools" variant="outline">
-                  Try the free tools
+                <Button href="/services" variant="outline">
+                  How we work
                 </Button>
               </div>
 
@@ -101,31 +102,6 @@ export default function HomePage() {
               <Stat {...s} />
             </Reveal>
           ))}
-        </div>
-      </section>
-
-      {/* -------------------------------------------------- the live tool */}
-      <section id="tool" className="scroll-mt-28 py-20 md:py-28">
-        <div className="shell">
-          <Reveal>
-            <div className="flex flex-wrap items-end justify-between gap-8">
-              <SectionHeading
-                eyebrow="Free, no sign-up"
-                title="Try the work before you talk to us."
-                lede="Four calculators built from the models we run for clients. Everything computes in your browser — nothing you type is sent anywhere."
-              />
-              <Link href="/tools" className="label link-reveal tap gap-3 text-blue hover:text-navy">
-                All four tools
-                <Arrow />
-              </Link>
-            </div>
-          </Reveal>
-
-          <Reveal delay={80}>
-            <div className="mt-12 md:mt-16">
-              <RunwayTool />
-            </div>
-          </Reveal>
         </div>
       </section>
 
@@ -288,6 +264,42 @@ export default function HomePage() {
               <span className="label-sm mr-2">Disclosure</span>
               {testimonialDisclosure}
             </p>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ------------------------------------------- a sample of the work */}
+      <section id="tool" className="scroll-mt-28 border-t border-rule py-20 md:py-28">
+        <div className="shell">
+          <Reveal>
+            <SectionHeading
+              eyebrow="A sample of the work"
+              title="The models we build, in miniature."
+              lede="These are stripped-down versions of what we build for clients — the same logic, a fraction of the depth. Free, no sign-up, and everything computes in your browser."
+            />
+          </Reveal>
+
+          <Reveal delay={80}>
+            <div className="mt-12 md:mt-16">
+              <RunwayTool />
+            </div>
+          </Reveal>
+
+          <Reveal delay={120}>
+            <div className="mt-8 flex flex-wrap items-center justify-between gap-6 rounded-xl border border-rule bg-canvas px-7 py-6">
+              <p className="max-w-2xl leading-relaxed text-ink-soft">
+                A calculator takes six inputs. The model we build for you takes
+                your actual drivers, ties to your general ledger, and has
+                somebody who owns it with you when the board asks a question it
+                does not answer.
+              </p>
+              <div className="flex flex-wrap gap-3">
+                <Link href="/tools" className="label link-reveal tap gap-3 text-blue hover:text-navy">
+                  All four tools
+                  <Arrow />
+                </Link>
+              </div>
+            </div>
           </Reveal>
         </div>
       </section>
