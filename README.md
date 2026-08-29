@@ -1,7 +1,8 @@
 # ArthIQ
 
-Marketing site and client-portal mockup for **ArthIQ**, a fee-only fiduciary
-wealth manager in San Francisco, serving households across the United States.
+Marketing site, free calculator suite and client-dashboard mockup for
+**ArthIQ**, an outsourced FP&A and fractional CFO team in San Francisco serving
+venture-backed startups from Seed to Series C.
 
 Built with Next.js 16 (App Router), TypeScript and Tailwind CSS v4. Every route
 is statically prerendered; there is no database, no API and no runtime
@@ -24,21 +25,18 @@ font — so it stays sharp at any size and needs no webfont to render.
 
 | Letters | Idea | How it is drawn |
 | --- | --- | --- |
-| **A** | Everest | An asymmetric filled peak — long left shoulder, steep right face, jagged snowline. The counter is knocked out with `evenodd`, not filled with a background colour, so the mark inverts cleanly on any ground. |
-| **rth** | lowercase | Drawn clean. Candlesticks were tried *inside* the wordmark three ways and abandoned: at logo scale they read as coloured blocks stuck on letters, and they destroyed "rth". That language lives on the site instead, at a size where it reads as a chart. |
-| **IQ** | uppercase, two lenses | The I is a bar passing through a small ring; the Q's bowl is the larger lens with its tail leaving the circle at 45° as the handle. |
+| **A** | A twin-summit peak | Filled paths with snow fissures knocked out, so it holds as a solid silhouette at favicon size. |
+| **rth** | lowercase, geometric | Flat terminals, monoline strokes. A rising line with plotted nodes and an arrowhead runs through the ascender band above it. |
+| **IQ** | uppercase, in the accent blue | The Q is a magnifying glass — bowl as lens, tail leaving at 45° as the handle. |
 
-The snowcap colour comes from `--logo-accent` (falling back to `currentColor`),
-so it can be tuned per ground without forking the component.
+Three tokens drive it — `--logo-ink`, `--logo-accent`, `--logo-knockout` — each
+falling back to `currentColor`. The `.on-navy` class flips them for dark
+grounds; without it the knockout fissures render white instead of cutting through.
 
-Two lockups are exported:
-
-- `<Wordmark />` — the full mark.
-- `<Wordmark simplified />` — drops the I's lens ring, which fills in below
-  roughly 120px of rendered width. Used in the site header.
-- `<Monogram />` — the Everest A alone, for favicons and tight spaces.
-
-Each instance takes an `id` prop: the clipPath id must be unique per inline SVG.
+- `<Wordmark />` — the full lockup.
+- `<Wordmark simplified />` — drops the chart line, which turns to noise below
+  about 140px of width. Used in the site header.
+- `<Monogram />` — the peak alone, for favicons and tight spaces.
 
 ---
 
@@ -46,16 +44,14 @@ Each instance takes an `id` prop: the clipPath id must be unique per inline SVG.
 
 Tokens live in `src/app/globals.css` under `@theme`.
 
-- **Palette** — money green on warm cream, with red as a first-class market
-  colour. `--color-gain` and `--color-loss` drive every chart: green for up
-  periods, red for down, used at full strength rather than hidden. Grounds are
-  `--color-cream`/`--color-paper`; `--color-gold` is a sparing accent.
-- **Type** — [Newsreader](https://fonts.google.com/specimen/Newsreader) for
-  headlines *and* body; [Inter](https://fonts.google.com/specimen/Inter) only
-  for small uppercase UI labels (`.label`) and tabular figures (`.tnum`). Both
-  are self-hosted by `next/font`, so no external font request is made at runtime.
-- **Texture** — `.grain` overlays an inline SVG noise field so large cream
-  fields do not read as flat digital white.
+- **Palette** — deep navy grounds with an electric blue accent. `--color-gain`
+  and `--color-loss` are reserved for figures that carry a sign: favourable and
+  unfavourable variance, metrics above and below benchmark.
+- **Type** — [Plus Jakarta Sans](https://fonts.google.com/specimen/Plus+Jakarta+Sans)
+  for display, [Inter](https://fonts.google.com/specimen/Inter) for UI, body and
+  figures. Both are variable and self-hosted by `next/font`, so no external font
+  request is made at runtime.
+
 - **Charts** — all hand-authored SVG, no charting library. The hero is a
   candlestick chart with volume and a five-quarter moving average; the home page
   also carries a periodic-table-of-returns heatmap and a sparkline sheet, and
@@ -80,16 +76,19 @@ Tokens live in `src/app/globals.css` under `@theme`.
 ```
 src/
 ├── app/
-│   ├── page.tsx              Home
+│   ├── page.tsx              Home (hero, live tool, services, board)
+│   ├── tools/                Four interactive calculators
 │   ├── about/                Firm story, team, principles, process, the mark
 │   ├── services/             Investment management · Retirement & tax planning
 │   ├── insights/             Index + [slug] article pages
 │   ├── contact/              Booking form
-│   ├── portal/               Client portal mockup
+│   ├── portal/               Client dashboard mockup
 │   ├── disclosures/          Regulatory, privacy, Form ADV
 │   ├── globals.css           Design tokens, base, components, motion
 │   └── icon.svg              Favicon
-├── components/               Logo, header, footer, charts, form, primitives
+├── components/
+│   ├── tools/                ToolKit + the four calculators
+│   └── …                     Logo, header, footer, charts, form, primitives
 └── lib/
     ├── site.ts               All marketing copy and data
     └── portal.ts             Portal mock data
@@ -127,6 +126,26 @@ no horizontal overflow, no touch target under 44px.
 
 ---
 
+## The tools
+
+Four calculators live under `/tools`, with the runway one also embedded on the
+home page. All four are client components that compute **entirely in the
+browser** — nothing a visitor types is transmitted, stored or logged, and there
+is no email gate.
+
+| Tool | What it does |
+| --- | --- |
+| Runway & burn | Cash projection with sliders; the curve stops at zero rather than drawing a recovery a company could not trade through. |
+| Scenario planner | Base/upside/downside ARR over 24 months, drawn as a cone. |
+| Budget vs actual | Department variance with drill-down to line items, and a dollars/percent toggle. |
+| SaaS metrics | LTV:CAC, payback, magic number, NRR, burn multiple and Rule of 40, each against a benchmark band. |
+
+They are deliberately simplified: no working-capital timing, no taxes, no
+financing, no seasonality, no distinction between bookings and revenue. The
+`/tools` page says so, and the disclosures page says it again.
+
+---
+
 ## Before this goes live
 
 This is a **design demonstration**. Everything below needs real work first.
@@ -139,13 +158,14 @@ This is a **design demonstration**. Everything below needs real work first.
 - [ ] **Wire up the contact form.** `src/components/ContactForm.tsx` validates in
       the browser and shows a confirmation; it posts nowhere. Point it at a
       server action or endpoint, and add spam protection.
-- [ ] **Build a real portal.** `/portal` is static markup with no
-      authentication, no custodian connection and no data. It is a visual
-      reference, not a foundation.
-- [ ] **Compliance review.** Nothing here has been reviewed against SEC
-      marketing rules. Testimonials, performance figures and hypothetical
-      illustrations each carry their own disclosure requirements, and the
-      disclosure text on this site is illustrative drafting, not legal advice.
+- [ ] **Build a real dashboard.** `/portal` is static markup with no
+      authentication, no accounting-system connection and no data. It is a
+      visual reference, not a foundation.
+- [ ] **Legal review.** ArthIQ is positioned as a consulting firm, not a
+      registered investment adviser, so the SEC marketing rules that govern an
+      RIA do not apply — but the testimonials, the fee figures and the tools all
+      still want a lawyer's eye. The disclosure text here is illustrative
+      drafting, not legal advice.
 - [ ] **Add real portraits.** The team grid currently uses initials plates.
 - [ ] Set the production domain in `site.url` (`src/lib/site.ts`) so canonical
       and Open Graph URLs resolve, and add an OG image.

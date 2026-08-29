@@ -41,10 +41,10 @@ export function ContactForm() {
     return (
       <div
         role="status"
-        className="rounded-xs border border-rule bg-paper p-10 shadow-lift md:p-14"
+        className="rounded-lg border border-rule bg-paper p-10 shadow-lift md:p-14"
       >
-        <p className="label text-green-mid">Received</p>
-        <h2 className="mt-7 text-3xl leading-tight text-forest md:text-4xl">
+        <p className="label text-blue">Received</p>
+        <h2 className="mt-7 text-3xl leading-tight text-navy md:text-4xl">
           Thank you — we&rsquo;ll be in touch within one business day.
         </h2>
         <p className="mt-6 max-w-lg text-lg leading-relaxed text-ink-soft">
@@ -58,7 +58,7 @@ export function ContactForm() {
         <button
           type="button"
           onClick={() => setSent(false)}
-          className="label link-reveal mt-8 inline-flex items-center gap-3 text-green hover:text-forest"
+          className="label link-reveal mt-8 inline-flex items-center gap-3 text-blue hover:text-navy"
         >
           Send another
         </button>
@@ -70,7 +70,7 @@ export function ContactForm() {
     <form
       onSubmit={handleSubmit}
       noValidate={false}
-      className="rounded-xs border border-rule bg-paper p-8 shadow-lift md:p-12"
+      className="rounded-lg border border-rule bg-paper p-8 shadow-lift md:p-12"
     >
       <div className="grid gap-7 sm:grid-cols-2">
         <Field label="Full name" htmlFor={`${id}-name`} required>
@@ -132,7 +132,7 @@ export function ContactForm() {
           {TOPICS.map((topic, i) => (
             <label
               key={topic}
-              className="ui cursor-pointer rounded-xs border border-rule px-4 py-2.5 text-[0.9375rem] text-ink-soft transition-colors duration-200 has-checked:border-forest has-checked:bg-forest has-checked:text-cream"
+              className="cursor-pointer rounded-lg border border-rule px-4 py-2.5 text-[0.9375rem] text-ink-soft transition-colors duration-200 has-checked:border-navy has-checked:bg-navy has-checked:text-white"
             >
               <input
                 type="radio"
@@ -165,7 +165,7 @@ export function ContactForm() {
       <button
         type="submit"
         disabled={pending}
-        className="label mt-10 inline-flex w-full items-center justify-center gap-3 rounded-xs bg-forest px-7 py-5 text-cream transition-colors duration-300 hover:bg-green disabled:opacity-60 sm:w-auto"
+        className="label mt-10 inline-flex w-full items-center justify-center gap-3 rounded-lg bg-navy px-7 py-5 text-white transition-colors duration-300 hover:bg-blue disabled:opacity-60 sm:w-auto"
       >
         {pending ? "Sending…" : "Request a call"}
         {!pending && <Arrow />}
@@ -181,7 +181,7 @@ export function ContactForm() {
 }
 
 const inputClass =
-  "ui mt-3 w-full rounded-xs border border-rule bg-cream px-4 py-3.5 text-lg text-ink transition-colors duration-200 placeholder:text-ink-faint focus:border-green focus:outline-none";
+  "ui mt-3 w-full rounded-lg border border-rule bg-paper px-4 py-3.5 text-lg text-ink transition-colors duration-200 placeholder:text-ink-faint focus:border-blue focus:outline-none";
 
 function Field({
   label,
@@ -201,7 +201,7 @@ function Field({
       <label htmlFor={htmlFor} className="label flex items-baseline gap-2 text-ink-faint">
         {label}
         {required && (
-          <span aria-hidden="true" className="text-green-mid">
+          <span aria-hidden="true" className="text-blue">
             *
           </span>
         )}

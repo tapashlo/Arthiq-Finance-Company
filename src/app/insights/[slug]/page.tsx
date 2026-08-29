@@ -50,18 +50,18 @@ export default async function ArticlePage({
   return (
     <>
       <article>
-        <header className="grain relative overflow-hidden border-b border-rule bg-cream-deep pt-36 pb-16 md:pt-48 md:pb-20">
+        <header className="relative overflow-hidden border-b border-rule bg-canvas pt-36 pb-16 md:pt-48 md:pb-20">
           <div className="shell relative mx-auto max-w-[44rem]">
             <Link
               href="/insights"
-              className="label link-reveal tap gap-3 text-ink-faint hover:text-forest"
+              className="label link-reveal tap gap-3 text-ink-faint hover:text-navy"
             >
               <Arrow className="rotate-180" />
               All insights
             </Link>
 
-            <p className="label mt-12 text-green-mid">{article.category}</p>
-            <h1 className="mt-7 text-4xl leading-[1.08] text-forest sm:text-5xl md:text-[3.5rem]">
+            <p className="label mt-12 text-blue">{article.category}</p>
+            <h1 className="mt-7 text-4xl leading-[1.08] text-navy sm:text-5xl md:text-[3.5rem]">
               {article.title}
             </h1>
             <p className="mt-8 text-xl leading-relaxed text-ink-soft md:text-2xl">
@@ -69,7 +69,7 @@ export default async function ArticlePage({
             </p>
 
             <div className="label-sm mt-12 flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-rule pt-7 text-ink-faint">
-              <span className="text-forest">{article.author}</span>
+              <span className="text-navy">{article.author}</span>
               <span aria-hidden="true">·</span>
               <time dateTime={article.date}>{article.displayDate}</time>
               <span aria-hidden="true">·</span>
@@ -78,13 +78,13 @@ export default async function ArticlePage({
           </div>
         </header>
 
-        <div className="grain relative py-14 md:py-20">
+        <div className="relative py-14 md:py-20">
           <div className="shell relative">
             <Figure
               image={images[article.image]}
               aspect="aspect-16/9"
               sizes="(min-width: 1024px) 60rem, 100vw"
-              className="mx-auto mb-16 max-w-4xl rounded-xs md:mb-20"
+              className="mx-auto mb-16 max-w-4xl rounded-lg md:mb-20"
             />
             <div className="mx-auto max-w-[40rem]">
               {article.body.map((paragraph, i) => (
@@ -94,7 +94,7 @@ export default async function ArticlePage({
                       "text-xl leading-[1.72] text-ink md:text-[1.3125rem]",
                       i === 0 ? "" : "mt-7",
                       // Lead paragraph sets the entry into the piece.
-                      i === 0 ? "text-[1.375rem] leading-[1.62] text-forest md:text-2xl" : "",
+                      i === 0 ? "text-[1.375rem] leading-[1.62] text-navy md:text-2xl" : "",
                     ].join(" ")}
                   >
                     {paragraph}
@@ -112,7 +112,7 @@ export default async function ArticlePage({
                     households. Speak with a qualified professional before
                     acting on anything here. All figures and examples are
                     illustrative placeholders created for design purposes.{" "}
-                    <Link href="/disclosures" className="link-reveal text-green">
+                    <Link href="/disclosures" className="link-reveal text-blue">
                       Full disclosures
                     </Link>
                     .
@@ -125,7 +125,7 @@ export default async function ArticlePage({
       </article>
 
       {/* ----------------------------------------------------------- more */}
-      <section className="border-t border-rule bg-cream-deep py-20 md:py-28">
+      <section className="border-t border-rule bg-canvas py-20 md:py-28">
         <div className="shell">
           <h2 className="label text-ink-faint">More from {site.name}</h2>
           <div className="mt-12 grid gap-x-8 gap-y-10 md:grid-cols-3">
@@ -133,10 +133,10 @@ export default async function ArticlePage({
               <Reveal key={a.slug} delay={i * 80}>
                 <Link
                   href={`/insights/${a.slug}`}
-                  className="group flex h-full flex-col border-t border-rule pt-7 transition-colors duration-300 hover:border-green"
+                  className="group flex h-full flex-col border-t border-rule pt-7 transition-colors duration-300 hover:border-blue"
                 >
-                  <span className="label text-green-mid">{a.category}</span>
-                  <h3 className="mt-6 flex-1 text-2xl leading-snug text-forest transition-colors duration-300 group-hover:text-green">
+                  <span className="label text-blue">{a.category}</span>
+                  <h3 className="mt-6 flex-1 text-2xl leading-snug text-navy transition-colors duration-300 group-hover:text-blue">
                     {a.title}
                   </h3>
                   <div className="label-sm mt-8 text-ink-faint">

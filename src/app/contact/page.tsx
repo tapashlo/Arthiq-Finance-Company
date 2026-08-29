@@ -9,16 +9,16 @@ import { process, site } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Contact",
   description:
-    "Book a 45-minute introductory call with ArthIQ. No documents required, and no obligation.",
+    "Book a 45-minute diagnostic call with ArthIQ. No documents required, and no obligation.",
 };
 
 export default function ContactPage() {
   return (
     <>
-      <section className="grain relative overflow-hidden border-b border-rule bg-cream-deep pt-36 pb-20 md:pt-48 md:pb-24">
+      <section className="relative overflow-hidden border-b border-rule bg-canvas pt-36 pb-20 md:pt-48 md:pb-24">
         <div className="shell relative">
           <Eyebrow>Contact</Eyebrow>
-          <h1 className="mt-7 max-w-4xl text-5xl leading-[1.04] text-forest sm:text-6xl md:text-7xl">
+          <h1 className="mt-7 max-w-4xl text-5xl leading-[1.04] text-navy sm:text-6xl md:text-7xl">
             Start with a conversation.
           </h1>
           <p className="mt-9 max-w-2xl text-xl leading-relaxed text-ink-soft md:text-2xl">
@@ -29,7 +29,7 @@ export default function ContactPage() {
         </div>
       </section>
 
-      <section className="grain relative py-20 md:py-28">
+      <section className="relative py-20 md:py-28">
         <div className="shell relative grid gap-14 lg:grid-cols-12 lg:gap-14">
           <div className="lg:col-span-7">
             <Reveal>
@@ -39,10 +39,10 @@ export default function ContactPage() {
 
           <aside className="lg:col-span-5 lg:pl-6">
             <Figure
-              image={images.office}
+              image={images.workshop}
               aspect="aspect-4/3"
               sizes="(min-width: 1024px) 38vw, 100vw"
-              className="mb-12 rounded-xs"
+              className="mb-12 rounded-lg"
             />
             <Reveal delay={120}>
               <div className="border-t border-rule pt-8">
@@ -51,7 +51,7 @@ export default function ContactPage() {
                   <div>
                     <a
                       href={site.phoneHref}
-                      className="link-reveal tap tnum text-forest hover:text-green"
+                      className="link-reveal tap tnum text-navy hover:text-blue"
                     >
                       {site.phone}
                     </a>
@@ -59,7 +59,7 @@ export default function ContactPage() {
                   <div>
                     <a
                       href={`mailto:${site.email}`}
-                      className="link-reveal tap text-forest hover:text-green"
+                      className="link-reveal tap text-navy hover:text-blue"
                     >
                       {site.email}
                     </a>
@@ -86,11 +86,11 @@ export default function ContactPage() {
                 <ol className="mt-8 space-y-7">
                   {process.slice(0, 3).map((step) => (
                     <li key={step.step} className="flex gap-5">
-                      <span className="label-sm tnum mt-1.5 text-green-mid">
+                      <span className="label-sm tnum mt-1.5 text-blue">
                         {step.step}
                       </span>
                       <div>
-                        <h3 className="text-lg text-forest">{step.title}</h3>
+                        <h3 className="text-lg text-navy">{step.title}</h3>
                         <p className="mt-2 text-base leading-relaxed text-ink-soft">
                           {step.body}
                         </p>
@@ -102,15 +102,15 @@ export default function ContactPage() {
             </Reveal>
 
             <Reveal delay={260}>
-              <div className="mt-14 rounded-xs border border-rule bg-cream-deep p-7">
-                <h2 className="label text-green-mid">Existing clients</h2>
+              <div className="mt-14 rounded-lg border border-rule bg-canvas p-7">
+                <h2 className="label text-blue">Existing clients</h2>
                 <p className="mt-5 text-base leading-relaxed text-ink-soft">
-                  Reach your adviser directly, or sign in to the portal for
-                  statements, tax documents and performance reporting.
+                  Reach your team directly, or sign in to the dashboard for the
+                  latest model, board pack and close checklist.
                 </p>
                 <a
                   href="/portal"
-                  className="label link-reveal tap mt-3 text-forest hover:text-green"
+                  className="label link-reveal tap mt-3 text-navy hover:text-blue"
                 >
                   Client login
                 </a>

@@ -24,19 +24,19 @@ export function Button({
 }: ButtonProps) {
   const styles = {
     primary:
-      "bg-forest text-cream hover:bg-green border border-forest hover:border-green",
+      "bg-navy text-white hover:bg-blue border border-navy hover:border-blue",
     outline:
-      "border border-forest/25 text-forest hover:border-forest hover:bg-forest hover:text-cream",
+      "border border-navy/25 text-navy hover:border-navy hover:bg-navy hover:text-white",
     invert:
-      "bg-cream text-forest border border-cream hover:bg-transparent hover:text-cream",
+      "bg-paper text-navy border border-white hover:bg-transparent hover:text-white",
     quiet:
-      "border border-transparent text-forest hover:text-green px-0 py-2",
+      "border border-transparent text-navy hover:text-blue px-0 py-2",
   }[variant];
 
   return (
     <Link
       {...props}
-      className={`label inline-flex items-center justify-center gap-3 rounded-xs px-7 py-4.5 text-center whitespace-nowrap transition-all duration-300 ${styles} ${className}`}
+      className={`label inline-flex items-center justify-center gap-3 rounded-lg px-7 py-4.5 text-center whitespace-nowrap transition-all duration-300 ${styles} ${className}`}
     >
       {children}
     </Link>
@@ -88,7 +88,7 @@ export function SectionHeading({
           {eyebrow}
         </Eyebrow>
       )}
-      <h2 className="mt-6 text-4xl leading-[1.08] text-forest sm:text-5xl md:text-[3.5rem]">
+      <h2 className="mt-6 text-4xl leading-[1.08] text-navy sm:text-5xl md:text-[3.5rem]">
         {title}
       </h2>
       {lede && (
@@ -120,20 +120,20 @@ export function Stat({
     <div>
       <div
         className={`tnum text-5xl leading-none tracking-tight md:text-6xl ${
-          invert ? "text-cream" : "text-forest"
+          invert ? "text-white" : "text-navy"
         }`}
       >
         <CountUp value={value} />
       </div>
       <div
-        className={`label mt-5 ${invert ? "text-cream/55" : "text-ink-faint"}`}
+        className={`label mt-5 ${invert ? "text-white/55" : "text-ink-faint"}`}
       >
         {label}
       </div>
       {note && (
         <div
           className={`mt-2.5 text-sm ${
-            invert ? "text-cream/40" : "text-ink-faint"
+            invert ? "text-white/40" : "text-ink-faint"
           }`}
         >
           {note}
@@ -156,10 +156,10 @@ export function PageHero({
   children?: ReactNode;
 }) {
   return (
-    <section className="grain relative overflow-hidden border-b border-rule bg-cream-deep pt-36 pb-20 md:pt-48 md:pb-28">
+    <section className="relative overflow-hidden border-b border-rule bg-canvas pt-36 pb-20 md:pt-48 md:pb-28">
       <div className="shell relative">
         <Eyebrow>{eyebrow}</Eyebrow>
-        <h1 className="mt-7 max-w-4xl text-5xl leading-[1.04] text-forest sm:text-6xl md:text-7xl">
+        <h1 className="mt-7 max-w-4xl text-5xl leading-[1.04] text-navy sm:text-6xl md:text-7xl">
           {title}
         </h1>
         {lede && (

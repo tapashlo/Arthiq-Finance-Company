@@ -1,48 +1,30 @@
 /**
  * Photography.
  *
- * Sourced from Unsplash under the Unsplash License, which permits commercial
- * use without permission or attribution. Credits are not resolvable from the
- * CDN path alone — see ATTRIBUTION.md for the source URLs and what to add
- * before production.
+ * Unsplash, under the Unsplash License (commercial use, no permission or
+ * attribution required). Credits are not resolvable from the CDN path — see
+ * ATTRIBUTION.md for source URLs and what to add before production.
  *
- * Imported as modules rather than referenced from /public so Next can emit
- * width, height and a blur placeholder automatically: no layout shift, and a
- * cheap first paint.
+ * Imported as modules so Next emits width, height and a blur placeholder
+ * automatically: no layout shift, and a cheap first paint.
  */
 
-import aboveClouds from "@/images/above-clouds.jpg";
-import highlands from "@/images/highlands.jpg";
-import office from "@/images/office.jpg";
-import ridge from "@/images/ridge.jpg";
-import summit from "@/images/summit.jpg";
-import tower from "@/images/tower.jpg";
+import dashboard from "@/images/dashboard.jpg";
+import desk from "@/images/desk.jpg";
+import meeting from "@/images/meeting.jpg";
+import screens from "@/images/screens.jpg";
+import skyline from "@/images/skyline.jpg";
+import trading from "@/images/trading.jpg";
+import workshop from "@/images/workshop.jpg";
 
 export const images = {
-  summit: {
-    src: summit,
-    alt: "Snow-covered mountain peaks under a clouded sky.",
-  },
-  ridge: {
-    src: ridge,
-    alt: "A dark mountain ridge silhouetted against a deep teal dusk sky.",
-  },
-  aboveClouds: {
-    src: aboveClouds,
-    alt: "Mountain summits rising above a sea of cloud at first light.",
-  },
-  highlands: {
-    src: highlands,
-    alt: "Green highland ridges under low mist, a road curving through them.",
-  },
-  office: {
-    src: office,
-    alt: "A quiet modern office interior with glass partitions and daylight.",
-  },
-  tower: {
-    src: tower,
-    alt: "Glass office towers seen looking upward at dusk.",
-  },
+  dashboard: { src: dashboard, alt: "An analytics dashboard on a dark screen, dense with time-series charts." },
+  trading: { src: trading, alt: "A candlestick chart in red and green with a moving-average overlay." },
+  meeting: { src: meeting, alt: "Two people talking across a table with a laptop open between them." },
+  desk: { src: desk, alt: "Financial paperwork and a calculator laid out on a desk, seen from above." },
+  skyline: { src: skyline, alt: "Office towers seen looking upward at dusk." },
+  workshop: { src: workshop, alt: "A team working together at laptops in a meeting room." },
+  screens: { src: screens, alt: "A close view of a metrics dashboard showing rates and quality scores." },
 } as const;
 
 export type ImageKey = keyof typeof images;

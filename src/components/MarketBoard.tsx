@@ -1,5 +1,5 @@
 /**
- * Market board — a periodic table of returns and a sparkline sheet.
+ * Operating board — a department spend heatmap and a KPI trend sheet.
  *
  * Both are generated deterministically at module scope so server and client
  * agree. Colour encodes sign and magnitude: green for gain, red for loss, with
@@ -14,17 +14,18 @@ function lcg(seed: number) {
   };
 }
 
-const YEARS = ["19", "20", "21", "22", "23", "24", "25", "26"];
+const YEARS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug"];
 
+/** Budget variance by department. Positive is under budget, i.e. favourable. */
 const CLASSES = [
-  { name: "US large cap", bias: 0.11 },
-  { name: "US small cap", bias: 0.09 },
-  { name: "Developed intl", bias: 0.07 },
-  { name: "Emerging mkts", bias: 0.06 },
-  { name: "Municipal bonds", bias: 0.03 },
-  { name: "Treasuries", bias: 0.025 },
-  { name: "Real assets", bias: 0.05 },
-  { name: "Cash", bias: 0.02 },
+  { name: "Engineering", bias: -0.01 },
+  { name: "Sales", bias: -0.04 },
+  { name: "Marketing", bias: -0.06 },
+  { name: "Customer Success", bias: 0.03 },
+  { name: "Product & Design", bias: 0.02 },
+  { name: "G&A", bias: -0.02 },
+  { name: "Infrastructure", bias: -0.05 },
+  { name: "Recruiting", bias: 0.06 },
 ];
 
 /** Returns matrix. Two shared bad years so the rows correlate like real markets. */
@@ -32,11 +33,10 @@ const MATRIX = (() => {
   const rnd = lcg(4820261);
   return CLASSES.map((c) =>
     YEARS.map((_, y) => {
-      const shock = y === 1 ? -0.26 : y === 5 ? -0.14 : 0;
-      const idio = (rnd() - 0.42) * 0.22;
-      // Bonds and cash barely move in equity drawdowns.
-      const beta = c.bias > 0.045 ? 1 : 0.22;
-      return c.bias + idio + shock * beta;
+      // Two months where a company-wide push pushed most departments over.
+      const shock = y === 2 ? -0.08 : y === 6 ? -0.05 : 0;
+      const idio = (rnd() - 0.5) * 0.14;
+      return c.bias + idio + shock;
     }),
   );
 })();
@@ -57,12 +57,13 @@ export function ReturnsTable() {
     <div className="overflow-x-auto">
       <table className="w-full min-w-[34rem] border-collapse">
         <caption className="sr-only">
-          Illustrative annual returns by asset class, 2017 to 2026.
+          Illustrative budget variance by department, month by month. Positive is
+          under budget.
         </caption>
         <thead>
           <tr>
             <th scope="col" className="label pb-4 pr-5 text-left text-ink-faint">
-              Asset class
+              Department
             </th>
             {YEARS.map((y) => (
               <th
@@ -70,7 +71,7 @@ export function ReturnsTable() {
                 scope="col"
                 className="label-sm tnum pb-4 text-center text-ink-faint"
               >
-                &rsquo;{y}
+                {y}
               </th>
             ))}
           </tr>
@@ -80,16 +81,16 @@ export function ReturnsTable() {
             <tr key={c.name}>
               <th
                 scope="row"
-                className="ui py-1 pr-5 text-left text-[0.9375rem] font-normal whitespace-nowrap text-forest"
+                className="py-1 pr-5 text-left text-[0.9375rem] font-normal whitespace-nowrap text-navy"
               >
                 {c.name}
               </th>
               {MATRIX[r].map((v, i) => (
                 <td key={i} className="p-0.5">
                   <div
-                    className="tnum flex h-11 items-center justify-center rounded-xs text-[0.8125rem] text-forest"
+                    className="tnum flex h-11 items-center justify-center rounded-lg text-[0.8125rem] text-navy"
                     style={{ backgroundColor: cell(v) }}
-                    title={`${c.name} 20${YEARS[i]}: ${pct(v)}%`}
+                    title={`${c.name}, ${YEARS[i]}: ${pct(v)}% vs budget`}
                   >
                     {pct(v)}
                   </div>
@@ -106,12 +107,12 @@ export function ReturnsTable() {
 /* ------------------------------------------------------- sparkline sheet -- */
 
 const HOLDINGS = [
-  { name: "US Total Market", ticker: "VTI", seed: 991, ytd: 14.2 },
-  { name: "Total International", ticker: "VXUS", seed: 337, ytd: 7.9 },
-  { name: "Municipal Bond", ticker: "MUB", seed: 512, ytd: 3.1 },
-  { name: "Intermediate Treasury", ticker: "VGIT", seed: 806, ytd: 2.4 },
-  { name: "Real Estate", ticker: "VNQ", seed: 145, ytd: -1.8 },
-  { name: "Diversified Commodity", ticker: "PDBC", seed: 623, ytd: 5.6 },
+  { name: "Annual recurring revenue", ticker: "ARR", seed: 991, ytd: 41.2 },
+  { name: "Net revenue retention", ticker: "NRR", seed: 337, ytd: 6.4 },
+  { name: "Gross margin", ticker: "GM%", seed: 512, ytd: 3.1 },
+  { name: "CAC payback, months", ticker: "PAYBACK", seed: 806, ytd: -11.5 },
+  { name: "Burn multiple", ticker: "BURN", seed: 145, ytd: -18.2 },
+  { name: "Headcount", ticker: "FTE", seed: 623, ytd: 22.6 },
 ];
 
 /** 28-point walk whose end matches the sign of the quoted return. */
@@ -157,15 +158,15 @@ export function SparklineSheet() {
     <div className="overflow-x-auto">
       <table className="w-full min-w-[22rem] border-collapse text-left">
         <caption className="sr-only">
-          Illustrative holdings with year-to-date returns and 28-week trend.
+          Illustrative operating metrics with year-to-date change and trend.
         </caption>
         <thead>
           <tr className="border-b border-rule">
             <th scope="col" className="label py-4 text-ink-faint">
-              Holding
+              Metric
             </th>
             <th scope="col" className="label py-4 text-right text-ink-faint">
-              52 weeks
+              Trailing
             </th>
             <th scope="col" className="label py-4 text-right text-ink-faint">
               YTD
@@ -174,12 +175,13 @@ export function SparklineSheet() {
         </thead>
         <tbody>
           {HOLDINGS.map((h) => {
-            const up = h.ytd >= 0;
+            const lowerIsBetter = h.ticker === "PAYBACK" || h.ticker === "BURN";
+            const up = lowerIsBetter ? h.ytd < 0 : h.ytd >= 0;
             return (
               <tr key={h.ticker} className="border-b border-rule-soft last:border-0">
                 <td className="py-4 pr-6">
-                  <div className="ui text-[0.9375rem] text-forest">{h.ticker}</div>
-                  <div className="ui mt-1 text-[0.8125rem] text-ink-faint">
+                  <div className="text-[0.9375rem] text-navy">{h.ticker}</div>
+                  <div className="mt-1 text-[0.8125rem] text-ink-faint">
                     {h.name}
                   </div>
                 </td>
@@ -193,7 +195,7 @@ export function SparklineSheet() {
                     up ? "text-gain" : "text-loss"
                   }`}
                 >
-                  {up ? "+" : "−"}
+                  {h.ytd >= 0 ? "+" : "−"}
                   {Math.abs(h.ytd).toFixed(1)}%
                 </td>
               </tr>

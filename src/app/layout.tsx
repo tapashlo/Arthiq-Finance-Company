@@ -1,18 +1,15 @@
 import type { Metadata } from "next";
-import { Newsreader, Inter } from "next/font/google";
+import { Plus_Jakarta_Sans, Inter } from "next/font/google";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { site } from "@/lib/site";
 import "./globals.css";
 
-// No `weight` array: that pins static instances and emitted 13 files at
-// 431 KB. Omitting it serves the variable font — one file per style, covering
-// every weight the design uses.
-const newsreader = Newsreader({
+// Variable fonts: one file per style, covering every weight the design uses.
+const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-newsreader",
-  style: ["normal", "italic"],
+  variable: "--font-jakarta",
 });
 
 const inter = Inter({
@@ -43,11 +40,11 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${newsreader.variable} ${inter.variable}`}>
-      <body className="min-h-screen bg-cream text-ink antialiased">
+    <html lang="en" className={`${jakarta.variable} ${inter.variable}`}>
+      <body className="min-h-screen bg-paper text-ink antialiased">
         <a
           href="#main"
-          className="label sr-only focus:not-sr-only focus:fixed focus:left-5 focus:top-5 focus:z-100 focus:rounded-xs focus:bg-forest focus:px-4 focus:py-3 focus:text-cream"
+          className="label sr-only focus:not-sr-only focus:fixed focus:left-5 focus:top-5 focus:z-100 focus:rounded-lg focus:bg-navy focus:px-4 focus:py-3 focus:text-white"
         >
           Skip to content
         </a>

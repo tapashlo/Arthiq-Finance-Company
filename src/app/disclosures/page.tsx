@@ -6,7 +6,7 @@ import { disclosures, site, testimonialDisclosure } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Disclosures",
   description:
-    "Regulatory disclosures, privacy practices and Form ADV information for ArthIQ Wealth Management, LLC.",
+    "Disclosures, privacy practices and the limits of the tools on this site.",
   robots: { index: false, follow: true },
 };
 
@@ -20,12 +20,7 @@ const sections = [
   {
     id: "privacy",
     title: "Privacy",
-    body: "This demonstration site sets no cookies, runs no analytics and transmits no form data. In production, information you provide would be used solely to respond to your enquiry and to deliver advisory services, and would not be sold or shared with third parties for marketing. A full privacy notice is delivered at onboarding and annually thereafter.",
-  },
-  {
-    id: "adv",
-    title: "Form ADV & Form CRS",
-    body: "Our Form ADV Part 2A brochure, Part 2B supplements and Form CRS relationship summary describe our services, fees, conflicts of interest and disciplinary history. They are provided before any advisory agreement is signed, and are available on request at any time. Current filings are also available through the SEC's Investment Adviser Public Disclosure website.",
+    body: "This demonstration site sets no cookies, runs no analytics and transmits no form data. The interactive tools compute entirely in your browser; nothing you enter into them is sent to us, stored or logged. In production, information you provide through the contact form would be used solely to respond to your enquiry and would not be sold or shared for marketing.",
   },
 ];
 
@@ -35,10 +30,10 @@ export default function DisclosuresPage() {
       <PageHero
         eyebrow="Legal"
         title="Disclosures"
-        lede={`Regulatory, privacy and content disclosures for ${site.legalName}.`}
+        lede={`Disclosures, privacy practices and the limits of what is on this site, for ${site.legalName}.`}
       />
 
-      <section className="grain relative py-20 md:py-28">
+      <section className="relative py-20 md:py-28">
         <div className="shell relative grid gap-14 lg:grid-cols-12 lg:gap-12">
           <nav aria-label="Disclosures" className="lg:col-span-4">
             <div className="lg:sticky lg:top-32">
@@ -48,7 +43,7 @@ export default function DisclosuresPage() {
                   <li key={s.title}>
                     <a
                       href={`#${s.id ?? slugify(s.title)}`}
-                      className="link-reveal tap text-base text-ink-soft hover:text-forest"
+                      className="link-reveal tap text-base text-ink-soft hover:text-navy"
                     >
                       {s.title}
                     </a>
@@ -61,14 +56,15 @@ export default function DisclosuresPage() {
           <div className="lg:col-span-8">
             <div className="max-w-2xl">
               <Reveal>
-                <div className="rounded-xs border border-gold/30 bg-gold/6 p-7">
-                  <h2 className="label text-gold">Demonstration site</h2>
+                <div className="rounded-lg border border-warn/30 bg-warn/6 p-7">
+                  <h2 className="label text-warn">Demonstration site</h2>
                   <p className="mt-4 text-base leading-relaxed text-ink-soft">
                     ArthIQ is a fictional firm created for a website design.
-                    Every name, figure, biography, holding and testimonial on
-                    this site is an illustrative placeholder. Nothing here has
-                    been reviewed for regulatory compliance, and it must not be
-                    published as-is by a real advisory firm.
+                    Every name, figure, biography and testimonial on this site is
+                    an illustrative placeholder, and the interactive tools are
+                    simplified teaching models. Nothing here has been reviewed by
+                    a lawyer or an accountant, and it must not be published as-is
+                    by a real firm.
                   </p>
                 </div>
               </Reveal>
@@ -79,7 +75,7 @@ export default function DisclosuresPage() {
                     id={s.id ?? slugify(s.title)}
                     className="scroll-mt-32 border-t border-rule pt-8 mt-14"
                   >
-                    <h2 className="text-2xl leading-snug text-forest md:text-3xl">
+                    <h2 className="text-2xl leading-snug text-navy md:text-3xl">
                       {s.title}
                     </h2>
                     <p className="mt-5 text-lg leading-relaxed text-ink-soft">

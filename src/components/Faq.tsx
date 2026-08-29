@@ -14,11 +14,11 @@ export function Faq({
       {items.map((item, i) => (
         <Reveal key={item.q} delay={i * 45}>
           <details className="group border-b border-rule">
-            <summary className="flex cursor-pointer list-none items-start justify-between gap-8 py-7 text-xl leading-snug text-forest transition-colors duration-300 hover:text-green md:text-2xl [&::-webkit-details-marker]:hidden">
+            <summary className="flex cursor-pointer list-none items-start justify-between gap-8 py-7 text-xl leading-snug text-navy transition-colors duration-300 hover:text-blue md:text-2xl [&::-webkit-details-marker]:hidden">
               <span className="max-w-3xl">{item.q}</span>
               <span
                 aria-hidden="true"
-                className="relative mt-2.5 block h-3.5 w-3.5 shrink-0 text-green-mid"
+                className="relative mt-2.5 block h-3.5 w-3.5 shrink-0 text-blue"
               >
                 <span className="absolute top-1/2 left-0 block h-px w-3.5 -translate-y-1/2 bg-current" />
                 <span className="absolute top-1/2 left-0 block h-px w-3.5 -translate-y-1/2 rotate-90 bg-current transition-transform duration-400 group-open:rotate-0" />

@@ -1,70 +1,68 @@
 @import "tailwindcss";
 
 /* ------------------------------------------------------------------
-   ArthIQ design tokens
-   Palette: money green + warm cream. Editorial private-bank register.
-   Type: Newsreader (display + body), Inter (labels, UI, tabular figures).
+   ArthIQ design tokens — FP&A.
+   Palette: deep navy grounds, an electric blue accent, and market
+   red/green reserved for figures that carry a sign.
+   Type: Plus Jakarta Sans for display, Inter for UI, body and figures.
 ------------------------------------------------------------------- */
 
 @theme {
-  /* Grounds — warm, paper-like, never pure white */
-  --color-cream: #faf6ec;
-  --color-cream-deep: #f2ecdd;
-  --color-paper: #fffdf7;
-  --color-linen: #ede5d3;
+  /* Grounds */
+  --color-paper: #ffffff;
+  --color-canvas: #f5f8fc;
+  --color-canvas-deep: #e9eff8;
 
-  /* Greens — the money register, dark to light */
-  --color-forest: #0e2c22;
-  --color-forest-deep: #081b15;
-  --color-green: #15543c;
-  --color-green-mid: #1d6b4c;
-  --color-green-bright: #2a8a62;
-  --color-sage: #7f9a8b;
-  --color-sage-pale: #c3d2c8;
+  /* Navy */
+  --color-navy: #16305a;
+  --color-navy-deep: #0c1a2e;
+  --color-navy-mid: #1b3a63;
+  --color-navy-soft: #2c4d7d;
+
+  /* Accent */
+  --color-blue: #1f6fd0;
+  --color-blue-bright: #3d8ae5;
+  --color-blue-pale: #d9e8fb;
+  --color-blue-wash: #eef4fd;
 
   /* Ink */
-  --color-ink: #16211c;
-  --color-ink-soft: #46564e;
-  --color-ink-faint: #7b8a82;
+  --color-ink: #12233d;
+  --color-ink-soft: #4a5b73;
+  --color-ink-faint: #7a8aa3;
 
-  /* Market colours. Green is gain, red is loss — red is part of the game and
-     is used at full strength, not hidden. */
-  --color-gain: #2a8a62;
-  --color-gain-soft: #d6ece0;
-  --color-loss: #c2412d;
-  --color-loss-soft: #f6ddd6;
-  --color-loss-deep: #8f2c1d;
-
-  /* Accents */
-  --color-gold: #b08a3e;
-  --color-gold-pale: #ddc48a;
-  --color-clay: #a2513c;
+  /* Market colours — sign-carrying figures only */
+  --color-gain: #12855f;
+  --color-gain-soft: #d6f0e6;
+  --color-loss: #cf4436;
+  --color-loss-soft: #fbdfdb;
+  --color-warn: #b4791b;
 
   /* Hairlines */
-  --color-rule: rgba(14, 44, 34, 0.14);
-  --color-rule-soft: rgba(14, 44, 34, 0.08);
-  --color-rule-invert: rgba(250, 246, 236, 0.18);
+  --color-rule: rgba(18, 35, 61, 0.13);
+  --color-rule-soft: rgba(18, 35, 61, 0.07);
+  --color-rule-invert: rgba(255, 255, 255, 0.16);
 
-  --font-serif: var(--font-newsreader), "Iowan Old Style", Georgia, serif;
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-display: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
 
-  --radius-card: 4px;
+  --radius-card: 10px;
 
-  --shadow-lift: 0 1px 2px rgba(14, 44, 34, 0.04), 0 12px 32px -12px rgba(14, 44, 34, 0.12);
-  --shadow-deep: 0 2px 4px rgba(14, 44, 34, 0.05), 0 28px 60px -24px rgba(14, 44, 34, 0.22);
+  --shadow-lift: 0 1px 2px rgba(12, 26, 46, 0.05), 0 10px 26px -12px rgba(12, 26, 46, 0.16);
+  --shadow-deep: 0 2px 6px rgba(12, 26, 46, 0.06), 0 30px 60px -24px rgba(12, 26, 46, 0.26);
 }
 
 @layer base {
   :root {
-    /* The wordmark's snowcap. Bright green on cream grounds. */
-    --logo-accent: var(--color-gain);
-    --logo-accent-opacity: 1;
+    --logo-ink: var(--color-navy);
+    --logo-accent: var(--color-blue);
+    --logo-knockout: var(--color-paper);
   }
 
-  /* On the forest ground the whole mark is cream; keep the cap distinguishable. */
-  .on-forest {
-    --logo-accent: var(--color-gain);
-    --logo-accent-opacity: 1;
+  /* On navy grounds the peak and lowercase invert; the accent stays blue. */
+  .on-navy {
+    --logo-ink: #eaf1fb;
+    --logo-accent: var(--color-blue-bright);
+    --logo-knockout: var(--color-navy-deep);
   }
 
   * {
@@ -78,160 +76,177 @@
   }
 
   body {
-    background-color: var(--color-cream);
+    background-color: var(--color-paper);
     color: var(--color-ink);
-    font-family: var(--font-serif);
+    font-family: var(--font-sans);
     font-synthesis-weight: none;
-    text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 
-  /* Newsreader is an optical-size variable face; keep display sizes tighter. */
   h1, h2, h3, h4 {
-    font-family: var(--font-serif);
-    font-weight: 400;
-    letter-spacing: -0.018em;
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: -0.028em;
     text-wrap: balance;
   }
 
-  p {
-    text-wrap: pretty;
-  }
+  p { text-wrap: pretty; }
 
   ::selection {
-    background-color: var(--color-forest);
-    color: var(--color-cream);
+    background-color: var(--color-blue);
+    color: #fff;
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-green-mid);
+    outline: 2px solid var(--color-blue);
     outline-offset: 3px;
-    border-radius: 2px;
+    border-radius: 3px;
   }
 
-  /* Every figure in the site aligns in columns. */
-  .tnum,
-  table,
-  time {
+  .tnum, table, time, input, output {
     font-variant-numeric: tabular-nums;
     font-feature-settings: "tnum" 1;
   }
 }
 
 @layer components {
-  /* Small uppercase Inter label — the one place sans appears. */
   .label {
-    font-family: var(--font-sans);
     font-size: 0.6875rem;
-    font-weight: 500;
-    letter-spacing: 0.16em;
+    font-weight: 600;
+    letter-spacing: 0.13em;
     text-transform: uppercase;
     line-height: 1;
   }
 
   .label-sm {
-    font-family: var(--font-sans);
     font-size: 0.625rem;
-    font-weight: 500;
-    letter-spacing: 0.18em;
+    font-weight: 600;
+    letter-spacing: 0.15em;
     text-transform: uppercase;
     line-height: 1;
   }
 
-  .ui {
-    font-family: var(--font-sans);
-    letter-spacing: -0.005em;
+  .display {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: -0.03em;
   }
 
   /* Guarantees a 44px touch target on controls whose text box is smaller.
-     Inline links inside running prose are deliberately excluded — WCAG 2.5.8
-     exempts them, and padding them would break the line box. */
+     Inline links inside running prose are exempt, per WCAG 2.5.8. */
   .tap {
     display: inline-flex;
     align-items: center;
     min-height: 44px;
   }
 
-  /* Eyebrow with a leading rule — recurring section marker. */
   .eyebrow {
     display: inline-flex;
     align-items: center;
-    gap: 0.75rem;
-    color: var(--color-green-mid);
+    gap: 0.6rem;
+    color: var(--color-blue);
   }
 
   .eyebrow::before {
     content: "";
-    width: 1.75rem;
-    height: 1px;
+    width: 1.5rem;
+    height: 2px;
+    border-radius: 2px;
     background-color: currentColor;
-    opacity: 0.55;
-  }
-
-  .link-underline {
-    background-image: linear-gradient(currentColor, currentColor);
-    background-size: 100% 1px;
-    background-repeat: no-repeat;
-    background-position: 0 100%;
-    transition: background-size 0.4s cubic-bezier(0.2, 0.7, 0.3, 1);
-  }
-
-  .link-underline:hover {
-    background-size: 0% 1px;
-    background-position: 100% 100%;
   }
 
   .link-reveal {
     background-image: linear-gradient(currentColor, currentColor);
-    background-size: 0% 1px;
+    background-size: 0% 1.5px;
     background-repeat: no-repeat;
     background-position: 0 100%;
-    transition: background-size 0.4s cubic-bezier(0.2, 0.7, 0.3, 1);
+    transition: background-size 0.35s cubic-bezier(0.2, 0.7, 0.3, 1);
   }
 
-  .link-reveal:hover {
-    background-size: 100% 1px;
+  .link-reveal:hover { background-size: 100% 1.5px; }
+
+  /* Range inputs. Styled per-engine because there is still no cross-browser
+     way to paint a track and thumb from one rule. */
+  .range {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    /* 44px of hit area; the visible track stays 6px and is centred within it. */
+    height: 44px;
+    margin: -11px 0;
+    background: transparent;
+    cursor: grab;
+  }
+
+  .range:active { cursor: grabbing; }
+
+  .range::-webkit-slider-runnable-track {
+    height: 6px;
+    border-radius: 999px;
+    background: linear-gradient(
+      to right,
+      var(--color-blue) 0 var(--range-fill, 50%),
+      var(--color-canvas-deep) var(--range-fill, 50%) 100%
+    );
+  }
+
+  .range::-moz-range-track {
+    height: 6px;
+    border-radius: 999px;
+    background: var(--color-canvas-deep);
+  }
+
+  .range::-moz-range-progress {
+    height: 6px;
+    border-radius: 999px;
+    background: var(--color-blue);
+  }
+
+  .range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 22px;
+    height: 22px;
+    margin-top: -8px;
+    border-radius: 999px;
+    background: #fff;
+    border: 2.5px solid var(--color-blue);
+    box-shadow: 0 1px 4px rgba(12, 26, 46, 0.25);
+    transition: transform 0.15s ease;
+  }
+
+  .range::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 999px;
+    background: #fff;
+    border: 2.5px solid var(--color-blue);
+    box-shadow: 0 1px 4px rgba(12, 26, 46, 0.25);
+  }
+
+  .range:hover::-webkit-slider-thumb { transform: scale(1.12); }
+  .range:focus-visible::-webkit-slider-thumb { outline: 2px solid var(--color-blue); outline-offset: 2px; }
+
+  /* Faint blueprint grid for dark sections. */
+  .grid-lines {
+    background-image:
+      linear-gradient(var(--color-rule-invert) 1px, transparent 1px),
+      linear-gradient(90deg, var(--color-rule-invert) 1px, transparent 1px);
+    background-size: 56px 56px;
   }
 }
 
 @layer utilities {
-  /* Paper grain. Keeps large cream fields from reading as flat digital white. */
-  .grain::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    opacity: 0.32;
-    mix-blend-mode: multiply;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='0.42'/%3E%3C/svg%3E");
-  }
-
   .shell {
     width: 100%;
-    max-width: 78rem;
+    max-width: 80rem;
     margin-inline: auto;
-    padding-inline: 1.5rem;
+    padding-inline: 1.25rem;
   }
 
-  @media (min-width: 768px) {
-    .shell {
-      padding-inline: 2.5rem;
-    }
-  }
-
-  @media (min-width: 1280px) {
-    .shell {
-      padding-inline: 3.5rem;
-    }
-  }
-
-  .shell-narrow {
-    width: 100%;
-    max-width: 46rem;
-    margin-inline: auto;
-    padding-inline: 1.5rem;
-  }
+  @media (min-width: 768px) { .shell { padding-inline: 2.5rem; } }
+  @media (min-width: 1280px) { .shell { padding-inline: 3.5rem; } }
 }
 
 /* ------------------------------------------------------------------
@@ -240,167 +255,66 @@
 
 .reveal {
   opacity: 0;
-  transform: translateY(18px);
+  transform: translateY(16px);
   transition:
-    opacity 0.85s cubic-bezier(0.22, 0.68, 0.24, 1),
-    transform 0.85s cubic-bezier(0.22, 0.68, 0.24, 1);
+    opacity 0.7s cubic-bezier(0.22, 0.68, 0.24, 1),
+    transform 0.7s cubic-bezier(0.22, 0.68, 0.24, 1);
   transition-delay: var(--reveal-delay, 0ms);
 }
 
-.reveal[data-shown="true"] {
-  opacity: 1;
-  transform: none;
-}
+.reveal[data-shown="true"] { opacity: 1; transform: none; }
 
-/* Hero chart: the line draws itself, then the fill and markers arrive. */
-@keyframes draw-line {
-  to {
-    stroke-dashoffset: 0;
-  }
-}
-
-@keyframes fade-up {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-@keyframes fade-in {
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes rise {
-  from {
-    transform: scaleY(0);
-  }
-  to {
-    transform: scaleY(1);
-  }
-}
-
-@keyframes pulse-node {
-  0%, 100% {
-    opacity: 0.35;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0;
-    transform: scale(2.4);
-  }
-}
+@keyframes draw-line { to { stroke-dashoffset: 0; } }
+@keyframes fade-up { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+@keyframes fade-in { to { opacity: 1; } }
+@keyframes rise { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+@keyframes grow-candle { from { transform: scaleY(0.06); opacity: 0; } to { transform: scaleY(1); opacity: 1; } }
+@keyframes pulse-node { 0%, 100% { opacity: 0.35; transform: scale(1); } 50% { opacity: 0; transform: scale(2.4); } }
 
 .chart-line {
-  /* Paths carry pathLength="1", so the dash geometry is resolution-independent. */
+  /* Paths carry pathLength="1", so dash geometry is resolution-independent. */
   stroke-dasharray: 1;
   stroke-dashoffset: 1;
-  animation: draw-line 2.6s cubic-bezier(0.32, 0.72, 0.24, 1) 0.35s forwards;
+  animation: draw-line 2s cubic-bezier(0.32, 0.72, 0.24, 1) 0.3s forwards;
 }
 
-.chart-area {
-  opacity: 0;
-  animation: fade-in 1.4s ease-out 1.5s forwards;
-}
+.chart-area { opacity: 0; animation: fade-in 1.2s ease-out 1.3s forwards; }
+.chart-bar { transform-origin: bottom; animation: rise 0.85s cubic-bezier(0.22, 0.68, 0.24, 1) forwards; }
+.chart-candle { opacity: 0; transform-origin: center; transform-box: fill-box; animation: grow-candle 0.45s cubic-bezier(0.22, 0.68, 0.24, 1) forwards; }
+.chart-node { opacity: 0; animation: fade-up 0.6s ease-out forwards; }
+.chart-halo { transform-origin: center; transform-box: fill-box; animation: pulse-node 2.8s ease-out 2.4s infinite; }
+.fade-up { opacity: 0; animation: fade-up 0.85s cubic-bezier(0.22, 0.68, 0.24, 1) forwards; }
 
-.chart-bar {
-  transform-origin: bottom;
-  animation: rise 1s cubic-bezier(0.22, 0.68, 0.24, 1) forwards;
-}
-
-/* Candles grow from their own midpoint, staggered left to right. */
-@keyframes grow-candle {
-  from {
-    transform: scaleY(0.06);
-    opacity: 0;
-  }
-  to {
-    transform: scaleY(1);
-    opacity: 1;
-  }
-}
-
-.chart-candle {
-  opacity: 0;
-  transform-origin: center;
-  transform-box: fill-box;
-  animation: grow-candle 0.5s cubic-bezier(0.22, 0.68, 0.24, 1) forwards;
-}
-
-.chart-node {
-  opacity: 0;
-  animation: fade-up 0.7s ease-out forwards;
-}
-
-.chart-halo {
-  transform-origin: center;
-  transform-box: fill-box;
-  animation: pulse-node 2.8s ease-out 2.9s infinite;
-}
-
-.fade-up {
-  opacity: 0;
-  animation: fade-up 1s cubic-bezier(0.22, 0.68, 0.24, 1) forwards;
-}
-
-/* Photography settles into place rather than popping in. The scale is on the
-   image, the clip is on the frame, so nothing outside the frame ever moves. */
-.img-frame {
-  overflow: hidden;
-}
+/* Photography settles rather than popping in. */
+.img-frame { overflow: hidden; }
 
 .img-frame img {
   opacity: 0;
-  transform: scale(1.07);
+  transform: scale(1.06);
   transition:
-    opacity 1.1s cubic-bezier(0.22, 0.68, 0.24, 1),
-    transform 1.5s cubic-bezier(0.22, 0.68, 0.24, 1);
+    opacity 1s cubic-bezier(0.22, 0.68, 0.24, 1),
+    transform 1.4s cubic-bezier(0.22, 0.68, 0.24, 1);
 }
 
 .reveal[data-shown="true"] .img-frame img,
-.img-frame[data-shown="true"] img {
-  opacity: 1;
-  transform: none;
-}
+.img-frame[data-shown="true"] img { opacity: 1; transform: none; }
 
 @media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
+  html { scroll-behavior: auto; }
 
-  .reveal {
-    opacity: 1;
-    transform: none;
-    transition: none;
-  }
+  .reveal { opacity: 1; transform: none; transition: none; }
 
-  .chart-line,
-  .chart-area,
-  .chart-bar,
-  .chart-candle,
-  .chart-node,
-  .chart-halo,
-  .fade-up {
+  .chart-line, .chart-area, .chart-bar, .chart-candle,
+  .chart-node, .chart-halo, .fade-up {
     animation: none !important;
     opacity: 1;
     stroke-dashoffset: 0;
     transform: none;
   }
 
-  .img-frame img {
-    opacity: 1;
-    transform: none;
-    transition: none;
-  }
+  .img-frame img { opacity: 1; transform: none; transition: none; }
 
-  *,
-  *::before,
-  *::after {
+  *, *::before, *::after {
     animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
