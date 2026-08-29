@@ -102,14 +102,15 @@ export function HeroChart() {
       </figcaption>
 
       <div className="px-3 pt-3 pb-1">
-        <svg viewBox={`0 0 ${W} ${H}`} className="h-auto w-full" role="img"
+        <svg viewBox={`0 0 ${W} ${H}`} className="chart h-auto w-full" style={{ "--fs-sm": 28 } as React.CSSProperties} role="img"
           aria-label={`Monthly revenue against plan for FY26, finishing at ${attainment.toFixed(1)} percent of plan, a variance of ${money(variance)}.`}>
           <g aria-hidden="true">
             {[0.25, 0.5, 0.75, 1].map((f) => (
               <g key={f}>
                 <line x1={PAD.left} x2={W - PAD.right + 8} y1={by(MAX * f)} y2={by(MAX * f)}
                   stroke="var(--color-rule-soft)" strokeWidth="1" />
-                <text x={W - PAD.right + 18} y={by(MAX * f) + 4} fontSize="12" fill="var(--color-ink-faint)" className="tnum">
+                <text x={W - PAD.right + 18} y={by(MAX * f) + 4} fill="var(--color-ink-faint)"
+                  className={`tnum ${f === 0.5 || f === 1 ? "" : "dense"}`}>
                   ${((MAX * f) / 1000).toFixed(0)}K
                 </text>
               </g>
@@ -144,9 +145,13 @@ export function HeroChart() {
             <circle cx={bx(11)} cy={vy(CUM[11])} r="3.5" fill="var(--color-navy)" />
           </g>
 
-          <g aria-hidden="true" fontSize="12" fill="var(--color-ink-faint)">
+          <g aria-hidden="true" fill="var(--color-ink-faint)">
             {ROWS.map((r, i) => (
-              <text key={r.month} x={bx(i)} y={H - 16} textAnchor="middle">{r.month}</text>
+              // Twelve labels collide at phone width; keep the quarter marks.
+              <text key={r.month} x={bx(i)} y={H - 16} textAnchor="middle"
+                className={i % 3 === 0 ? undefined : "dense"}>
+                {r.month}
+              </text>
             ))}
           </g>
         </svg>

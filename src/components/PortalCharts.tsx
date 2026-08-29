@@ -28,7 +28,7 @@ const line = (() => {
 export function ArrChart() {
   const end = PTS[PTS.length - 1];
   return (
-    <svg viewBox={`0 0 ${W} ${H}`} className="h-auto w-full" role="img"
+    <svg viewBox={`0 0 ${W} ${H}`} className="chart h-auto w-full" style={{ "--fs-sm": 32 } as React.CSSProperties} role="img"
       aria-label={`ARR over 24 months, from $${(arrSeries[0] / 1e6).toFixed(2)} million to $${(arrSeries[arrSeries.length - 1] / 1e6).toFixed(2)} million.`}>
       <defs>
         <linearGradient id="arr-fill" x1="0" y1="0" x2="0" y2="1">
@@ -42,7 +42,8 @@ export function ArrChart() {
           return (
             <g key={f}>
               <line x1={PAD.left} x2={W - PAD.right} y1={py(v)} y2={py(v)} stroke="var(--color-rule-soft)" strokeWidth="1" />
-              <text x={PAD.left + 2} y={py(v) - 6} fontSize="11" className="tnum" fill="var(--color-ink-faint)">
+              <text x={PAD.left + 2} y={py(v) - 6} fill="var(--color-ink-faint)"
+                className={`tnum ${f === 0.5 || f === 1 ? "" : "dense"}`}>
                 ${(v / 1e6).toFixed(1)}M
               </text>
             </g>
@@ -58,9 +59,10 @@ export function ArrChart() {
         <circle cx={end[0]} cy={end[1]} r="5" fill="#fff" />
         <circle cx={end[0]} cy={end[1]} r="3.5" fill="var(--color-blue)" />
       </g>
-      <g aria-hidden="true" fontSize="11" fill="var(--color-ink-faint)">
+      <g aria-hidden="true" fill="var(--color-ink-faint)">
         {["24mo ago", "18mo", "12mo", "6mo", "Now"].map((t, i) => (
           <text key={t} x={PAD.left + (i / 4) * PLOT_W} y={H - 8}
+            className={i % 2 === 0 ? undefined : "dense"}
             textAnchor={i === 0 ? "start" : i === 4 ? "end" : "middle"}>{t}</text>
         ))}
       </g>

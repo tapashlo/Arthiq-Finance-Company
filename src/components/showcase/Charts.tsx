@@ -70,7 +70,7 @@ export function ForecastBuild() {
 
   return (
     <div>
-      <svg viewBox={`0 0 ${W} ${H}`} className="h-auto w-full" role="img"
+      <svg viewBox={`0 0 ${W} ${H}`} className="chart h-auto w-full" style={{ "--fs-sm": 24 } as React.CSSProperties} role="img"
         aria-label="Revenue forecast built from base, expansion and new-logo segments, with the prior plan shown as a dashed line.">
         {[0.25, 0.5, 0.75, 1].map((f) => (
           <line key={f} x1={P.l} x2={W - P.r} y1={y(max * f)} y2={y(max * f)} stroke={RULE} strokeWidth="1" />
@@ -80,7 +80,7 @@ export function ForecastBuild() {
         ))}
         <path d={PLAN.map((v, i) => `${i ? "L" : "M"}${x(i).toFixed(1)} ${y(v).toFixed(1)}`).join("")}
           fill="none" stroke={NAVY} strokeWidth="2" strokeDasharray="5 4" opacity="0.85" />
-        <g fontSize="11" fill={FAINT}>
+        <g fill={FAINT}>
           {[0, 8, 16].map((i, n) => (
             <text key={i} x={x(i)} y={H - 8} textAnchor={n === 0 ? "start" : "middle"}>Q{i % 4 + 1} FY{26 + Math.floor(i / 4)}</text>
           ))}
@@ -106,7 +106,7 @@ const BRIDGE = [
 ];
 
 export function VarianceBridge() {
-  const W = 640, H = 250, P = { t: 26, r: 8, b: 42, l: 8 };
+  const W = 640, H = 268, P = { t: 26, r: 8, b: 60, l: 8 };
   // Truncated axis: on a zero-based scale a $290K step against $4.2M is about
   // ten pixels. Bridges are conventionally drawn this way; the note says so.
   // Must clear the cumulative peak (plan + new logos + expansion = $4.79M),
@@ -132,12 +132,10 @@ export function VarianceBridge() {
   });
 
   return (
-    <svg viewBox={`0 0 ${W} ${H}`} className="h-auto w-full" role="img"
+    <div>
+    <svg viewBox={`0 0 ${W} ${H}`} className="chart h-auto w-full" style={{ "--fs-sm": 24 } as React.CSSProperties} role="img"
       aria-label="Bridge from plan revenue to actual, showing new logos and expansion as gains and churn and discounting as losses.">
       <line x1={P.l} x2={W - P.r} y1={y(floor)} y2={y(floor)} stroke="var(--color-rule)" strokeWidth="1" />
-      <text x={P.l} y={H - 8} fontSize="10.5" fill={FAINT}>
-        Axis truncated at ${(floor / 1e6).toFixed(2)}M so the steps are legible
-      </text>
       {bars.map((b, i) => (
         <g key={b.name}>
           {i > 0 && (
@@ -146,16 +144,28 @@ export function VarianceBridge() {
               stroke={FAINT} strokeWidth="1" strokeDasharray="3 3" opacity="0.7" />
           )}
           <rect x={b.cx - bw / 2} y={b.top} width={bw} height={Math.max(b.height, 2)} rx="2" fill={b.colour} />
-          <text x={b.cx} y={b.top - 8} textAnchor="middle" fontSize="11.5" fontWeight="600"
+          <text x={b.cx} y={b.top - 8} textAnchor="middle" fontWeight="600"
             fill={b.type === "total" ? NAVY : b.colour} className="tnum">
             {b.type === "total"
               ? `$${(b.value / 1e6).toFixed(2)}M`
               : `${b.value >= 0 ? "+" : "−"}$${Math.abs(b.value / 1000).toFixed(0)}K`}
           </text>
-          <text x={b.cx} y={H - 26} textAnchor="middle" fontSize="11" fill={FAINT}>{b.name}</text>
+          <text
+            x={b.cx}
+            y={i % 2 === 0 ? H - 42 : H - 8}
+            textAnchor="middle"
+            fill={FAINT}
+          >
+            {b.name}
+          </text>
         </g>
       ))}
     </svg>
+    <p className="mt-3 text-[0.75rem] leading-relaxed text-ink-faint">
+      Axis truncated at ${(floor / 1e6).toFixed(2)}M — on a zero-based scale a
+      $290K step against $4.2M is about ten pixels.
+    </p>
+    </div>
   );
 }
 
@@ -180,7 +190,7 @@ function retentionColour(v: number) {
 
 export function CohortGrid() {
   return (
-    <div className="overflow-x-auto">
+    <div className="scroll-x">
       <table className="w-full min-w-[30rem] border-separate border-spacing-0.5">
         <caption className="sr-only">Net revenue retention by monthly cohort.</caption>
         <thead>
@@ -276,19 +286,21 @@ export function CloseTimeline() {
   const days = 6;
   return (
     <div>
-      <div className="mb-3 grid grid-cols-6 gap-1.5 pl-[38%]">
+      <div className="mb-3 hidden grid-cols-6 gap-1.5 pl-[38%] sm:grid">
         {Array.from({ length: days }, (_, i) => (
           <span key={i} className="label-sm text-center text-ink-faint">D{i + 1}</span>
         ))}
       </div>
       <ul className="space-y-2">
         {CLOSE.map((c) => (
-          <li key={c.task} className="flex items-center gap-3">
-            <span className="w-[38%] shrink-0 pr-3 text-[0.8125rem] leading-tight text-navy">
+          <li key={c.task} className="flex flex-col gap-1.5 sm:flex-row sm:items-center sm:gap-3">
+            <span className="text-[0.8125rem] leading-tight text-navy sm:w-[38%] sm:shrink-0 sm:pr-3">
               {c.task}
-              <span className="mt-0.5 block text-[0.6875rem] text-ink-faint">{c.owner}</span>
+              <span className="ml-2 text-[0.6875rem] text-ink-faint sm:mt-0.5 sm:ml-0 sm:block">
+                {c.owner}
+              </span>
             </span>
-            <span className="relative h-6 flex-1 rounded bg-canvas-deep/60">
+            <span className="relative h-5 w-full rounded bg-canvas-deep/60 sm:h-6 sm:flex-1">
               <span
                 className={`absolute inset-y-0 rounded ${c.owner === "ArthIQ" ? "bg-blue" : "bg-navy/35"}`}
                 style={{ left: `${(c.start / days) * 100}%`, width: `${(c.len / days) * 100}%` }}
@@ -323,7 +335,7 @@ export function PaybackCurve() {
   const d = cum.map((v, i) => `${i ? "L" : "M"}${x(i).toFixed(1)} ${y(v).toFixed(1)}`).join("");
 
   return (
-    <svg viewBox={`0 0 ${W} ${H}`} className="h-auto w-full" role="img"
+    <svg viewBox={`0 0 ${W} ${H}`} className="chart h-auto w-full" style={{ "--fs-sm": 24 } as React.CSSProperties} role="img"
       aria-label={`Cumulative gross profit per customer crossing acquisition cost at month ${payback}.`}>
       <defs>
         <linearGradient id="pb" x1="0" y1="0" x2="0" y2="1">
@@ -333,18 +345,19 @@ export function PaybackCurve() {
       </defs>
       <path d={`${d}L${x(months)} ${y(0)}L${x(0)} ${y(0)}Z`} fill="url(#pb)" />
       <line x1={P.l} x2={W - P.r} y1={y(cac)} y2={y(cac)} stroke={LOSS} strokeWidth="2" strokeDasharray="6 4" />
-      <text x={W - P.r} y={y(cac) - 8} textAnchor="end" fontSize="11.5" fontWeight="600" fill={LOSS} className="tnum">
+      <text x={W - P.r} y={y(cac) - 8} textAnchor="end" fontWeight="600" fill={LOSS} className="tnum">
         CAC ${(cac / 1000).toFixed(1)}K
       </text>
       <path d={d} fill="none" stroke={BLUE} strokeWidth="2.5" strokeLinecap="round" />
       <line x1={x(payback)} x2={x(payback)} y1={y(cac)} y2={y(0)} stroke={GAIN} strokeWidth="1.5" strokeDasharray="3 3" />
       <circle cx={x(payback)} cy={y(cac)} r="5.5" fill={GAIN} />
-      <text x={x(payback) + 10} y={y(cac) + 20} fontSize="11.5" fontWeight="600" fill={GAIN} className="tnum">
+      <text x={x(payback) + 10} y={y(cac) + 20} fontWeight="600" fill={GAIN} className="tnum">
         Payback · month {payback}
       </text>
-      <g fontSize="11" fill={FAINT}>
+      <g fill={FAINT}>
         {[0, 6, 12, 18, 24].map((m, i) => (
-          <text key={m} x={x(m)} y={H - 8} textAnchor={i === 0 ? "start" : i === 4 ? "end" : "middle"}>
+          <text key={m} x={x(m)} y={H - 8} className={i % 2 === 0 ? undefined : "dense"}
+            textAnchor={i === 0 ? "start" : i === 4 ? "end" : "middle"}>
             {m === 0 ? "Signup" : `M${m}`}
           </text>
         ))}
