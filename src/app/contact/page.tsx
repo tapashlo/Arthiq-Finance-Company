@@ -66,16 +66,13 @@ export default function ContactPage() {
                   </div>
                 </div>
 
-                <address className="mt-10 space-y-1 text-lg not-italic leading-relaxed text-ink-soft">
-                  <div>{site.address.line1}</div>
-                  <div>
-                    {site.address.city}, {site.address.state} {site.address.zip}
-                  </div>
-                </address>
+                <p className="mt-9 text-lg leading-relaxed text-ink-soft">
+                  {site.based}. We work with founders in every time zone, and
+                  almost everything happens over video.
+                </p>
 
-                <p className="mt-8 text-base leading-relaxed text-ink-faint">
-                  Monday to Friday, 8am–5pm Pacific. Calls are answered by the
-                  team, not a service.
+                <p className="mt-6 text-base leading-relaxed text-ink-faint">
+                  {site.hours}. Calls are answered by the team, not a service.
                 </p>
               </div>
             </Reveal>

@@ -10,7 +10,7 @@ import { notDoing, philosophy, process, site, stats, team } from "@/lib/site";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "ArthIQ is an outsourced FP&A and fractional CFO team in San Francisco, founded in 2019. Meet the team and how we work.",
+    "ArthIQ is a remote-first outsourced FP&A and fractional CFO team serving venture-backed startups across the United States. Meet the team and how we work.",
 };
 
 export default function AboutPage() {
@@ -258,15 +258,15 @@ export default function AboutPage() {
       </section>
 
       {/* -------------------------------------------------------- location */}
-      <section className="border-t border-rule bg-canvas py-24 md:py-32">
+      <section className="border-t border-rule bg-canvas py-20 md:py-28">
         <div className="shell grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-5">
             <Reveal>
-              <Eyebrow>Where we are</Eyebrow>
-              <h2 className="mt-6 text-4xl leading-[1.08] text-navy md:text-5xl">
-                One office,
+              <Eyebrow>Where we work</Eyebrow>
+              <h2 className="display mt-6 text-3xl leading-tight text-navy md:text-4xl">
+                No office.
                 <br />
-                mostly remote.
+                On purpose.
               </h2>
             </Reveal>
           </div>
@@ -278,29 +278,22 @@ export default function AboutPage() {
               className="mb-10 rounded-lg"
             />
             <Reveal delay={100}>
-              <p className="max-w-xl text-xl leading-relaxed text-ink-soft">
-                We meet clients at {site.address.line1} when it helps, and far more
-                often wherever is easier. Most of our clients are outside California, and almost all of the
-                work happens over video, and nothing about the work requires a
-                conference room.
+              <p className="max-w-xl text-lg leading-relaxed text-ink-soft">
+                Our clients are spread across 34 states, and so are we. The
+                monthly rhythm runs over video and a shared model, which is how
+                finance works at a distributed company anyway. When a board
+                meeting or a raise wants someone in the room, we get on a plane.
               </p>
-              <address className="mt-10 space-y-1 text-lg not-italic leading-relaxed text-navy">
-                <div>{site.address.line1}</div>
-                <div>
-                  {site.address.city}, {site.address.state} {site.address.zip}
-                </div>
-              </address>
-              <div className="mt-6 flex flex-wrap gap-x-8 gap-y-2 text-lg">
-                <a
-                  href={site.phoneHref}
-                  className="link-reveal tap tnum text-blue hover:text-navy"
-                >
+              <p className="mt-6 max-w-xl text-lg leading-relaxed text-ink-soft">
+                It also means we are not staffing you from whoever happens to
+                live near an office. You get the three people who fit your
+                stage and your sector.
+              </p>
+              <div className="mt-9 flex flex-wrap gap-x-8 gap-y-3 text-lg">
+                <a href={site.phoneHref} className="link-reveal tap tnum text-blue hover:text-navy">
                   {site.phone}
                 </a>
-                <a
-                  href={`mailto:${site.email}`}
-                  className="link-reveal tap text-blue hover:text-navy"
-                >
+                <a href={`mailto:${site.email}`} className="link-reveal tap text-blue hover:text-navy">
                   {site.email}
                 </a>
               </div>
