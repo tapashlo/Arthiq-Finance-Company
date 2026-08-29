@@ -11,12 +11,13 @@ opening its source URL and following through to the photo page.
 
 | File | Source |
 | --- | --- |
-| `src/images/summit.jpg` | https://images.unsplash.com/photo-1454496522488-7a8e488e8606 |
-| `src/images/ridge.jpg` | https://images.unsplash.com/photo-1483728642387-6c3bdd6c93e5 |
-| `src/images/above-clouds.jpg` | https://images.unsplash.com/photo-1506905925346-21bda4d32df4 |
-| `src/images/highlands.jpg` | https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05 |
-| `src/images/office.jpg` | https://images.unsplash.com/photo-1497366754035-f200968a6e72 |
-| `src/images/tower.jpg` | https://images.unsplash.com/photo-1486406146926-c627a92ad1ab |
+| `src/images/dashboard.jpg` | https://images.unsplash.com/photo-1551288049-bebda4e38f71 |
+| `src/images/trading.jpg` | https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3 |
+| `src/images/meeting.jpg` | https://images.unsplash.com/photo-1517245386807-bb43f82c33c4 |
+| `src/images/desk.jpg` | https://images.unsplash.com/photo-1554224155-6726b3ff858f |
+| `src/images/skyline.jpg` | https://images.unsplash.com/photo-1486406146926-c627a92ad1ab |
+| `src/images/workshop.jpg` | https://images.unsplash.com/photo-1553877522-43269d4ea984 |
+| `src/images/screens.jpg` | https://images.unsplash.com/photo-1526628953301-3e589a6a8b74 |
 
 Images were downloaded at 1800px wide, q=72, and are re-encoded by Next.js at
 request time into AVIF/WebP at the sizes each layout actually needs.

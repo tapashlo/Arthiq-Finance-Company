@@ -36,7 +36,7 @@ export function SiteHeader() {
       className={[
         "fixed inset-x-0 top-0 z-50 transition-[background-color,border-color,backdrop-filter] duration-500",
         scrolled || open
-          ? "border-b border-rule bg-cream/88 backdrop-blur-md"
+          ? "border-b border-rule bg-paper/88 backdrop-blur-md"
           : "border-b border-transparent bg-transparent",
       ].join(" ")}
     >
@@ -44,7 +44,7 @@ export function SiteHeader() {
         <Link
           href="/"
           aria-label="ArthIQ — home"
-          className="-my-2 shrink-0 py-2 text-forest transition-opacity duration-300 hover:opacity-70"
+          className="-my-2 shrink-0 py-2 text-navy transition-opacity duration-300 hover:opacity-70"
         >
           <Wordmark simplified className="h-8 w-auto md:h-9" />
         </Link>
@@ -59,7 +59,7 @@ export function SiteHeader() {
                 aria-current={active ? "page" : undefined}
                 className={[
                   "label link-reveal tap transition-colors duration-300",
-                  active ? "text-green" : "text-ink-soft hover:text-forest",
+                  active ? "text-blue" : "text-ink-soft hover:text-navy",
                 ].join(" ")}
               >
                 {item.label}
@@ -71,13 +71,13 @@ export function SiteHeader() {
         <div className="hidden items-center gap-6 lg:flex">
           <Link
             href="/portal"
-            className="label tap text-ink-soft transition-colors duration-300 hover:text-forest"
+            className="label tap text-ink-soft transition-colors duration-300 hover:text-navy"
           >
             Client login
           </Link>
           <Link
             href="/contact"
-            className="label rounded-xs bg-forest px-5 py-3.5 text-cream transition-colors duration-300 hover:bg-green"
+            className="label rounded-lg bg-navy px-5 py-3.5 text-white transition-colors duration-300 hover:bg-blue"
           >
             Book a call
           </Link>
@@ -88,7 +88,7 @@ export function SiteHeader() {
           onClick={() => setOpen((v) => !v)}
           aria-expanded={open}
           aria-controls="mobile-nav"
-          className="label -mr-2 flex items-center gap-3 px-3 py-4 text-forest lg:hidden"
+          className="label -mr-2 flex items-center gap-3 px-3 py-4 text-navy lg:hidden"
         >
           {open ? "Close" : "Menu"}
           <span aria-hidden="true" className="relative block h-3 w-5">
@@ -112,14 +112,14 @@ export function SiteHeader() {
       <div
         id="mobile-nav"
         hidden={!open}
-        className="grain relative h-[calc(100dvh-5rem)] overflow-y-auto border-t border-rule bg-cream lg:hidden"
+        className="relative h-[calc(100dvh-5rem)] overflow-y-auto border-t border-rule bg-paper lg:hidden"
       >
         <div className="shell flex flex-col py-8">
           {nav.map((item, i) => (
             <Link
               key={item.href}
               href={item.href}
-              className="fade-up border-b border-rule-soft py-5 text-3xl text-forest"
+              className="fade-up border-b border-rule-soft py-5 text-3xl text-navy"
               style={{ animationDelay: `${i * 60}ms` }}
             >
               {item.label}
@@ -128,13 +128,13 @@ export function SiteHeader() {
           <div className="mt-8 flex flex-col gap-3">
             <Link
               href="/contact"
-              className="label rounded-xs bg-forest px-6 py-4.5 text-center text-cream"
+              className="label rounded-lg bg-navy px-6 py-4.5 text-center text-white"
             >
               Book a call
             </Link>
             <Link
               href="/portal"
-              className="label rounded-xs border border-rule px-6 py-4.5 text-center text-forest"
+              className="label rounded-lg border border-rule px-6 py-4.5 text-center text-navy"
             >
               Client login
             </Link>

@@ -1,19 +1,18 @@
 /**
  * Site content.
  *
- * PLACEHOLDER CONTENT — every name, figure, address, quote and statistic below
- * is invented for design purposes. Replace before launch. Nothing here has been
- * reviewed for regulatory compliance.
+ * PLACEHOLDER — every name, figure, client and quote below is invented for
+ * design purposes. Replace before launch.
  */
 
 export const site = {
   name: "ArthIQ",
-  legalName: "ArthIQ Wealth Management, LLC",
-  tagline: "Wealth management, reconsidered.",
+  legalName: "ArthIQ Advisory, LLC",
+  tagline: "Financial planning and analysis for companies that move fast.",
   description:
-    "ArthIQ is a fee-only fiduciary wealth manager in San Francisco. Portfolio management and retirement and tax planning for families across the United States.",
+    "ArthIQ is an outsourced FP&A and fractional CFO team for venture-backed startups. Forecasting, board reporting, budgeting and unit economics — run by people who have sat in the seat.",
   url: "https://arthiq.com",
-  founded: 2016,
+  founded: 2019,
   address: {
     line1: "1 Sansome Street, Suite 3500",
     city: "San Francisco",
@@ -23,96 +22,93 @@ export const site = {
   phone: "(415) 555-0142",
   phoneHref: "tel:+14155550142",
   email: "hello@arthiq.com",
-  custodian: "Schwab Advisor Services",
 } as const;
 
 export const nav = [
-  { href: "/about", label: "About" },
   { href: "/services", label: "Services" },
+  { href: "/tools", label: "Free tools" },
   { href: "/insights", label: "Insights" },
-  { href: "/contact", label: "Contact" },
+  { href: "/about", label: "About" },
 ] as const;
 
 /* ---------------------------------------------------------------- stats -- */
 
 export const stats = [
-  { value: "$1.24B", label: "Assets under advice", note: "as of Jun 30, 2026" },
-  { value: "382", label: "Client households", note: "across 31 states" },
-  { value: "0.65%", label: "Starting annual fee", note: "declining with scale" },
-  { value: "9", label: "Years fee-only", note: "founded 2016" },
+  { value: "140+", label: "Startups supported", note: "Seed through Series C" },
+  { value: "$2.8B", label: "Capital raised by clients", note: "with our models in the room" },
+  { value: "6 days", label: "Median close", note: "down from 19 at onboarding" },
+  { value: "94%", label: "Forecast accuracy", note: "revenue, trailing 4 quarters" },
 ] as const;
 
 /* ------------------------------------------------------------- services -- */
 
 export const services = [
   {
-    slug: "investment-management",
+    slug: "forecasting",
     number: "01",
-    title: "Portfolio & investment management",
+    title: "Driver-based forecasting",
     summary:
-      "A single portfolio built around your whole balance sheet, managed with low turnover and constant attention to what you keep after tax.",
+      "A model that runs on the handful of drivers that actually move your business, so changing an assumption takes a minute rather than a weekend.",
     detail:
-      "We build one portfolio across every account you hold — taxable, retirement, trust, donor-advised — and manage it as a single balance sheet rather than a set of unrelated buckets. Allocation is set against your actual spending horizon, not a risk questionnaire score.",
+      "We rebuild your forecast around operating drivers — pipeline coverage, conversion, ramp, churn, headcount plan — instead of a grid of hardcoded numbers. One input change flows through revenue, headcount, cash and the balance sheet at once.",
     points: [
-      {
-        title: "Whole-balance-sheet allocation",
-        body: "One target allocation, implemented across every account, with asset location chosen so tax-inefficient holdings sit where they cost least.",
-      },
-      {
-        title: "Systematic tax-loss harvesting",
-        body: "Positions are reviewed daily for harvesting opportunities and paired with correlated replacements, with wash-sale rules tracked across household accounts.",
-      },
-      {
-        title: "Direct indexing at scale",
-        body: "For taxable portfolios above $500,000 we hold the index directly, which turns a single fund line into hundreds of individual loss-harvesting opportunities.",
-      },
-      {
-        title: "Concentrated position management",
-        body: "Multi-year diversification plans for a single large holding, coordinated with exchange funds, charitable vehicles and your tax bracket.",
-      },
-      {
-        title: "Rebalancing with a tolerance band",
-        body: "We rebalance when an asset class drifts outside its band, not on a calendar. Fewer trades, less realized gain, same risk control.",
-      },
-      {
-        title: "Private market access",
-        body: "Where it fits the plan, access to institutional private credit, real assets and venture funds normally closed to individual investors.",
-      },
+      { title: "Three-statement model", body: "P&L, balance sheet and cash flow that actually tie out, with a documented driver tree behind every line." },
+      { title: "Scenario branches", body: "Base, upside and downside held side by side, so board conversations start from a range rather than a single number." },
+      { title: "Hiring plan integration", body: "Headcount by role and start date, fully loaded with taxes and benefits, driving both cost and capacity." },
+      { title: "Rolling re-forecast", body: "Updated monthly against actuals, so the plan reflects the business as it is rather than as it was in January." },
+      { title: "Runway and raise timing", body: "Cash-out date under each scenario, and the milestones you need to hit before the next round." },
+      { title: "Sensitivity analysis", body: "Which assumptions actually matter, ranked — so you know where to spend management attention." },
     ],
   },
   {
-    slug: "retirement-tax-planning",
+    slug: "board-reporting",
     number: "02",
-    title: "Retirement & tax planning",
+    title: "Board & investor reporting",
     summary:
-      "A multi-decade projection of income, taxes and withdrawals — revisited every year, and used to decide what actually happens this April.",
+      "The pack your board actually reads: a clear narrative, the metrics that matter, and no surprises in the room.",
     detail:
-      "Planning at ArthIQ is a running model, not a bound document. We project your income, brackets and required distributions out through your nineties, then work backwards to the decisions in front of you this year.",
+      "We build and run the monthly and quarterly reporting rhythm — the numbers, the commentary and the pre-read. Directors get the story before the meeting, so the meeting is about decisions.",
     points: [
-      {
-        title: "Multi-year tax projection",
-        body: "A year-by-year bracket model that shows where the low-tax windows fall — usually between retirement and the start of required distributions.",
-      },
-      {
-        title: "Roth conversion sequencing",
-        body: "We fill the low brackets deliberately in those windows, sized against IRMAA thresholds and the tax rate your heirs are likely to face.",
-      },
-      {
-        title: "Withdrawal order design",
-        body: "Which account funds each year of spending, chosen to smooth lifetime tax rather than to minimize the current return.",
-      },
-      {
-        title: "Social Security timing",
-        body: "Claiming analysis run against your own longevity assumptions and, for couples, the survivor benefit that outlives the first claim.",
-      },
-      {
-        title: "Charitable strategy",
-        body: "Donor-advised fund bunching, appreciated-share gifting and qualified charitable distributions, timed to the years they are worth the most.",
-      },
-      {
-        title: "Annual return coordination",
-        body: "We work directly with your CPA, deliver a tax-planning memo each autumn, and review the filed return each spring for what to change.",
-      },
+      { title: "Monthly investor update", body: "A tight narrative with KPIs, cash position, hiring and asks — sent on a schedule your investors can rely on." },
+      { title: "Board deck and pre-read", body: "Financials, plan-versus-actual and the two or three decisions that need airtime, circulated 72 hours ahead." },
+      { title: "KPI definitions", body: "Every metric defined once and applied consistently, so numbers stop changing between decks." },
+      { title: "Data room readiness", body: "Historicals, cohorts and the model kept in diligence-ready shape year round, not assembled in a panic." },
+      { title: "Cap table and dilution", body: "Scenario modelling for the next round, option pool refreshes and what each outcome means for founders." },
+      { title: "Audit and diligence support", body: "We sit alongside your auditors and your acquirer's team so the process does not stall your operators." },
+    ],
+  },
+  {
+    slug: "budgeting",
+    number: "03",
+    title: "Budgeting & variance analysis",
+    summary:
+      "Department owners who understand their numbers, and a monthly variance review that explains the gap instead of just reporting it.",
+    detail:
+      "Budgets fail when they are handed down. We build them with the people who spend the money, then close the loop every month with a variance review that gets to cause, not just size.",
+    points: [
+      { title: "Bottom-up build", body: "Department owners build their own budgets against agreed targets, so nobody is surprised by their own number." },
+      { title: "Monthly variance review", body: "Plan versus actual by department, with the drivers behind each gap and an owner for each action." },
+      { title: "Spend controls", body: "Approval thresholds and vendor review that slow down the right decisions and none of the others." },
+      { title: "Headcount governance", body: "Requisition tracking against the approved plan, so hiring drift is visible in week one rather than quarter three." },
+      { title: "Close calendar", body: "A documented close with owners and deadlines. Most clients go from three weeks to under one." },
+      { title: "Systems and data hygiene", body: "Chart of accounts, cost centres and integrations set up so the reporting builds itself." },
+    ],
+  },
+  {
+    slug: "unit-economics",
+    number: "04",
+    title: "Metrics & unit economics",
+    summary:
+      "CAC, payback, cohort retention and the burn multiple — computed the way your investors compute them, and trusted because the definitions hold.",
+    detail:
+      "Most startups have metrics. Fewer have metrics they can defend under diligence. We rebuild them from source data with definitions written down, then benchmark you against the stage you are actually at.",
+    points: [
+      { title: "Cohort retention", body: "Logo and revenue retention by cohort, so expansion and churn stop cancelling each other out in the average." },
+      { title: "CAC and payback", body: "Fully loaded acquisition cost by channel and segment, with payback measured on gross profit rather than revenue." },
+      { title: "Burn multiple", body: "Net burn per dollar of net new ARR — the number that decides whether the next round is a conversation or a negotiation." },
+      { title: "Contribution margin", body: "Unit economics after support, hosting and payment costs, so pricing decisions rest on something real." },
+      { title: "Benchmarking", body: "Where you sit against comparable companies at your stage, and which gaps are worth closing before you raise." },
+      { title: "Metric definitions", body: "One written definition per metric, versioned, so a number means the same thing in March as it did in January." },
     ],
   },
 ] as const;
@@ -120,182 +116,69 @@ export const services = [
 /* ----------------------------------------------------------- philosophy -- */
 
 export const philosophy = [
-  {
-    title: "Evidence over narrative",
-    body: "Allocation decisions come from long-run evidence about how asset classes behave, not from a view on the next two quarters. We have no house forecast, because we have never found one worth charging for.",
-  },
-  {
-    title: "After-tax is the only return",
-    body: "A pre-tax number is a marketing figure. Asset location, harvesting, holding periods and withdrawal order are treated as part of the investment process, not as a clean-up exercise in April.",
-  },
-  {
-    title: "Cost compounds in both directions",
-    body: "We build with broad, low-cost funds and hold them. Turnover is a cost, spreads are a cost, and our own fee is a cost — so we publish it plainly and let it decline as a relationship grows.",
-  },
-  {
-    title: "Fewer, better decisions",
-    body: "Most of the value in this work sits in a handful of choices: how much risk, in what accounts, funded in what order. We spend our time there, and leave the rest alone.",
-  },
+  { title: "Operators, not reporters", body: "Everyone on this team has run finance inside a company. We are not producing a deliverable and leaving; we are in your Slack when a pricing decision needs a number by Thursday." },
+  { title: "The model is a tool, not an artifact", body: "A forecast that takes a week to update is a forecast nobody updates. Ours are built to be changed — clearly structured, documented, and yours to keep." },
+  { title: "Definitions before dashboards", body: "Most reporting problems are definition problems. We write down what each metric means before we build anything that displays it." },
+  { title: "Fewer numbers, better understood", body: "A board deck with sixty charts hides the three that matter. We cut hard, and we make sure the survivors are defensible." },
 ] as const;
 
 export const notDoing = [
-  "We do not sell insurance, annuities or proprietary products.",
-  "We do not accept commissions, referral fees or revenue sharing.",
-  "We do not time markets or run tactical overlays.",
-  "We do not lock clients into contracts. Leave with 30 days' notice.",
+  "We do not do bookkeeping — we work alongside your accountant.",
+  "We do not sell software licences or take vendor referral fees.",
+  "We do not hand you a model and disappear.",
+  "We do not lock you in. Month to month, 30 days' notice.",
 ] as const;
 
 /* ----------------------------------------------------------------- team -- */
 
 export const team = [
-  {
-    name: "Maya Lindqvist, CFA",
-    role: "Founder & Chief Investment Officer",
-    initials: "ML",
-    bio: "Founded ArthIQ in 2016 after eleven years building multi-asset portfolios at a Bay Area endowment. Chairs the investment committee and owns the allocation framework every client portfolio is built from.",
-    detail: "Previously: multi-asset portfolio management, university endowment. CFA charterholder.",
-  },
-  {
-    name: "Daniel Okonkwo, CFP®",
-    role: "Partner, Head of Planning",
-    initials: "DO",
-    bio: "Leads the planning practice and the projection model behind it. Joined from a national wealth manager where the planning process, in their words, produced beautiful documents nobody opened twice.",
-    detail: "Previously: senior planner, national RIA. CERTIFIED FINANCIAL PLANNER™ professional.",
-  },
-  {
-    name: "Priya Raman, CPA",
-    role: "Director of Tax Strategy",
-    initials: "PR",
-    bio: "Runs multi-year projections, conversion sequencing and charitable timing, and coordinates directly with each client's CPA through filing season.",
-    detail: "Previously: private client tax, Big Four. Licensed CPA in California.",
-  },
-  {
-    name: "Thomas Auger, CFA",
-    role: "Portfolio Manager",
-    initials: "TA",
-    bio: "Implements the allocation day to day: harvesting, rebalancing bands, direct indexing and the trade blotter. Watches drift so clients do not have to.",
-    detail: "Previously: fixed income trading desk. CFA charterholder.",
-  },
-  {
-    name: "Grace Whitfield",
-    role: "Director of Client Experience",
-    initials: "GW",
-    bio: "Owns onboarding, transfers and the reporting clients actually read. Has moved more than 300 accounts between custodians without losing a cost basis yet.",
-    detail: "Previously: client operations, independent RIA.",
-  },
-  {
-    name: "Ben Ortiz",
-    role: "Associate Adviser",
-    initials: "BO",
-    bio: "Supports planning work across the practice, prepares projection updates ahead of annual reviews, and is the first person most clients reach on a weekday morning.",
-    detail: "Previously: financial planning analyst. CFP® candidate.",
-  },
+  { name: "Maya Lindqvist", role: "Founder & Managing Partner", initials: "ML", bio: "Built and ran FP&A through two Series C rounds and one acquisition before founding ArthIQ. Owns the modelling standard every engagement is built on.", detail: "Previously VP Finance at a Series D infrastructure company." },
+  { name: "Daniel Okonkwo", role: "Partner, Fractional CFO", initials: "DO", bio: "Sits in the CFO seat for four clients at a time. Runs board meetings, raise processes and the conversations founders would rather not have alone.", detail: "Previously CFO at two venture-backed marketplaces." },
+  { name: "Priya Raman", role: "Director of Analytics", initials: "PR", bio: "Owns the metrics layer: cohort models, unit economics and the data pipelines that keep them honest between board meetings.", detail: "Previously data lead in a growth-stage fintech." },
+  { name: "Thomas Auger", role: "Senior FP&A Manager", initials: "TA", bio: "Runs the monthly cycle across the client base — close, variance review, re-forecast — and rebuilds models that have stopped being usable.", detail: "Previously FP&A at a public SaaS company." },
+  { name: "Grace Whitfield", role: "Head of Client Operations", initials: "GW", bio: "Owns onboarding: systems, chart of accounts, close calendar. Has taken more than sixty companies from spreadsheet chaos to a six-day close.", detail: "Previously controller at a Series B company." },
+  { name: "Ben Ortiz", role: "FP&A Analyst", initials: "BO", bio: "Builds the models and the board packs, and is usually the first person to spot that a number moved before anyone asks why.", detail: "Previously investment banking, technology coverage." },
 ] as const;
 
 /* --------------------------------------------------------------- process -- */
 
 export const process = [
-  {
-    step: "01",
-    title: "Introductory call",
-    duration: "45 minutes",
-    body: "A conversation, not a pitch. What you own, what you are deciding, and whether we are the right firm for it. No documents required.",
-  },
-  {
-    step: "02",
-    title: "Financial review",
-    duration: "2 weeks",
-    body: "We read your statements, tax returns and estate documents, then come back with what we see — including anything already working well.",
-  },
-  {
-    step: "03",
-    title: "Plan & portfolio proposal",
-    duration: "1 session",
-    body: "The projection, the proposed allocation, the transition cost in realized gains, and our fee. Everything on one page before anything moves.",
-  },
-  {
-    step: "04",
-    title: "Transition",
-    duration: "3–6 weeks",
-    body: "Accounts move in kind to your custodian. We stage sales across tax years where it saves you money, and you approve every realized gain.",
-  },
-  {
-    step: "05",
-    title: "Ongoing",
-    duration: "Continuous",
-    body: "Quarterly reporting, an autumn tax memo, an annual plan update, and a direct line the rest of the year.",
-  },
+  { step: "01", title: "Diagnostic call", duration: "45 minutes", body: "What you are deciding, what your current numbers can and cannot answer, and whether we are the right team for it. No documents needed." },
+  { step: "02", title: "Finance audit", duration: "2 weeks", body: "We review your model, close process, systems and metric definitions, then come back with what is working and what is quietly broken." },
+  { step: "03", title: "Rebuild", duration: "3–5 weeks", body: "New driver-based model, cleaned-up chart of accounts, defined metrics and a documented close calendar. You own all of it." },
+  { step: "04", title: "Monthly rhythm", duration: "Ongoing", body: "Close, variance review, re-forecast, investor update. Board pack and pre-read every quarter, with your CFO in the room." },
+  { step: "05", title: "Raise support", duration: "As needed", body: "Data room, diligence responses and scenario modelling when the next round starts, without pulling your team off the roadmap." },
 ] as const;
 
 /* ---------------------------------------------------------- testimonials -- */
 
 export const testimonials = [
-  {
-    quote:
-      "We came in with nine accounts at four institutions and no idea what we actually owned. Six weeks later it was one portfolio, and the tax bill on the transition was smaller than the fee.",
-    name: "R. and J. Whitmore",
-    detail: "Clients since 2021 · Palo Alto",
-  },
-  {
-    quote:
-      "The conversion schedule they built has saved us more than their fee every year since. Nobody had ever shown us the bracket math on a single page before.",
-    name: "Karen Ellsworth",
-    detail: "Client since 2019 · Marin County",
-  },
-  {
-    quote:
-      "What I value most is what they talk me out of. Twice now they have told me a move was not worth the tax, which is not what my last advisor was paid to say.",
-    name: "Marcus Delgado",
-    detail: "Client since 2018 · San Francisco",
-  },
+  { quote: "We went into our Series B with a model our lead investor's analyst could not break. That has never happened to me before, and it changed the tone of the whole process.", name: "Rachel Whitmore", detail: "Co-founder & CEO · infrastructure, Series B" },
+  { quote: "Our close went from nineteen days to six in a quarter. The bigger change is that our department heads now argue about their own numbers, which they never did when finance owned them.", name: "Karen Ellsworth", detail: "COO · marketplace, Series A" },
+  { quote: "What I value most is being told when I am wrong. They talked me out of a hiring plan last spring that would have cost us four months of runway for nothing.", name: "Marcus Delgado", detail: "Founder & CEO · developer tools, Seed" },
 ] as const;
 
 export const testimonialDisclosure =
-  "The statements above are from current clients of ArthIQ Wealth Management, LLC. No cash or non-cash compensation was provided in exchange for these statements. A client's experience is not necessarily representative of the experience of other clients, and these statements are not a guarantee of any future result or outcome. Because these individuals are clients, a material conflict of interest exists: clients have an incentive to describe their experience favorably. Names shown are illustrative placeholders for design purposes.";
+  "Names, companies and quotations above are illustrative placeholders created for design purposes and do not describe real clients or real engagements.";
 
 /* ------------------------------------------------------------------ faq -- */
 
 export const faqs = [
-  {
-    q: "Is there an account minimum?",
-    a: "We generally work with households above $1.5 million in investable assets, which is where our planning work tends to pay for itself. It is a guideline rather than a rule — if your situation is a fit, the number is negotiable, and we will say so on the first call.",
-  },
-  {
-    q: "How exactly are you paid?",
-    a: "A single annual fee, charged quarterly as a percentage of assets we manage, starting at 0.65% and declining at each breakpoint above $3 million. That is our only source of revenue. We receive no commissions, no referral payments, no revenue sharing and no compensation of any kind from fund providers.",
-  },
-  {
-    q: "Are you a fiduciary all of the time?",
-    a: "Yes. ArthIQ is a registered investment adviser and owes a fiduciary duty of care and loyalty to every client in every interaction. That standard does not switch off when a product is discussed, because we do not sell products.",
-  },
-  {
-    q: "Who actually holds my money?",
-    a: "Your assets are custodied at Schwab Advisor Services in accounts titled in your name. ArthIQ never takes possession of client funds. We have trading and fee-deduction authority; we cannot move money to a third party.",
-  },
-  {
-    q: "How long does it take to switch from my current advisor?",
-    a: "Three to six weeks in most cases. Accounts transfer in kind wherever possible, so you stay invested through the move. We handle the paperwork with your current firm, and we will tell you before the transition what it costs in realized gains.",
-  },
-  {
-    q: "What will the tax bill be to move my portfolio?",
-    a: "We calculate it before you commit and show it in the proposal. In taxable accounts we usually keep low-basis positions rather than sell them, then work the portfolio toward its target over several tax years using new contributions and harvested losses.",
-  },
-  {
-    q: "How often will we actually talk?",
-    a: "Formally: an annual plan review, an autumn tax-planning session and quarterly reporting. Informally, as often as you need — there is no meter running, and we would rather hear about a decision before you make it.",
-  },
-  {
-    q: "What happens if I want to leave?",
-    a: "Thirty days' written notice, no termination fee, no surrender charges, nothing to unwind. The accounts are already in your name; you tell the custodian who advises them.",
-  },
+  { q: "How is this different from hiring a full-time finance lead?", a: "A strong Director of FP&A costs $220k–$280k fully loaded, takes three to five months to hire, and gives you one person's experience. We cost less, start in two weeks, and put a CFO, an FP&A manager and an analyst on your account. When you are ready for someone in-house, we help you hire them and hand over cleanly — that is a successful outcome, not a lost client." },
+  { q: "What stage do you usually work with?", a: "Most clients are between Seed and Series C — roughly $1M to $50M in ARR. Below that, a good bookkeeper and a simple model are usually enough, and we will tell you so. Above it, you generally want a full in-house team, and we help you build it." },
+  { q: "Do you replace our accountant or bookkeeper?", a: "No. They own the books; we own the forward-looking work — forecasting, planning, analysis and reporting. We work alongside them, and a clean monthly close from your bookkeeper is what makes our work possible." },
+  { q: "How long until we see something useful?", a: "The finance audit lands in two weeks and is usually uncomfortable reading. A working driver-based model follows three to five weeks after that. The first board pack we produce end-to-end is typically your next quarterly meeting." },
+  { q: "What tools do you work in?", a: "Your general ledger, whatever it is, plus a modelling layer. Most clients run on spreadsheets far longer than vendors would like you to believe, and we will not sell you a planning platform you do not need yet. When you do outgrow spreadsheets, we help you choose and implement." },
+  { q: "Who actually does the work?", a: "The people on the team page. Each engagement gets a fractional CFO, an FP&A manager and an analyst. You will know all three by name, and none of them is a rotating pool." },
+  { q: "What does it cost?", a: "Engagements start at $6,500 a month for a Seed-stage company on a monthly rhythm, and scale with complexity — entities, currencies, board cadence and raise activity. We quote a fixed monthly fee after the diagnostic call, and it does not change without a conversation." },
+  { q: "What happens if we want to stop?", a: "Thirty days' notice, month to month, no termination fee. You keep the model, the documentation and the definitions — they were built for you, not rented to you." },
 ] as const;
 
 /* -------------------------------------------------------------- insights -- */
 
 export type Article = {
   slug: string;
-  /** Key into `images` in src/lib/images.ts. */
-  image: "summit" | "ridge" | "aboveClouds" | "highlands" | "office" | "tower";
+  image: "dashboard" | "meeting" | "trading" | "desk" | "skyline" | "workshop";
   title: string;
   dek: string;
   category: string;
@@ -308,123 +191,109 @@ export type Article = {
 
 export const articles: Article[] = [
   {
-    slug: "the-window-between-retirement-and-rmds",
-    image: "aboveClouds",
-    title: "The window between retirement and required distributions",
-    dek: "For most households the lowest-tax years of an entire lifetime arrive uninvited, last about a decade, and are usually spent doing nothing.",
-    category: "Tax planning",
-    date: "2026-07-14",
-    displayDate: "July 14, 2026",
+    slug: "the-burn-multiple-is-the-only-number",
+    image: "trading",
+    title: "The burn multiple is the only number that survives a down round",
+    dek: "Growth rate gets you the meeting. Capital efficiency gets you the term sheet — and it is the one metric founders systematically fail to compute honestly.",
+    category: "Metrics",
+    date: "2026-08-11",
+    displayDate: "August 11, 2026",
     readingTime: "6 min read",
-    author: "Priya Raman, CPA",
+    author: "Priya Raman",
     body: [
-      "There is a stretch in most financial lives that almost nobody plans for. Employment income has stopped. Social Security has not started, or has been deliberately deferred. Required minimum distributions are still years away. Taxable income, for the first time since early adulthood, is close to nothing.",
-      "It is the cheapest tax environment a household will ever occupy, and it typically lasts somewhere between five and twelve years.",
-      "Most people spend it drawing down their taxable brokerage account, because that is the intuitive order: spend the money you have already paid tax on, and leave the retirement accounts alone to grow. It feels disciplined. It is often the single most expensive default in retirement.",
-      "The problem is what happens on the other side. Every dollar left in a traditional IRA keeps compounding into a balance that will eventually be forced out under the required distribution rules — and forced out on top of Social Security, on top of pension income, and at whatever bracket that combination produces. A household that carefully avoided the 12% bracket in its sixties can find itself permanently in the 24% bracket in its seventies, with no remaining flexibility.",
-      "The alternative is to treat those empty years as capacity to be filled rather than a bill to be avoided. Deliberately realize income — through Roth conversions, or by harvesting long-term gains at the zero rate — up to the top of whichever bracket the projection says is cheap. Pay tax now, at a rate you have chosen, instead of later, at a rate the schedule chooses for you.",
-      "Two constraints matter more than the bracket table itself. The first is IRMAA: the Medicare premium surcharge is a cliff, not a ramp, and crossing a threshold by a single dollar raises premiums for a full year. The second is the rate your beneficiaries will face. Under the ten-year distribution rule, an inherited traditional IRA typically lands on adult children during their peak earning years. If their bracket is higher than yours, converting at your rate is a transfer of value to them at a discount.",
-      "None of this is a reason to convert everything. Filling a bracket is not the same as ignoring one, and conversions have a way of feeling productive well past the point where they are. The work is arithmetic: project the income, find the windows, size the conversions to the ceiling and stop.",
-      "It is also the reason we build a year-by-year projection before we build a portfolio. You cannot see a window like this from a single year's return. You can only see it on a chart that runs to age ninety-five.",
+      "There is a number every growth-stage investor computes before the second meeting, and most founders arrive without having computed it themselves. It is net burn divided by net new ARR: the burn multiple. It answers one question — how many dollars did you consume to manufacture a dollar of recurring revenue?",
+      "Below 1.0 is exceptional. Between 1.0 and 1.5 is strong. Between 1.5 and 2.0 is fine at early stage and worrying at Series B. Above 3.0, the conversation stops being about growth and starts being about control.",
+      "The reason founders get it wrong is rarely dishonesty. It is that both halves of the fraction are easy to compute generously. Net burn gets quoted excluding a one-off, or on a good month rather than a trailing average. Net new ARR gets quoted gross, ignoring churn and contraction, which is the single most common error and often moves the multiple by half a turn.",
+      "Compute it the way the person across the table will: trailing twelve months, net burn including every cash cost, net new ARR after churn and contraction. Then compute it again quarterly, because a company improving from 2.4 to 1.6 over four quarters tells a completely different story from one sitting flat at 2.0, and the trend is what actually gets discussed.",
+      "The deeper reason to track it internally is that it is the cleanest single test of whether your growth is bought or earned. Revenue growth can be purchased with sales headcount and discounting almost indefinitely, right up until it cannot. The burn multiple prices that purchase in real time.",
+      "It is also the metric most responsive to decisions you already control. Extending payback by tightening discounting, killing a channel that never converted, delaying two hires by a quarter — each moves the multiple within a quarter or two, which is faster than almost anything else on the dashboard.",
+      "None of which means optimising it to the exclusion of everything else. A company with a burn multiple of 0.6 and 20% annual growth is efficient and going nowhere. The point is to know the number, know its trend, and be able to defend both without a spreadsheet open.",
     ],
   },
   {
-    slug: "what-direct-indexing-is-actually-for",
-    image: "highlands",
-    title: "What direct indexing is actually for",
-    dek: "It is not a way to beat the index. It is a way to keep more of it — and only in a taxable account, only above a certain size.",
-    category: "Portfolio construction",
-    date: "2026-06-02",
-    displayDate: "June 2, 2026",
+    slug: "your-forecast-is-a-grid-not-a-model",
+    image: "dashboard",
+    title: "Your forecast is a grid, not a model",
+    dek: "If changing one assumption means editing forty cells, you do not have a financial model. You have a picture of one moment's opinion.",
+    category: "Forecasting",
+    date: "2026-07-02",
+    displayDate: "July 2, 2026",
     readingTime: "5 min read",
-    author: "Thomas Auger, CFA",
+    author: "Maya Lindqvist",
     body: [
-      "Direct indexing has picked up a marketing problem. Described badly, it sounds like an attempt to improve on the index by choosing among its members. That is not what it does, and a firm that pitches it that way is describing active management with a friendlier name.",
-      "What direct indexing actually changes is granularity. Hold an index fund and you own one line item; when the market rises, that line rises, and there is nothing to harvest. Hold the same index as several hundred individual positions and the picture underneath is very different. In almost any year — including strong ones — a meaningful share of those positions is below its cost basis. Each one is a realizable loss.",
-      "Those losses have a straightforward use. They offset realized gains elsewhere in the household: the diversification of a concentrated stock position, the rebalancing trade you would otherwise have deferred, the capital gain distribution from a fund you cannot control. Losses beyond that offset ordinary income up to the annual limit and carry forward indefinitely.",
-      "The mechanism has real limits, and they are worth stating plainly. Harvesting defers tax; it does not erase it. Selling at a loss lowers your basis in the replacement, so the gain reappears later. The benefit is the value of the deferral, plus the rate arbitrage if you eventually realize at a lower rate or never realize at all because the position is donated or receives a step-up.",
-      "The benefit also decays. A portfolio's harvesting yield is highest in its first few years, when positions are near their purchase price and dispersion around basis is wide. As the whole portfolio appreciates, fewer holdings sit below basis and there is less to harvest. Anyone modelling a constant annual benefit for twenty years is modelling something that does not happen.",
-      "Which leaves a narrow but genuine set of conditions. It belongs only in taxable accounts — in an IRA there is no gain to offset and the entire exercise is pointless. It needs enough capital to hold the index with reasonable tracking error, which in practice means starting somewhere above half a million dollars. And it is worth most to households with gains to offset: a concentrated position, an anticipated liquidity event, a portfolio that needs to be moved toward its target over several years.",
-      "Where all three hold, it is one of the few things in this business that reliably adds after-tax return without adding risk. Where they do not, it is an index fund with more moving parts and a higher fee.",
+      "Almost every startup forecast we are handed in a finance audit has the same defect. It looks like a model — tabs, formulas, a summary page — but the numbers are typed in. Revenue for month fourteen is a value somebody chose, not an output of anything.",
+      "The test is simple and slightly cruel. Ask the owner to raise sales headcount by two people starting in March and show you the effect on cash. If the answer takes more than about ninety seconds, the model is a grid.",
+      "A driver-based model inverts the structure. You do not forecast revenue; you forecast the things that produce revenue. Reps hired, ramp time, quota, attainment, win rate, average contract value, churn. Revenue falls out. Cost of sales falls out of headcount. Cash falls out of both, plus collection timing.",
+      "The immediate payoff is speed of iteration, and it changes the character of planning meetings. When a scenario takes ninety seconds instead of an afternoon, people ask more questions, and the questions get better. Nobody asks the fourth follow-up when each one costs someone a day.",
+      "The second payoff is diagnostic. When a driver-based forecast misses, you can see which driver missed. Revenue came in eleven percent light because attainment was sixty-two percent against a plan of seventy-five, not because of some undifferentiated shortfall. That is an actionable finding; \"we missed revenue\" is not.",
+      "The third payoff shows up in diligence. An analyst who can trace your revenue line back to a hiring plan and a conversion rate believes the model. One who finds a hardcoded number in month fourteen starts checking everything else, and that is an expensive mood to create.",
+      "Building one is less work than it sounds — usually two to three weeks for a company under fifty people. The hard part is not the mechanics. It is agreeing on which eight or ten drivers actually run the business, which is a management conversation wearing a spreadsheet costume.",
     ],
   },
   {
-    slug: "rebalancing-bands-beat-calendars",
-    image: "summit",
-    title: "Rebalancing bands beat calendars",
-    dek: "Rebalancing on a date is a decision made by a date. Rebalancing on drift is a decision made by the portfolio.",
-    category: "Portfolio construction",
-    date: "2026-04-21",
-    displayDate: "April 21, 2026",
-    readingTime: "4 min read",
-    author: "Maya Lindqvist, CFA",
-    body: [
-      "Most portfolios are rebalanced on a schedule: quarterly, or annually, or whenever the review meeting happens to land. It is an easy policy to administer and a difficult one to defend, because the calendar has no information about the portfolio.",
-      "A date-driven rebalance does two unhelpful things. It trades when nothing has moved, realizing gains and paying spreads to correct a drift of half a percent. And it waits when something has moved, leaving a portfolio meaningfully off target for months because the appointed day has not arrived.",
-      "A band policy inverts that. Each asset class is given a tolerance around its target — five percentage points for a large allocation, proportionally tighter for a small one — and the portfolio is only traded when a class actually leaves its band. In a quiet year that may mean no rebalancing trades at all. In a volatile one it may mean three, each of them prompted by a real deviation.",
-      "The risk control is better, because drift is bounded by the band rather than by the calendar. The trading is lower, because most quarters do not produce a breach. And in taxable accounts the difference compounds: every avoided trade is an unrealized gain that stays unrealized.",
-      "The refinement that matters most is doing it with cash flows first. A dividend, a contribution or a scheduled withdrawal can be directed to the underweight or away from the overweight, correcting drift without a sale. In practice this handles a large share of rebalancing in accounts that are still receiving money, at no tax cost whatsoever.",
-      "None of this is exotic. It is the difference between a policy that serves the portfolio and one that serves the operations calendar.",
-    ],
-  },
-  {
-    slug: "reading-your-own-tax-return",
-    image: "office",
-    title: "Reading your own tax return",
-    dek: "Four lines on a filed return tell you most of what a planner would want to know about the year you just had.",
-    category: "Tax planning",
-    date: "2026-03-09",
-    displayDate: "March 9, 2026",
+    slug: "close-the-books-in-six-days",
+    image: "workshop",
+    title: "How to close the books in six days",
+    dek: "A three-week close is not an accounting problem. It is a sequencing problem, and it is costing you the first half of every month.",
+    category: "Operations",
+    date: "2026-05-19",
+    displayDate: "May 19, 2026",
     readingTime: "5 min read",
-    author: "Priya Raman, CPA",
+    author: "Grace Whitfield",
     body: [
-      "A filed return is usually treated as the end of something. It is more useful as a diagnostic — the single densest summary of a household's financial year that exists, and the document we read first when someone new comes in.",
-      "Start with taxable income, and find the bracket it lands in. Not the marginal rate on the last dollar earned, but the distance to the top of the current bracket. That gap is the room available for a Roth conversion or a gain realization this year, and it is the number the entire planning conversation runs on.",
-      "Then look at capital gain distributions from funds you did not sell. These are gains you were allocated by a manager's trading, and paid tax on without making a decision. A large figure here in a taxable account is a sign the portfolio is holding the wrong vehicles in the wrong place.",
-      "Third, check whether you itemized or took the standard deduction. Households that take the standard deduction and still give to charity are usually giving inefficiently — the gift produces no tax benefit at all. Bunching several years of giving into one through a donor-advised fund fixes it, and costs nothing but timing.",
-      "Fourth, look at qualified versus ordinary dividends, and at interest income. Ordinary income thrown off by holdings sitting in a taxable account, when the same holdings could sit in an IRA, is the clearest asset-location error there is, and one of the easiest to correct.",
-      "Anyone can read these four lines on their own return in about ten minutes. Doing it in March, when the year is still young enough to change, is worth considerably more than doing it in December.",
+      "Companies that close in three weeks are not doing three weeks of work. They are doing about five days of work spread across three weeks, because nothing starts until the thing before it finishes and nobody owns the queue.",
+      "The cost is not the accounting hours. It is that management spends the first half of every month making decisions on last quarter's information, and by the time the numbers land there are only ten days left to react before the cycle repeats.",
+      "The fix begins with a written close calendar: every task, an owner, a deadline expressed in business days from month end, and its dependencies. Most companies have never written this down, and the act of writing it exposes that four tasks are waiting on one person who did not know they were blocking.",
+      "Then move work before month end. Accruals for recurring items can be templated in advance. Vendor invoices can be chased in the last week of the month rather than the first week of the next. Prepaid schedules and depreciation can be rolled forward before the period closes. In most companies a third of close work does not require the month to be over.",
+      "Then set a materiality threshold and honour it. Teams routinely spend two days chasing a variance smaller than the rounding on the board deck. Write the threshold down, get the CEO to agree to it once, and stop relitigating it every month.",
+      "Then separate the close from the analysis. The books closing and the variance review are different deliverables with different audiences. Waiting to publish because the commentary is not written keeps the whole company waiting on a paragraph.",
+      "Six days is achievable for most venture-backed companies under two hundred people. The constraint is almost never accounting capability. It is that nobody has been given the job of making the close fast, so it stays exactly as slow as it has always been.",
     ],
   },
   {
-    slug: "the-fee-conversation",
-    image: "tower",
-    title: "The fee conversation nobody starts",
-    dek: "Advisory fees are quoted as a percentage and paid in dollars. The gap between those two framings is where a great deal hides.",
-    category: "The firm",
-    date: "2026-01-27",
-    displayDate: "January 27, 2026",
+    slug: "board-decks-that-get-read",
+    image: "meeting",
+    title: "Board decks that actually get read",
+    dek: "Sixty slides sent the night before produce a meeting about the slides. Twelve sent on Friday produce a meeting about the business.",
+    category: "Reporting",
+    date: "2026-03-24",
+    displayDate: "March 24, 2026",
     readingTime: "4 min read",
-    author: "Daniel Okonkwo, CFP®",
+    author: "Daniel Okonkwo",
     body: [
-      "A fee of one percent sounds like a rounding error. On a four million dollar portfolio it is forty thousand dollars a year, deducted quarterly, and most clients never see it as a single number because it never appears as one.",
-      "We think the number should be stated in dollars at least once a year, and we do it. Not because our fee is unusually low — it is ordinary for the work — but because a fee that is never expressed plainly is a fee that never has to justify itself.",
-      "There is a second figure worth as much attention: total cost. The advisory fee is only part of it. Underlying fund expense ratios, trading spreads, custodial charges and the tax drag of unnecessary turnover all come out of the same return. A firm charging 0.75% while holding funds that cost 0.60% is more expensive than one charging 1.00% and holding funds that cost 0.04%.",
-      "The third figure is what the fee replaces. If an advisory relationship consists of an annual meeting and a model portfolio, it is competing directly with a target-date fund that costs a tenth as much, and it will lose that comparison every time. The work has to be worth its price on its own terms — the conversion schedule, the harvesting, the asset location, the decision someone was talked out of.",
-      "We publish our schedule, we show the dollar amount, and we would rather a prospective client run that comparison before signing than after. Some of them conclude they do not need us. That is a reasonable outcome, and it is a better one than discovering it in year four.",
+      "The board deck is the most-produced and least-examined artifact in startup finance. Most are assembled under time pressure, sent hours before the meeting, and function as a script for a presentation rather than a document anyone reads.",
+      "The single highest-leverage change is timing. Send the pack seventy-two hours ahead with an explicit request that directors read it before the meeting. This one change does more than any redesign, because it converts the first forty minutes from a recital into a discussion.",
+      "The second is structure. Open with the three decisions or discussions you want from the meeting. Not an agenda — the actual questions. Directors read differently when they know what is being asked of them.",
+      "The third is subtraction. Every recurring chart should justify its place annually. Most decks accumulate slides that were added for one meeting three years ago and now function as furniture. If a chart has not prompted a question in four meetings, cut it and see whether anyone notices.",
+      "The fourth is candour about misses, early and in your own words. A miss you surface on slide four with a cause and a plan is a management update. The same miss discovered by a director on slide thirty is a credibility event, and you will spend the rest of the meeting on it.",
+      "Twelve to fifteen slides, sent three days out, opening with the decisions. It is not a complicated format. What makes it hard is that it requires knowing what you want from the meeting before you build the deck, and most decks are built to fill a slot rather than to get an answer.",
     ],
   },
-];
+  {
+    slug: "what-a-finance-audit-finds",
+    image: "desk",
+    title: "What a finance audit finds in the first two weeks",
+    dek: "Across a hundred and forty engagements, the same five problems turn up in nearly every company — and none of them are accounting errors.",
+    category: "Operations",
+    date: "2026-01-15",
+    displayDate: "January 15, 2026",
+    readingTime: "5 min read",
+    author: "Thomas Auger",
+    body: [
+      "We start every engagement with a two-week audit of the finance function: the model, the close, the systems, the metric definitions. It is meant to be uncomfortable, and the striking thing is how little the findings vary between companies.",
+      "First, the same metric has more than one definition in active use. ARR in the board deck does not match ARR in the sales dashboard, usually because one includes services revenue or counts contracts at signature rather than start. Nobody is wrong; nobody wrote it down.",
+      "Second, the model has hardcoded values in the forecast period. Almost always. Frequently the person who put them there has left, and nobody remaining is willing to change them because nobody knows what they were compensating for.",
+      "Third, the chart of accounts has grown without pruning. Departments that no longer exist, accounts created for a single transaction in 2023, cost centres that map to nothing. This is why departmental reporting takes four days and why the numbers shift depending on who pulls them.",
+      "Fourth, the close has no written owner per task. Everyone knows roughly what they do; nobody knows what they are blocking. This is the single largest driver of close duration and the cheapest to fix.",
+      "Fifth, cohort data exists but has never been assembled. The raw information is sitting in the billing system, and no one has built the retention curve, which means pricing and expansion decisions are being made on aggregate averages that hide everything interesting.",
+      "None of these are failures of competence. They are what happens when a finance function grows by accretion while the company is busy doing something more urgent. They are also all fixable in a quarter, which is the more useful half of the finding.",
+    ],
+  },
+] as const as Article[];
 
 export const disclosures = [
-  {
-    title: "Investment advisory",
-    body: "ArthIQ Wealth Management, LLC is a registered investment adviser. Registration does not imply a certain level of skill or training, and does not constitute an endorsement by any securities regulator. Advisory services are offered only to residents of states in which the firm is registered or exempt from registration.",
-  },
-  {
-    title: "No investment advice on this site",
-    body: "Nothing on this website is investment, legal or tax advice, or an offer or solicitation to buy or sell any security. Content is general in nature and does not account for your objectives, financial situation or needs. Consult a qualified professional before acting on anything you read here.",
-  },
-  {
-    title: "Performance and risk",
-    body: "All investing involves risk, including the possible loss of principal. Past performance is not indicative of, and does not guarantee, future results. No strategy, including asset allocation, diversification or tax-loss harvesting, assures a profit or protects against loss in a declining market.",
-  },
-  {
-    title: "Tax matters",
-    body: "ArthIQ does not prepare tax returns and does not provide legal advice. Tax strategies described here depend on individual circumstances and on tax law that may change. Coordinate with your CPA or attorney before implementing any strategy discussed on this site.",
-  },
-  {
-    title: "Figures shown",
-    body: "All statistics, holdings, performance figures, client names, team members and testimonials appearing on this site are illustrative placeholders created for design purposes. They do not represent actual accounts, actual persons or actual results.",
-  },
+  { title: "Advisory services", body: "ArthIQ Advisory, LLC provides outsourced financial planning and analysis and fractional CFO services. We are not a registered investment adviser, a broker-dealer, a licensed public accounting firm or a law firm, and we do not provide investment advice, audit opinions, tax opinions or legal advice." },
+  { title: "Nothing here is advice", body: "Content on this site, including the interactive tools, is general information for illustration. It does not account for your circumstances and should not be relied on as the basis for a financial, hiring, fundraising or accounting decision. Speak to a qualified professional about your specific situation." },
+  { title: "The interactive tools", body: "Every calculator on this site runs entirely in your browser. Nothing you enter is transmitted to us, stored, or logged anywhere. The outputs are simplified models built for illustration — they omit taxes, working capital timing, financing effects and much else that matters in a real forecast." },
+  { title: "Figures shown", body: "All statistics, client names, team members, testimonials and example numbers on this site are illustrative placeholders created for design purposes. They do not represent actual engagements, actual people or actual results." },
 ] as const;

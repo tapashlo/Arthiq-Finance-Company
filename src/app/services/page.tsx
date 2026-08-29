@@ -20,19 +20,19 @@ export default function ServicesPage() {
         eyebrow="Services"
         title={
           <>
-            Two disciplines,
+            Four disciplines,
             <br />
             one engagement.
           </>
         }
-        lede="We do not price the portfolio and the plan separately, because we do not make those decisions separately. One relationship, one fee, both halves of the work."
+        lede="One team, one fixed monthly fee. Most clients start with the forecast because that is what is on fire, and the rest follows — none of it works in isolation."
       >
         <nav aria-label="Services" className="mt-14 flex flex-wrap gap-x-10 gap-y-4">
           {services.map((s) => (
             <a
               key={s.slug}
               href={`#${s.slug}`}
-              className="label link-reveal tap gap-3 text-green hover:text-forest"
+              className="label link-reveal tap gap-3 text-blue hover:text-navy"
             >
               <span className="tnum text-ink-faint">{s.number}</span>
               {s.title}
@@ -46,25 +46,25 @@ export default function ServicesPage() {
           key={service.slug}
           id={service.slug}
           className={[
-            "grain relative scroll-mt-28 py-24 md:py-36",
-            index % 2 === 1 ? "border-y border-rule bg-cream-deep" : "",
+            "relative scroll-mt-28 py-24 md:py-36",
+            index % 2 === 1 ? "border-y border-rule bg-canvas" : "",
           ].join(" ")}
         >
           <div className="shell relative">
             <div className="grid gap-12 lg:grid-cols-12">
               <div className="lg:col-span-5">
                 <Reveal>
-                  <span className="label-sm tnum text-green-mid">
+                  <span className="label-sm tnum text-blue">
                     {service.number}
                   </span>
-                  <h2 className="mt-6 text-4xl leading-[1.08] text-forest sm:text-5xl">
+                  <h2 className="mt-6 text-4xl leading-[1.08] text-navy sm:text-5xl">
                     {service.title}
                   </h2>
                 </Reveal>
               </div>
               <div className="lg:col-span-7">
                 <Reveal delay={90}>
-                  <p className="max-w-2xl text-2xl leading-relaxed text-forest md:text-[1.625rem]">
+                  <p className="max-w-2xl text-2xl leading-relaxed text-navy md:text-[1.625rem]">
                     {service.summary}
                   </p>
                   <p className="mt-8 max-w-2xl text-lg leading-relaxed text-ink-soft">
@@ -78,7 +78,7 @@ export default function ServicesPage() {
               {service.points.map((point, i) => (
                 <Reveal key={point.title} delay={(i % 3) * 80}>
                   <div className="h-full border-t border-rule pt-7">
-                    <h3 className="text-xl leading-snug text-forest md:text-2xl">
+                    <h3 className="text-xl leading-snug text-navy md:text-2xl">
                       {point.title}
                     </h3>
                     <p className="mt-4 text-base leading-relaxed text-ink-soft">
@@ -93,7 +93,7 @@ export default function ServicesPage() {
       ))}
 
       <ImageBand
-        image={images.tower}
+        image={images.skyline}
         height="short"
         eyebrow="Institutional terms"
         title="The arrangement institutions get, for households."
@@ -102,14 +102,14 @@ export default function ServicesPage() {
       {/* -------------------------------------------------------- process */}
       <section
         id="process"
-        className="grain relative scroll-mt-28 border-t border-rule py-24 md:py-36"
+        className="relative scroll-mt-28 border-t border-rule py-24 md:py-36"
       >
         <div className="shell relative">
           <Reveal>
             <SectionHeading
               eyebrow="How it starts"
               title="From first call to fully transitioned."
-              lede="Nothing moves until you have seen the plan, the proposed portfolio, the transition cost in realized gains and the fee — all before you sign anything."
+              lede="You see the finance audit before you commit to anything beyond it, and the monthly fee is fixed after the diagnostic call."
             />
           </Reveal>
 
@@ -117,10 +117,10 @@ export default function ServicesPage() {
             {process.map((step, i) => (
               <Reveal key={step.step} delay={i * 70}>
                 <li className="grid gap-6 border-t border-rule py-10 md:grid-cols-12 md:gap-8">
-                  <div className="label-sm tnum text-green-mid md:col-span-1">
+                  <div className="label-sm tnum text-blue md:col-span-1">
                     {step.step}
                   </div>
-                  <h3 className="text-2xl leading-snug text-forest md:col-span-4 md:text-[1.75rem]">
+                  <h3 className="text-2xl leading-snug text-navy md:col-span-4 md:text-[1.75rem]">
                     {step.title}
                   </h3>
                   <p className="max-w-2xl text-lg leading-relaxed text-ink-soft md:col-span-5">
@@ -137,12 +137,12 @@ export default function ServicesPage() {
       </section>
 
       {/* ------------------------------------------------------------- faq */}
-      <section className="border-t border-rule bg-cream-deep py-24 md:py-36">
+      <section className="border-t border-rule bg-canvas py-24 md:py-36">
         <div className="shell grid gap-14 lg:grid-cols-12 lg:gap-12">
           <div className="lg:col-span-4">
             <Reveal>
               <Eyebrow>Questions</Eyebrow>
-              <h2 className="mt-6 text-4xl leading-[1.08] text-forest md:text-5xl">
+              <h2 className="mt-6 text-4xl leading-[1.08] text-navy md:text-5xl">
                 The details.
               </h2>
             </Reveal>

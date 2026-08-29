@@ -47,22 +47,22 @@ export function ImageBand({
       {/* Legibility scrim. Heavier at the foot, where the text sits. */}
       <div
         aria-hidden="true"
-        className="absolute inset-0 -z-10 bg-gradient-to-t from-forest-deep/85 via-forest-deep/45 to-forest-deep/15"
+        className="absolute inset-0 -z-10 bg-gradient-to-t from-navy-deep/85 via-navy-deep/45 to-navy-deep/15"
       />
 
       {(title || body) && (
         <div className="shell w-full py-14 md:py-20">
           <Reveal>
             {eyebrow && (
-              <p className="eyebrow label text-sage-pale">{eyebrow}</p>
+              <p className="eyebrow label text-blue-pale">{eyebrow}</p>
             )}
             {title && (
-              <h2 className="mt-6 max-w-3xl text-4xl leading-[1.08] text-cream sm:text-5xl md:text-[3.5rem]">
+              <h2 className="mt-6 max-w-3xl text-4xl leading-[1.08] text-white sm:text-5xl md:text-[3.5rem]">
                 {title}
               </h2>
             )}
             {body && (
-              <p className="mt-6 max-w-xl text-lg leading-relaxed text-cream/75 md:text-xl">
+              <p className="mt-6 max-w-xl text-lg leading-relaxed text-white/75 md:text-xl">
                 {body}
               </p>
             )}

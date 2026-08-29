@@ -1,29 +1,24 @@
 import Link from "next/link";
 import { CtaBand } from "@/components/CtaBand";
 import { HeroChart } from "@/components/HeroChart";
-import { Reveal } from "@/components/Reveal";
 import { Faq } from "@/components/Faq";
-import { ReturnsTable, SparklineSheet } from "@/components/MarketBoard";
-import { Topography } from "@/components/Topography";
 import { ImageBand, Figure } from "@/components/Media";
-import { images } from "@/lib/images";
+import { ReturnsTable, SparklineSheet } from "@/components/MarketBoard";
+import { Reveal } from "@/components/Reveal";
+import { Topography } from "@/components/Topography";
+import { RunwayTool } from "@/components/tools/RunwayTool";
 import { Arrow, Button, Eyebrow, SectionHeading, Stat } from "@/components/ui";
+import { images } from "@/lib/images";
 import {
-  articles,
-  faqs,
-  notDoing,
-  philosophy,
-  services,
-  stats,
-  testimonialDisclosure,
-  testimonials,
+  articles, faqs, notDoing, philosophy, services, stats,
+  testimonialDisclosure, testimonials,
 } from "@/lib/site";
 
 const credentials = [
-  "Fee-only",
-  "Always fiduciary",
-  "SEC-registered",
-  "No commissions",
+  "Seed to Series C",
+  "Fixed monthly fee",
+  "Month to month",
+  "You keep the model",
 ];
 
 export default function HomePage() {
@@ -32,63 +27,56 @@ export default function HomePage() {
   return (
     <>
       {/* ------------------------------------------------------------ hero */}
-      <section className="grain relative overflow-hidden pt-36 pb-20 md:pt-44 md:pb-28">
-        {/* A single soft wash of green in the upper right, and nothing else. */}
+      <section className="relative overflow-hidden pt-32 pb-20 md:pt-40 md:pb-24">
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute -top-40 -right-40 h-[36rem] w-[36rem] rounded-full bg-sage-pale/25 blur-3xl"
+          className="pointer-events-none absolute -top-56 -right-40 h-[42rem] w-[42rem] rounded-full bg-blue-wash blur-3xl"
         />
-
         <div className="shell relative">
-          <div className="grid items-center gap-16 lg:grid-cols-12 lg:gap-14">
-            <div className="lg:col-span-6 xl:col-span-5">
-              <div className="fade-up" style={{ animationDelay: "80ms" }}>
-                <Eyebrow>San Francisco · Est. 2016</Eyebrow>
+          <div className="grid items-center gap-14 lg:grid-cols-12 lg:gap-12">
+            <div className="lg:col-span-5">
+              <div className="fade-up" style={{ animationDelay: "60ms" }}>
+                <Eyebrow>Outsourced FP&amp;A · San Francisco</Eyebrow>
               </div>
 
               <h1
-                className="fade-up mt-8 text-[3.25rem] leading-[1.02] text-forest sm:text-6xl md:text-7xl xl:text-[5.25rem]"
-                style={{ animationDelay: "180ms" }}
+                className="fade-up display mt-7 text-[2.75rem] leading-[1.04] text-navy sm:text-5xl md:text-6xl xl:text-[4.25rem]"
+                style={{ animationDelay: "150ms" }}
               >
-                Wealth management,{" "}
-                <em className="font-light text-green italic">reconsidered</em>.
+                Know the number
+                <br />
+                <span className="text-blue">before you need it.</span>
               </h1>
 
               <p
-                className="fade-up mt-9 max-w-xl text-xl leading-relaxed text-ink-soft md:text-[1.4rem]"
-                style={{ animationDelay: "300ms" }}
+                className="fade-up mt-7 max-w-lg text-lg leading-relaxed text-ink-soft md:text-xl"
+                style={{ animationDelay: "260ms" }}
               >
-                Fee-only fiduciary advice for families anywhere in the United
-                States. One portfolio across every account you hold, one fee we
-                publish plainly, and nothing to sell you.
+                Financial planning and analysis for venture-backed startups.
+                Driver-based forecasting, board reporting and metrics that hold
+                up under diligence — run by people who have sat in the seat.
               </p>
 
               <div
-                className="fade-up mt-11 flex flex-col gap-3.5 sm:flex-row"
-                style={{ animationDelay: "420ms" }}
+                className="fade-up mt-9 flex flex-col gap-3 sm:flex-row"
+                style={{ animationDelay: "370ms" }}
               >
                 <Button href="/contact">
-                  Book an introductory call
+                  Book a diagnostic call
                   <Arrow />
                 </Button>
-                <Button href="/services" variant="outline">
-                  How we work
+                <Button href="/tools" variant="outline">
+                  Try the free tools
                 </Button>
               </div>
 
               <ul
-                className="fade-up mt-14 flex flex-wrap items-center gap-x-7 gap-y-3 border-t border-rule pt-8"
-                style={{ animationDelay: "540ms" }}
+                className="fade-up mt-11 flex flex-wrap items-center gap-x-6 gap-y-3 border-t border-rule pt-7"
+                style={{ animationDelay: "470ms" }}
               >
                 {credentials.map((c) => (
-                  <li
-                    key={c}
-                    className="label flex items-center gap-2.5 text-ink-faint"
-                  >
-                    <span
-                      aria-hidden="true"
-                      className="block h-1 w-1 rounded-full bg-green-mid"
-                    />
+                  <li key={c} className="label flex items-center gap-2 text-ink-faint">
+                    <span aria-hidden="true" className="block h-1 w-1 rounded-full bg-blue" />
                     {c}
                   </li>
                 ))}
@@ -96,8 +84,8 @@ export default function HomePage() {
             </div>
 
             <div
-              className="fade-up lg:col-span-6 lg:col-start-7 xl:col-span-7"
-              style={{ animationDelay: "260ms" }}
+              className="fade-up lg:col-span-7"
+              style={{ animationDelay: "220ms" }}
             >
               <HeroChart />
             </div>
@@ -106,69 +94,79 @@ export default function HomePage() {
       </section>
 
       {/* ----------------------------------------------------------- stats */}
-      <section className="border-y border-rule bg-cream-deep">
-        <div className="shell grid grid-cols-2 gap-x-8 gap-y-14 py-16 md:py-20 lg:grid-cols-4">
+      <section className="border-y border-rule bg-canvas">
+        <div className="shell grid grid-cols-2 gap-x-8 gap-y-12 py-14 md:py-16 lg:grid-cols-4">
           {stats.map((s, i) => (
-            <Reveal key={s.label} delay={i * 80}>
+            <Reveal key={s.label} delay={i * 70}>
               <Stat {...s} />
             </Reveal>
           ))}
         </div>
       </section>
 
+      {/* -------------------------------------------------- the live tool */}
+      <section id="tool" className="scroll-mt-28 py-20 md:py-28">
+        <div className="shell">
+          <Reveal>
+            <div className="flex flex-wrap items-end justify-between gap-8">
+              <SectionHeading
+                eyebrow="Free, no sign-up"
+                title="Try the work before you talk to us."
+                lede="Four calculators built from the models we run for clients. Everything computes in your browser — nothing you type is sent anywhere."
+              />
+              <Link href="/tools" className="label link-reveal tap gap-3 text-blue hover:text-navy">
+                All four tools
+                <Arrow />
+              </Link>
+            </div>
+          </Reveal>
+
+          <Reveal delay={80}>
+            <div className="mt-12 md:mt-16">
+              <RunwayTool />
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
       {/* -------------------------------------------------------- services */}
-      <section className="grain relative py-24 md:py-36">
-        <div className="shell relative">
+      <section className="border-t border-rule bg-canvas py-20 md:py-28">
+        <div className="shell">
           <Reveal>
             <SectionHeading
               eyebrow="What we do"
-              title={
-                <>
-                  Two disciplines,
-                  <br />
-                  run as one practice.
-                </>
-              }
-              lede="The portfolio and the tax plan are the same decision seen from two sides. We do not hand them to separate departments."
+              title="Four disciplines, one team."
+              lede="Most clients start with the forecast because that is what is on fire. The rest follows, because none of it works in isolation."
             />
           </Reveal>
 
-          <div className="mt-20 md:mt-28">
+          <div className="mt-14 grid gap-6 md:mt-20 md:grid-cols-2">
             {services.map((service, i) => (
-              <Reveal key={service.slug} delay={i * 100}>
-                <article className="grid gap-10 border-t border-rule py-14 lg:grid-cols-12 lg:gap-12 lg:py-18">
-                  <div className="lg:col-span-4">
-                    <span className="label-sm tnum text-green-mid">
-                      {service.number}
-                    </span>
-                    <h3 className="mt-6 text-3xl leading-tight text-forest md:text-4xl">
-                      {service.title}
-                    </h3>
-                    <Link
-                      href={`/services#${service.slug}`}
-                      className="label link-reveal tap mt-5 gap-3 text-green transition-colors duration-300 hover:text-forest"
-                    >
-                      Explore
-                      <Arrow />
-                    </Link>
-                  </div>
-
-                  <div className="lg:col-span-8">
-                    <p className="max-w-2xl text-xl leading-relaxed text-ink-soft md:text-[1.375rem]">
-                      {service.summary}
-                    </p>
-                    <ul className="mt-10 grid gap-x-10 gap-y-7 sm:grid-cols-2">
-                      {service.points.slice(0, 4).map((p) => (
-                        <li key={p.title}>
-                          <h4 className="text-lg text-forest">{p.title}</h4>
-                          <p className="mt-2 text-base leading-relaxed text-ink-faint">
-                            {p.body}
-                          </p>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </article>
+              <Reveal key={service.slug} delay={(i % 2) * 90}>
+                <Link
+                  href={`/services#${service.slug}`}
+                  className="group flex h-full flex-col rounded-xl border border-rule bg-white p-7 transition-all duration-300 hover:border-blue hover:shadow-lift md:p-9"
+                >
+                  <span className="label-sm tnum text-blue">{service.number}</span>
+                  <h3 className="display mt-5 text-2xl leading-snug text-navy transition-colors duration-300 group-hover:text-blue md:text-[1.75rem]">
+                    {service.title}
+                  </h3>
+                  <p className="mt-4 flex-1 leading-relaxed text-ink-soft">
+                    {service.summary}
+                  </p>
+                  <ul className="mt-7 space-y-2.5 border-t border-rule pt-6">
+                    {service.points.slice(0, 3).map((p) => (
+                      <li key={p.title} className="flex gap-3 text-[0.9375rem] text-ink-soft">
+                        <span aria-hidden="true" className="mt-2.5 block h-1 w-1 shrink-0 rounded-full bg-blue" />
+                        {p.title}
+                      </li>
+                    ))}
+                  </ul>
+                  <span className="label tap mt-6 gap-3 text-blue">
+                    Explore
+                    <Arrow />
+                  </span>
+                </Link>
               </Reveal>
             ))}
           </div>
@@ -177,106 +175,82 @@ export default function HomePage() {
 
       {/* ------------------------------------------------------ image band */}
       <ImageBand
-        image={images.ridge}
-        eyebrow="The long view"
-        title={
-          <>
-            Built on a timescale
-            <br />
-            that outlasts the quarter.
-          </>
-        }
-        body="Allocation is set against your actual spending horizon — decades, not the next earnings season."
+        image={images.screens}
+        eyebrow="The operating cadence"
+        title={<>Close, review, re-forecast.<br />Every month, on a calendar.</>}
+        body="Most clients arrive with a three-week close and a model nobody trusts. Six months later the close is under a week and the forecast is the thing arguments get settled with."
       />
 
-      {/* ---------------------------------------------------- market board */}
-      <section className="border-y border-rule bg-cream-deep py-24 md:py-36">
+      {/* --------------------------------------------------- operating board */}
+      <section className="border-y border-rule bg-canvas py-20 md:py-28">
         <div className="shell">
           <Reveal>
             <SectionHeading
-              eyebrow="The record"
-              title={
-                <>
-                  Green years, red years,
-                  <br />
-                  and a plan that survives both.
-                </>
-              }
-              lede="We do not hide the losing years, because managing them is most of the job. This is what a diversified portfolio actually looks like — year by year, and holding by holding."
+              eyebrow="What you get back"
+              title="Reporting that shows the cause, not just the gap."
+              lede="Variance by department, month by month, and the operating metrics behind it — the two views most board decks are missing."
             />
           </Reveal>
 
-          <div className="mt-18 grid items-start gap-8 md:mt-24 lg:grid-cols-12">
+          <div className="mt-14 grid items-start gap-6 md:mt-20 lg:grid-cols-12">
             <Reveal className="min-w-0 lg:col-span-7">
-              <Board title="Annual return by asset class">
+              <Board title="Budget variance by department">
                 <ReturnsTable />
               </Board>
             </Reveal>
-            <Reveal className="min-w-0 lg:col-span-5" delay={100}>
-              <Board title="Holdings · last 52 weeks">
+            <Reveal className="min-w-0 lg:col-span-5" delay={90}>
+              <Board title="Operating metrics · trailing">
                 <SparklineSheet />
               </Board>
             </Reveal>
           </div>
 
           <Reveal>
-            <p className="mt-10 max-w-3xl text-sm leading-relaxed text-ink-faint">
-              <span className="label-sm mr-2">Disclosure</span>
-              Illustrative placeholder figures created for design purposes. They
-              do not represent any actual index, account or result. Past
-              performance does not guarantee future results.
+            <p className="mt-8 max-w-3xl text-sm leading-relaxed text-ink-faint">
+              <span className="label-sm mr-2">Illustrative</span>
+              Placeholder figures created for design purposes. They do not
+              represent any actual company or engagement.
             </p>
           </Reveal>
         </div>
       </section>
 
       {/* ------------------------------------------------------ philosophy */}
-      <section className="relative overflow-hidden border-y border-rule bg-forest text-cream">
+      <section className="relative overflow-hidden bg-navy text-white">
         <Topography
-          className="pointer-events-none absolute -top-32 right-0 h-[52rem] w-[80rem] text-gain opacity-55"
+          className="pointer-events-none absolute -top-28 right-0 h-[48rem] w-[76rem] text-blue-bright opacity-40"
           tone="currentColor"
         />
-        <div className="shell relative py-24 md:py-36">
+        <div className="shell relative py-20 md:py-28">
           <Reveal>
-            <Eyebrow className="text-sage-pale">How we think</Eyebrow>
-            <h2 className="mt-6 max-w-4xl text-4xl leading-[1.08] sm:text-5xl md:text-[3.5rem]">
-              Most of the value sits in a handful of decisions.
+            <Eyebrow className="text-blue-pale">How we work</Eyebrow>
+            <h2 className="display mt-6 max-w-3xl text-4xl leading-[1.08] sm:text-5xl">
+              Operators, not report writers.
             </h2>
-            <p className="mt-7 max-w-2xl text-xl leading-relaxed text-cream/65 md:text-[1.375rem]">
-              We spend our time on those, and leave the rest of the portfolio
-              alone. It is a less eventful way to manage money and a more
-              reliable one.
+            <p className="mt-6 max-w-xl text-lg leading-relaxed text-white/70">
+              Everyone here has run finance inside a company. That changes what
+              gets built, and how fast you get an answer on a Thursday.
             </p>
           </Reveal>
 
-          <div className="mt-20 grid gap-x-14 gap-y-14 md:grid-cols-2 md:mt-28">
+          <div className="mt-14 grid gap-x-12 gap-y-10 md:mt-20 md:grid-cols-2">
             {philosophy.map((p, i) => (
-              <Reveal key={p.title} delay={i * 80}>
-                <div className="border-t border-rule-invert pt-8">
-                  <h3 className="text-2xl leading-snug text-cream md:text-[1.75rem]">
-                    {p.title}
-                  </h3>
-                  <p className="mt-5 max-w-xl text-lg leading-relaxed text-cream/60">
-                    {p.body}
-                  </p>
+              <Reveal key={p.title} delay={i * 70}>
+                <div className="border-t border-rule-invert pt-7">
+                  <h3 className="display text-xl text-white md:text-2xl">{p.title}</h3>
+                  <p className="mt-4 max-w-xl leading-relaxed text-white/65">{p.body}</p>
                 </div>
               </Reveal>
             ))}
           </div>
 
-          <Reveal delay={120}>
-            <div className="mt-20 rounded-xs border border-rule-invert p-9 md:mt-28 md:p-12">
-              <h3 className="label text-gold-pale">And what we don&rsquo;t do</h3>
-              <ul className="mt-9 grid gap-x-12 gap-y-5 sm:grid-cols-2">
+          <Reveal delay={100}>
+            <div className="mt-14 rounded-xl border border-rule-invert p-8 md:mt-20 md:p-10">
+              <h3 className="label text-blue-pale">And what we don&rsquo;t do</h3>
+              <ul className="mt-7 grid gap-x-12 gap-y-4 sm:grid-cols-2">
                 {notDoing.map((n) => (
-                  <li
-                    key={n}
-                    className="flex gap-4 text-lg leading-relaxed text-cream/75"
-                  >
-                    <span
-                      aria-hidden="true"
-                      className="mt-3.5 block h-px w-4 shrink-0 bg-gold-pale/60"
-                    />
+                  <li key={n} className="flex gap-3.5 leading-relaxed text-white/75">
+                    <span aria-hidden="true" className="mt-3 block h-px w-3.5 shrink-0 bg-blue-pale/60" />
                     {n}
                   </li>
                 ))}
@@ -287,30 +261,22 @@ export default function HomePage() {
       </section>
 
       {/* ----------------------------------------------------- testimonials */}
-      <section className="grain relative py-24 md:py-36">
-        <div className="shell relative">
+      <section className="py-20 md:py-28">
+        <div className="shell">
           <Reveal>
-            <SectionHeading eyebrow="In their words" title="What clients say." />
+            <SectionHeading eyebrow="In their words" title="What founders say." />
           </Reveal>
 
-          <div className="mt-18 grid gap-10 md:mt-24 md:grid-cols-3 md:gap-8">
+          <div className="mt-12 grid gap-6 md:mt-16 md:grid-cols-3">
             {testimonials.map((t, i) => (
-              <Reveal key={t.name} delay={i * 90}>
-                <figure className="flex h-full flex-col justify-between rounded-xs border border-rule bg-paper p-9 shadow-lift md:p-10">
-                  <blockquote className="text-xl leading-relaxed text-forest">
-                    <span aria-hidden="true" className="text-green-mid">
-                      &ldquo;
-                    </span>
-                    {t.quote}
-                    <span aria-hidden="true" className="text-green-mid">
-                      &rdquo;
-                    </span>
+              <Reveal key={t.name} delay={i * 80}>
+                <figure className="flex h-full flex-col justify-between rounded-xl border border-rule bg-white p-7 shadow-lift md:p-8">
+                  <blockquote className="text-lg leading-relaxed text-navy">
+                    &ldquo;{t.quote}&rdquo;
                   </blockquote>
-                  <figcaption className="mt-10 border-t border-rule-soft pt-6">
-                    <div className="text-lg text-forest">{t.name}</div>
-                    <div className="mt-1.5 text-sm text-ink-faint">
-                      {t.detail}
-                    </div>
+                  <figcaption className="mt-8 border-t border-rule pt-5">
+                    <div className="font-medium text-navy">{t.name}</div>
+                    <div className="mt-1 text-sm text-ink-faint">{t.detail}</div>
                   </figcaption>
                 </figure>
               </Reveal>
@@ -318,8 +284,8 @@ export default function HomePage() {
           </div>
 
           <Reveal>
-            <p className="mt-12 max-w-4xl text-sm leading-relaxed text-ink-faint">
-              <span className="label-sm mr-2 text-ink-faint">Disclosure</span>
+            <p className="mt-8 max-w-3xl text-sm leading-relaxed text-ink-faint">
+              <span className="label-sm mr-2">Disclosure</span>
               {testimonialDisclosure}
             </p>
           </Reveal>
@@ -327,44 +293,33 @@ export default function HomePage() {
       </section>
 
       {/* -------------------------------------------------------- insights */}
-      <section className="border-t border-rule bg-cream-deep py-24 md:py-36">
+      <section className="border-t border-rule bg-canvas py-20 md:py-28">
         <div className="shell">
           <Reveal>
             <div className="flex flex-wrap items-end justify-between gap-8">
-              <SectionHeading eyebrow="Insights" title="Written for clients." />
-              <Link
-                href="/insights"
-                className="label link-reveal tap gap-3 text-green hover:text-forest"
-              >
+              <SectionHeading eyebrow="Insights" title="Written for operators." />
+              <Link href="/insights" className="label link-reveal tap gap-3 text-blue hover:text-navy">
                 All writing
                 <Arrow />
               </Link>
             </div>
           </Reveal>
 
-          <div className="mt-18 grid gap-x-8 md:mt-24 md:grid-cols-3">
+          <div className="mt-12 grid gap-x-6 gap-y-10 md:mt-16 md:grid-cols-3">
             {latest.map((a, i) => (
-              <Reveal key={a.slug} delay={i * 90}>
-                <Link
-                  href={`/insights/${a.slug}`}
-                  className="group flex h-full flex-col"
-                >
+              <Reveal key={a.slug} delay={i * 80}>
+                <Link href={`/insights/${a.slug}`} className="group flex h-full flex-col">
                   <Figure
                     image={images[a.image]}
                     aspect="aspect-3/2"
                     sizes="(min-width: 768px) 30vw, 100vw"
-                    className="mb-7 rounded-xs"
+                    className="mb-6 rounded-lg"
                   />
-                  <div className="flex items-center gap-3 border-t border-rule pt-6 transition-colors duration-300 group-hover:border-green">
-                    <span className="label text-green-mid">{a.category}</span>
-                  </div>
-                  <h3 className="mt-5 text-2xl leading-snug text-forest transition-colors duration-300 group-hover:text-green md:text-[1.625rem]">
+                  <span className="label text-blue">{a.category}</span>
+                  <h3 className="display mt-4 flex-1 text-xl leading-snug text-navy transition-colors duration-300 group-hover:text-blue md:text-[1.375rem]">
                     {a.title}
                   </h3>
-                  <p className="mt-4 flex-1 text-base leading-relaxed text-ink-soft">
-                    {a.dek}
-                  </p>
-                  <div className="label-sm mt-8 flex items-center gap-3 text-ink-faint">
+                  <div className="label-sm mt-6 flex items-center gap-3 text-ink-faint">
                     <time dateTime={a.date}>{a.displayDate}</time>
                     <span aria-hidden="true">·</span>
                     <span>{a.readingTime}</span>
@@ -377,50 +332,41 @@ export default function HomePage() {
       </section>
 
       {/* ------------------------------------------------------------- faq */}
-      <section className="grain relative py-24 md:py-36">
-        <div className="shell relative grid gap-14 lg:grid-cols-12 lg:gap-12">
+      <section className="py-20 md:py-28">
+        <div className="shell grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-4">
             <Reveal>
               <Eyebrow>Common questions</Eyebrow>
-              <h2 className="mt-6 text-4xl leading-[1.08] text-forest md:text-5xl">
+              <h2 className="display mt-6 text-3xl leading-tight text-navy md:text-4xl">
                 Before you call.
               </h2>
-              <p className="mt-7 max-w-md text-lg leading-relaxed text-ink-soft">
-                The eight things people ask most often, answered here rather
-                than on a first call.
+              <p className="mt-5 max-w-md leading-relaxed text-ink-soft">
+                The eight things founders ask most, including what it costs.
               </p>
-              <Button href="/contact" variant="outline" className="mt-9">
+              <Button href="/contact" variant="outline" className="mt-8">
                 Ask us something else
               </Button>
             </Reveal>
           </div>
-
           <div className="lg:col-span-8">
             <Faq items={faqs} />
           </div>
         </div>
       </section>
 
-      {/* ------------------------------------------------------------- cta */}
       <CtaBand />
     </>
   );
 }
 
-function Board({
-  title,
-  children,
-}: {
-  title: string;
-  children: React.ReactNode;
-}) {
+function Board({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <section className="h-full overflow-hidden rounded-xs border border-rule bg-paper shadow-lift">
-      <header className="flex items-center justify-between gap-6 border-b border-rule px-7 py-5">
-        <h3 className="label text-forest">{title}</h3>
+    <section className="h-full overflow-hidden rounded-xl border border-rule bg-white shadow-lift">
+      <header className="flex items-center justify-between gap-6 border-b border-rule px-6 py-4">
+        <h3 className="label text-navy">{title}</h3>
         <span className="label-sm text-ink-faint">Illustrative</span>
       </header>
-      <div className="px-7 py-6">{children}</div>
+      <div className="px-6 py-5">{children}</div>
     </section>
   );
 }

@@ -10,17 +10,17 @@ const legal = [
 
 export function SiteFooter() {
   return (
-    <footer className="relative overflow-hidden bg-forest text-cream/80">
+    <footer className="on-navy relative overflow-hidden bg-navy text-white/80">
       <div className="shell relative py-20 md:py-28">
         <div className="grid gap-14 lg:grid-cols-12 lg:gap-10">
           <div className="lg:col-span-5">
-            <Wordmark className="w-full max-w-sm text-cream" />
-            <p className="mt-8 max-w-sm text-xl leading-relaxed text-cream/70">
-              Fee-only fiduciary wealth management for families across the
-              United States.
+            <Wordmark className="w-full max-w-xs" />
+            <p className="mt-8 max-w-sm text-xl leading-relaxed text-white/70">
+              Outsourced FP&amp;A and fractional CFO support for venture-backed
+              startups.
             </p>
 
-            <address className="mt-10 space-y-1 text-base not-italic leading-relaxed text-cream/60">
+            <address className="mt-10 space-y-1 text-base not-italic leading-relaxed text-white/60">
               <div>{site.address.line1}</div>
               <div>
                 {site.address.city}, {site.address.state} {site.address.zip}
@@ -30,13 +30,13 @@ export function SiteFooter() {
             <div className="mt-4 flex flex-col text-base">
               <a
                 href={site.phoneHref}
-                className="link-reveal tap w-fit tnum text-cream/80 hover:text-cream"
+                className="link-reveal tap w-fit tnum text-white/80 hover:text-white"
               >
                 {site.phone}
               </a>
               <a
                 href={`mailto:${site.email}`}
-                className="link-reveal tap w-fit text-cream/80 hover:text-cream"
+                className="link-reveal tap w-fit text-white/80 hover:text-white"
               >
                 {site.email}
               </a>
@@ -60,7 +60,7 @@ export function SiteFooter() {
                 </FooterLink>
               ))}
               <FooterLink href="/about#process">Working together</FooterLink>
-              <FooterLink href="/about#the-mark">The mark</FooterLink>
+              <FooterLink href="/tools">Free tools</FooterLink>
             </FooterCol>
 
             <FooterCol title="Legal">
@@ -74,30 +74,29 @@ export function SiteFooter() {
         </div>
 
         <div className="mt-20 border-t border-rule-invert pt-10">
-          <p className="max-w-4xl text-sm leading-relaxed text-cream/45">
-            {site.legalName} is a registered investment adviser. Registration
-            does not imply a certain level of skill or training. Investing
-            involves risk, including possible loss of principal. Past
-            performance does not guarantee future results. Nothing on this site
-            is investment, tax or legal advice, or an offer to buy or sell any
-            security.{" "}
-            <Link href="/disclosures" className="link-reveal text-cream/70">
+          <p className="max-w-4xl text-sm leading-relaxed text-white/45">
+            {site.legalName} provides outsourced financial planning and analysis
+            and fractional CFO services. We are not a registered investment
+            adviser, a licensed public accounting firm or a law firm, and nothing
+            on this site — including the interactive tools — is investment,
+            accounting, tax or legal advice.{" "}
+            <Link href="/disclosures" className="link-reveal text-white/70">
               Read the full disclosures
             </Link>
             .
           </p>
 
-          <p className="mt-6 max-w-4xl text-sm leading-relaxed text-gold-pale/70">
-            Demonstration site. All figures, holdings, names, biographies and
+          <p className="mt-6 max-w-4xl text-sm leading-relaxed text-blue-pale/70">
+            Demonstration site. All figures, company names, biographies and
             testimonials shown are illustrative placeholders created for design
-            purposes and do not represent real accounts, people or results.
+            purposes and do not represent real engagements, people or results.
           </p>
 
           <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-            <p className="label-sm text-cream/40">
+            <p className="label-sm text-white/40">
               © {new Date().getFullYear()} {site.legalName}
             </p>
-            <p className="label-sm text-cream/40">
+            <p className="label-sm text-white/40">
               San Francisco, California
             </p>
           </div>
@@ -116,7 +115,7 @@ function FooterCol({
 }) {
   return (
     <div>
-      <h2 className="label text-cream/40">{title}</h2>
+      <h2 className="label text-white/40">{title}</h2>
       <ul className="mt-5 space-y-1">{children}</ul>
     </div>
   );
@@ -133,7 +132,7 @@ function FooterLink({
     <li>
       <Link
         href={href}
-        className="link-reveal tap text-base text-cream/70 transition-colors duration-300 hover:text-cream"
+        className="link-reveal tap text-base text-white/70 transition-colors duration-300 hover:text-white"
       >
         {children}
       </Link>

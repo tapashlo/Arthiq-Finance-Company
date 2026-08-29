@@ -1,24 +1,18 @@
-import { allocation, performance } from "@/lib/portal";
-
-const money = (n: number) =>
-  `$${n.toLocaleString("en-US", { maximumFractionDigits: 0 })}`;
-
-/* ------------------------------------------------------ performance area -- */
+import { arrSeries, spend } from "@/lib/portal";
 
 const W = 900;
-const H = 300;
-const PAD = { top: 22, right: 8, bottom: 34, left: 8 };
+const H = 280;
+const PAD = { top: 24, right: 10, bottom: 32, left: 10 };
 const PLOT_W = W - PAD.left - PAD.right;
 const PLOT_H = H - PAD.top - PAD.bottom;
 
-const LO = 2_200_000;
-const HI = 4_400_000;
+const LO = Math.min(...arrSeries) * 0.92;
+const HI = Math.max(...arrSeries) * 1.05;
 
-const px = (i: number) =>
-  PAD.left + (i / (performance.length - 1)) * PLOT_W;
+const px = (i: number) => PAD.left + (i / (arrSeries.length - 1)) * PLOT_W;
 const py = (v: number) => PAD.top + (1 - (v - LO) / (HI - LO)) * PLOT_H;
 
-const PTS = performance.map((v, i) => [px(i), py(v)] as const);
+const PTS = arrSeries.map((v, i) => [px(i), py(v)] as const);
 
 const line = (() => {
   let d = `M${PTS[0][0].toFixed(1)} ${PTS[0][1].toFixed(1)}`;
@@ -31,150 +25,75 @@ const line = (() => {
   return d;
 })();
 
-const area = `${line}L${PTS[PTS.length - 1][0].toFixed(1)} ${H - PAD.bottom}L${PTS[0][0].toFixed(1)} ${H - PAD.bottom}Z`;
-
-const QUARTER_LABELS = ["2021", "2022", "2023", "2024", "2025", "2026"];
-
-export function PerformanceChart() {
+export function ArrChart() {
   const end = PTS[PTS.length - 1];
-
   return (
-    <svg
-      viewBox={`0 0 ${W} ${H}`}
-      className="h-auto w-full"
-      role="img"
-      aria-label={`Portfolio value from ${money(performance[0])} in 2021 to ${money(performance[performance.length - 1])} today.`}
-    >
+    <svg viewBox={`0 0 ${W} ${H}`} className="h-auto w-full" role="img"
+      aria-label={`ARR over 24 months, from $${(arrSeries[0] / 1e6).toFixed(2)} million to $${(arrSeries[arrSeries.length - 1] / 1e6).toFixed(2)} million.`}>
       <defs>
-        <linearGradient id="portal-area" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="var(--color-green-mid)" stopOpacity="0.22" />
-          <stop offset="100%" stopColor="var(--color-green-mid)" stopOpacity="0" />
+        <linearGradient id="arr-fill" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="var(--color-blue)" stopOpacity="0.2" />
+          <stop offset="100%" stopColor="var(--color-blue)" stopOpacity="0" />
         </linearGradient>
       </defs>
-
       <g aria-hidden="true">
-        {[2_600_000, 3_200_000, 3_800_000, 4_400_000].map((v) => (
-          <g key={v}>
-            <line
-              x1={PAD.left}
-              x2={W - PAD.right}
-              y1={py(v)}
-              y2={py(v)}
-              stroke="var(--color-rule-soft)"
-              strokeWidth="1"
-            />
-            <text
-              x={PAD.left + 2}
-              y={py(v) - 7}
-              className="ui tnum"
-              fontSize="11.5"
-              fill="var(--color-ink-faint)"
-            >
-              ${(v / 1_000_000).toFixed(1)}M
-            </text>
-          </g>
-        ))}
+        {[0.25, 0.5, 0.75, 1].map((f) => {
+          const v = LO + (HI - LO) * f;
+          return (
+            <g key={f}>
+              <line x1={PAD.left} x2={W - PAD.right} y1={py(v)} y2={py(v)} stroke="var(--color-rule-soft)" strokeWidth="1" />
+              <text x={PAD.left + 2} y={py(v) - 6} fontSize="11" className="tnum" fill="var(--color-ink-faint)">
+                ${(v / 1e6).toFixed(1)}M
+              </text>
+            </g>
+          );
+        })}
       </g>
-
-      <path d={area} className="chart-area" fill="url(#portal-area)" />
-      <path
-        d={line}
-        pathLength={1}
-        className="chart-line"
-        fill="none"
-        stroke="var(--color-green-mid)"
-        strokeWidth="2.25"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-
-      <g className="chart-node" style={{ animationDelay: "2.6s" }}>
-        <circle className="chart-halo" cx={end[0]} cy={end[1]} r="5" fill="var(--color-green-bright)" />
-        <circle cx={end[0]} cy={end[1]} r="4.5" fill="var(--color-paper)" />
-        <circle cx={end[0]} cy={end[1]} r="3.25" fill="var(--color-green-bright)" />
+      <path d={`${line}L${PTS[PTS.length - 1][0].toFixed(1)} ${H - PAD.bottom}L${PTS[0][0].toFixed(1)} ${H - PAD.bottom}Z`}
+        className="chart-area" fill="url(#arr-fill)" />
+      <path d={line} pathLength={1} className="chart-line" fill="none" stroke="var(--color-blue)"
+        strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+      <g className="chart-node" style={{ animationDelay: "2.2s" }}>
+        <circle className="chart-halo" cx={end[0]} cy={end[1]} r="5" fill="var(--color-blue)" />
+        <circle cx={end[0]} cy={end[1]} r="5" fill="#fff" />
+        <circle cx={end[0]} cy={end[1]} r="3.5" fill="var(--color-blue)" />
       </g>
-
-      <g aria-hidden="true" className="ui" fontSize="11.5" fill="var(--color-ink-faint)">
-        {QUARTER_LABELS.map((label, i) => (
-          <text
-            key={label}
-            x={PAD.left + (i / (QUARTER_LABELS.length - 1)) * PLOT_W}
-            y={H - 10}
-            textAnchor={i === 0 ? "start" : i === QUARTER_LABELS.length - 1 ? "end" : "middle"}
-          >
-            {label}
-          </text>
+      <g aria-hidden="true" fontSize="11" fill="var(--color-ink-faint)">
+        {["24mo ago", "18mo", "12mo", "6mo", "Now"].map((t, i) => (
+          <text key={t} x={PAD.left + (i / 4) * PLOT_W} y={H - 8}
+            textAnchor={i === 0 ? "start" : i === 4 ? "end" : "middle"}>{t}</text>
         ))}
       </g>
     </svg>
   );
 }
 
-/* --------------------------------------------------------- allocation ring -- */
-
-/** pathLength="100" lets every dash length be written directly as a percentage. */
-export function AllocationRing() {
-  let offset = 0;
-
+/** Horizontal budget-vs-actual bars. Over budget reads red. */
+export function SpendBars() {
+  const max = Math.max(...spend.flatMap((s) => [s.budget, s.actual]));
   return (
-    <svg
-      viewBox="0 0 200 200"
-      className="h-auto w-full max-w-[13rem]"
-      role="img"
-      aria-label={allocation
-        .map((a) => `${a.name} ${a.actual} percent`)
-        .join(", ")}
-    >
-      <circle
-        cx="100"
-        cy="100"
-        r="72"
-        fill="none"
-        stroke="var(--color-rule-soft)"
-        strokeWidth="26"
-      />
-      <g transform="rotate(-90 100 100)">
-        {allocation.map((slice) => {
-          const dash = (
-            <circle
-              key={slice.name}
-              cx="100"
-              cy="100"
-              r="72"
-              pathLength={100}
-              fill="none"
-              stroke={slice.color}
-              strokeWidth="26"
-              strokeDasharray={`${slice.actual - 0.6} ${100 - slice.actual + 0.6}`}
-              strokeDashoffset={-offset}
-            />
-          );
-          offset += slice.actual;
-          return dash;
-        })}
-      </g>
-      <text
-        x="100"
-        y="96"
-        textAnchor="middle"
-        className="ui tnum"
-        fontSize="15"
-        fill="var(--color-ink-faint)"
-        letterSpacing="1.6"
-      >
-        DRIFT
-      </text>
-      <text
-        x="100"
-        y="122"
-        textAnchor="middle"
-        className="tnum"
-        fontFamily="var(--font-serif)"
-        fontSize="26"
-        fill="var(--color-forest)"
-      >
-        1.4%
-      </text>
-    </svg>
+    <ul className="space-y-5">
+      {spend.map((s) => {
+        const over = s.actual > s.budget;
+        const variance = s.budget - s.actual;
+        return (
+          <li key={s.dept}>
+            <div className="flex items-baseline justify-between gap-4">
+              <span className="text-[0.9375rem] text-navy">{s.dept}</span>
+              <span className={`tnum text-[0.875rem] font-medium ${over ? "text-loss" : "text-gain"}`}>
+                {over ? "−" : "+"}${Math.abs(variance / 1000).toFixed(0)}K
+              </span>
+            </div>
+            <div className="relative mt-2.5 h-2.5 rounded-full bg-canvas-deep">
+              {/* Budget marker sits on top of the actual fill. */}
+              <div className={`absolute inset-y-0 left-0 rounded-full ${over ? "bg-loss" : "bg-blue"}`}
+                style={{ width: `${(s.actual / max) * 100}%` }} />
+              <div aria-hidden="true" className="absolute inset-y-[-3px] w-0.5 rounded bg-navy"
+                style={{ left: `${(s.budget / max) * 100}%` }} />
+            </div>
+          </li>
+        );
+      })}
+    </ul>
   );
 }
