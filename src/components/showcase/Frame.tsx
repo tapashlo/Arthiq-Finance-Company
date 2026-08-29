@@ -32,7 +32,7 @@ export function Artifact({
     >
       <figcaption
         className={[
-          "flex flex-wrap items-center justify-between gap-x-6 gap-y-2 border-b px-6 py-4",
+          "flex items-center justify-between gap-4 border-b px-5 py-3.5 md:px-6 md:py-4",
           dark ? "border-white/10" : "border-rule",
         ].join(" ")}
       >
@@ -42,18 +42,20 @@ export function Artifact({
               <span key={c} className={`block h-2 w-2 rounded-full ${c}`} />
             ))}
           </span>
-          <span className={`label ${dark ? "text-white/50" : "text-ink-faint"}`}>
+          <span className={`label truncate ${dark ? "text-white/50" : "text-ink-faint"}`}>
             {label}
           </span>
         </div>
         {meta && (
-          <span className={`label-sm ${dark ? "text-white/40" : "text-ink-faint"}`}>
+          <span
+            className={`label-sm hidden shrink-0 sm:block ${dark ? "text-white/40" : "text-ink-faint"}`}
+          >
             {meta}
           </span>
         )}
       </figcaption>
 
-      <div className="px-5 pt-5 pb-4 md:px-7 md:pt-6">
+      <div className="px-5 pt-5 pb-5 md:px-7 md:pt-6">
         <h3 className={`display text-lg ${dark ? "text-white" : "text-navy"} md:text-xl`}>
           {title}
         </h3>

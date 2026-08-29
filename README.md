@@ -68,6 +68,13 @@ Tokens live in `src/app/globals.css` under `@theme`.
   `prefers-reduced-motion: reduce`, verified in the browser rather than assumed.
 - **Touch targets** — the `.tap` utility guarantees 44px on controls whose text
   box is smaller. Inline links inside prose are exempt, per WCAG 2.5.8.
+- **Charts on mobile** — SVG text scales with the viewBox, so a 12-unit label
+  lands at about 4px on a phone. Each chart declares `--fs-sm` in its own user
+  units (28 for the 840-wide hero, 24 for the 640-wide examples, 32 for the
+  900-wide ARR chart) and `.chart text` reads it below 768px. Labels that would
+  then collide carry `.dense` and drop out at the same breakpoint. Verified by
+  measuring rendered font size and testing every label pair for overlap at 360,
+  390, 430 and 1440px.
 
 ---
 

@@ -54,7 +54,7 @@ const pct = (v: number) => `${v >= 0 ? "+" : "−"}${Math.abs(v * 100).toFixed(0
 
 export function ReturnsTable() {
   return (
-    <div className="overflow-x-auto">
+    <div className="scroll-x">
       <table className="w-full min-w-[34rem] border-collapse">
         <caption className="sr-only">
           Illustrative budget variance by department, month by month. Positive is
@@ -155,7 +155,7 @@ function Sparkline({ values, up }: { values: number[]; up: boolean }) {
 
 export function SparklineSheet() {
   return (
-    <div className="overflow-x-auto">
+    <div className="scroll-x">
       <table className="w-full min-w-[22rem] border-collapse text-left">
         <caption className="sr-only">
           Illustrative operating metrics with year-to-date change and trend.
