@@ -57,7 +57,7 @@ export function SiteFooter() {
                 </FooterLink>
               ))}
               <FooterLink href="/about#process">Working together</FooterLink>
-              <FooterLink href="/tools">Free tools</FooterLink>
+              <FooterLink href="/work">Our work</FooterLink>
             </FooterCol>
 
             <FooterCol title="Legal">
@@ -75,8 +75,7 @@ export function SiteFooter() {
             {site.legalName} provides outsourced financial planning and analysis
             and fractional CFO services. We are not a registered investment
             adviser, a licensed public accounting firm or a law firm, and nothing
-            on this site — including the interactive tools — is investment,
-            accounting, tax or legal advice.{" "}
+            on this site is investment, accounting, tax or legal advice.{" "}
             <Link href="/disclosures" className="link-reveal text-white/70">
               Read the full disclosures
             </Link>
