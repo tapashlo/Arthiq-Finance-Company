@@ -1,8 +1,9 @@
 /**
  * ArthIQ wordmark.
  *
- *   A   — a twin-summit peak with snow fissures knocked out of it. Drawn as
- *         filled paths so it holds up as a solid silhouette at favicon size.
+ *   A   — a single asymmetric peak with snow fissures knocked out of it: a
+ *         short steep left face and a long right shoulder. Drawn as filled
+ *         paths so it holds as a solid silhouette at favicon size.
  *   rth — lowercase geometric, flat terminals.
  *   IQ  — uppercase in the accent blue; the Q is a magnifying glass, its tail
  *         leaving the bowl at 45° as a weighted handle.
@@ -13,6 +14,16 @@
  * chart and IQ, `--logo-knockout` for the fissures and lens glint. All fall
  * back to currentColor so a single-colour rendering still works.
  */
+
+/**
+ * One mountain, drawn once and shared by the wordmark and the monogram so the
+ * two can never drift. Both fissures are checked to sit inside the silhouette:
+ * on a single peak the right-hand one has to move inboard, or it floats off
+ * the face.
+ */
+const PEAK = "M8 150 L57 26 L128 150 Z";
+const FISSURE_MAIN = "M57 48 L45 106 L55 99 L44 146 L64 93 L54 98 Z";
+const FISSURE_SIDE = "M86 98 L78 126 L84 122 L77 149 L91 120 L84 124 Z";
 
 type WordmarkProps = {
   className?: string;
@@ -39,10 +50,10 @@ export function Wordmark({
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      {/* A — twin summit */}
-      <path d="M6 150 L58 26 L90 110 L104 80 L132 150 Z" fill={INK} />
-      <path d="M58 48 L45 106 L55 99 L44 146 L65 93 L55 98 Z" fill={KNOCKOUT} />
-      <path d="M102 88 L94 120 L100 116 L93 147 L107 113 L100 117 Z" fill={KNOCKOUT} />
+      {/* A — a single asymmetric peak: short steep left face, long right shoulder */}
+      <path d={PEAK} fill={INK} />
+      <path d={FISSURE_MAIN} fill={KNOCKOUT} />
+      <path d={FISSURE_SIDE} fill={KNOCKOUT} />
 
       {!simplified && (
         <g aria-hidden="true">
@@ -95,17 +106,17 @@ export function Wordmark({
 export function Monogram({ className }: { className?: string }) {
   return (
     <svg
-      viewBox="0 0 132 132"
+      viewBox="0 0 136 136"
       className={className}
       role="img"
       aria-label="ArthIQ"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <path d="M3 116 L55 -8 L87 76 L101 46 L129 116 Z" fill={INK} transform="translate(0 16)" />
-      <g transform="translate(0 16)">
-        <path d="M55 14 L42 72 L52 65 L41 112 L62 59 L52 64 Z" fill={KNOCKOUT} />
-        <path d="M99 54 L91 86 L97 82 L90 113 L104 79 L97 83 Z" fill={KNOCKOUT} />
+      <g transform="translate(0 -20)">
+        <path d={PEAK} fill={INK} />
+        <path d={FISSURE_MAIN} fill={KNOCKOUT} />
+        <path d={FISSURE_SIDE} fill={KNOCKOUT} />
       </g>
     </svg>
   );

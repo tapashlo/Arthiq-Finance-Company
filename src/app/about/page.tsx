@@ -228,7 +228,7 @@ export default function AboutPage() {
               {
                 letter: "A",
                 title: "The climb",
-                body: "The A is a twin-summit peak with snow fissures cut out of it. Building a company is the climb; the second summit is there because there is always another one after the first.",
+                body: "The A is a single peak with snow fissures cut out of it — a short steep face on one side, a long shoulder on the other. Building a company is the climb, and the interesting part is rarely the easy side.",
               },
               {
                 letter: "rth",
