@@ -6,13 +6,12 @@
   // deploy fails with "references Worker '<x>' which was not found" [10143].
   "name": "arthiq-finance-company",
 
-  // Run the OpenNext build as part of `wrangler deploy`, so the deploy does
-  // not depend on how the build command happens to be set in the Cloudflare
-  // dashboard. Previously the adapter's `migrate` step did this implicitly on
-  // every build; it no longer runs now that this file is committed.
-  "build": {
-    "command": "npm run cf:build"
-  },
+  // No "build" block here on purpose. `wrangler deploy` detects an OpenNext
+  // project and hands off to `opennextjs-cloudflare deploy`, which never runs
+  // wrangler's own build.command and expects .open-next to exist already. The
+  // build therefore has to happen in the command that invokes the deploy — see
+  // the cf:deploy script. (`wrangler deploy --dry-run` does NOT hand off, so a
+  // dry run will happily pass while the real deploy fails.)
 
   "main": ".open-next/worker.js",
   "compatibility_date": "2026-08-28",

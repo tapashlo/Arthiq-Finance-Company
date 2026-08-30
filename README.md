@@ -188,56 +188,73 @@ home page.
 The site runs on **Cloudflare Workers** via the OpenNext adapter. Not Vercel —
 `vercel.json` is a leftover from an earlier detour and is not used.
 
-Everything the deploy needs is committed, which is the point: `wrangler.jsonc`
-pins the Worker name, the assets binding, the compatibility flags and the
-self-reference binding, and it declares its own `build.command`. Without a
-committed config, `wrangler deploy` falls back to running the adapter's
-`migrate` wizard on every build — non-interactively, auto-answering its own
-prompts and regenerating a config from scratch. That is how the Worker name and
-the `WORKER_SELF_REFERENCE` binding drifted apart and broke a deploy.
+### The trap
 
-**Three names must agree.** The Worker in your Cloudflare account, `name` in
-`wrangler.jsonc`, and the `service` under `WORKER_SELF_REFERENCE`. If they ever
-disagree the deploy fails with:
+`wrangler deploy` does not deploy this project itself. It detects an OpenNext
+project and hands off:
 
 ```
-Service binding 'WORKER_SELF_REFERENCE' references Worker '<x>' which was not found. [code: 10143]
+OpenNext project detected, calling `opennextjs-cloudflare deploy`
+ERROR Could not find compiled Open Next config, did you run the build command?
 ```
+
+That hand-off skips wrangler's own `build.command`, and
+`opennextjs-cloudflare deploy` expects `.open-next/` to exist already. So the
+build has to happen in the command that invokes the deploy.
+
+`wrangler deploy --dry-run` does **not** hand off — it takes wrangler's normal
+path. A dry run will therefore pass while the real deploy fails. Do not treat a
+green dry run as proof.
+
+### Settings
+
+| Setting | Value |
+| --- | --- |
+| Deploy command | `npm run cf:deploy` |
+| Build command | leave empty |
+
+`cf:deploy` is `opennextjs-cloudflare build && opennextjs-cloudflare deploy` —
+self-contained, so the repository controls the whole sequence and there is only
+one setting to get right. (Setting the build command to `npm run cf:build` and
+leaving the deploy command as `npx wrangler deploy` also works: the hand-off
+then finds a populated `.open-next/`.)
+
+Node is pinned in `.nvmrc` and `engines` so the builder cannot quietly pick a
+version too old for Next 16.
 
 ### From your machine
 
 ```bash
 npx wrangler login
-npm run cf:preview   # wrangler dev — the real Workers runtime, on localhost
-npm run cf:deploy    # wrangler deploy
+npm run cf:preview   # the real Workers runtime, on localhost
+npm run cf:deploy
 ```
 
-Both build first: `build.command` in `wrangler.jsonc` runs the OpenNext build,
-so there is no separate build step to forget or to run twice.
+### Three names must agree
 
-### From Cloudflare Workers Builds (git-connected)
+The Worker in your Cloudflare account, `name` in `wrangler.jsonc`, and the
+`service` under `WORKER_SELF_REFERENCE`. All three are `arthiq-finance-company`.
+If they ever disagree:
 
-A push to `main` deploys. Two settings matter:
+```
+Service binding 'WORKER_SELF_REFERENCE' references Worker '<x>' which was not found. [code: 10143]
+```
 
-| Setting | Value | Why |
-| --- | --- | --- |
-| Deploy command | `npx wrangler deploy` | Reads the committed config; builds via `build.command`. |
-| Build command | leave empty, or `npm ci` | The app build already happens inside the deploy. Anything that runs `opennextjs-cloudflare build` here just builds twice. |
+Rename the Worker in Cloudflare and you must change `wrangler.jsonc` in the same
+commit.
 
-Node is pinned in `.nvmrc` and `engines` so the builder cannot quietly pick a
-version too old for Next 16.
+`wrangler.jsonc` and `open-next.config.ts` are committed for the same reason.
+Without a committed config, `wrangler` runs the adapter's `migrate` wizard on
+every build — non-interactively, auto-answering its own prompts and
+regenerating a config from scratch. That is how the two names drifted apart in
+the first place.
 
 ### Verifying before you push
 
-`wrangler dev` runs the real thing — your Worker on workerd, with the assets
-binding — rather than Next's own server. `next start` will happily serve pages
-that the Workers runtime would reject, so check there before a release:
-
-```bash
-npm run cf:preview
-```
-
-All twelve routes, the RSC payloads and the static assets were verified this way.
+`npm run cf:preview` runs your actual Worker on workerd with the assets
+binding, rather than Next's own server. `next start` will happily serve pages
+the Workers runtime would reject, so check there before a release. All twelve
+routes, their content and the static assets were verified on that runtime.
 
 ---
 
