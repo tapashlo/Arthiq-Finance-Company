@@ -1,9 +1,15 @@
 @import "tailwindcss";
 
 /* ------------------------------------------------------------------
-   ArthIQ design tokens — FP&A.
-   Palette: deep navy grounds, an electric blue accent, and market
-   red/green reserved for figures that carry a sign.
+   ArthIQ design tokens.
+
+   Two worlds on one page. The document is light — white and pale blue
+   grounds, navy type — and the product surfaces are dark panels that sit
+   on top of it like screens. Charts live on the panels, which is why the
+   visualisation palette is tuned for a dark ground first.
+
+   Palette: deep navy grounds, an electric blue accent, a five-hue chart
+   set, and market red/green reserved for figures that carry a sign.
    Type: Plus Jakarta Sans for display, Inter for UI, body and figures.
 ------------------------------------------------------------------- */
 
@@ -37,6 +43,22 @@
   --color-loss-soft: #fbdfdb;
   --color-warn: #b4791b;
 
+  /* Data-visualisation palette. Tuned to stay legible both on the white
+     canvas and on the dark product panels, where the charts do most of the
+     talking. Distinct in hue rather than lightness, so a colour still reads
+     when two series sit next to each other at 2px. */
+  --color-viz-blue: #58a6ff;
+  --color-viz-mint: #3ad0a4;
+  --color-viz-amber: #f9b44c;
+  --color-viz-coral: #f97389;
+  --color-viz-violet: #a78bfa;
+
+  /* Product surfaces — the dashboard mock-ups. Darker than --color-navy so a
+     panel reads as a screen sitting on the page rather than as a section. */
+  --color-panel: #0a1729;
+  --color-panel-raised: #132844;
+  --color-panel-rule: rgba(255, 255, 255, 0.09);
+
   /* Hairlines */
   --color-rule: rgba(18, 35, 61, 0.13);
   --color-rule-soft: rgba(18, 35, 61, 0.07);
@@ -46,9 +68,13 @@
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
 
   --radius-card: 10px;
+  --radius-panel: 18px;
 
   --shadow-lift: 0 1px 2px rgba(12, 26, 46, 0.05), 0 10px 26px -12px rgba(12, 26, 46, 0.16);
   --shadow-deep: 0 2px 6px rgba(12, 26, 46, 0.06), 0 30px 60px -24px rgba(12, 26, 46, 0.26);
+  /* A product panel floats higher than a card; the long soft shadow is what
+     separates "a screenshot" from "a section with a border". */
+  --shadow-panel: 0 2px 8px rgba(10, 23, 41, 0.10), 0 44px 90px -34px rgba(10, 23, 41, 0.55);
 }
 
 @layer base {
@@ -63,6 +89,13 @@
     --logo-ink: #eaf1fb;
     --logo-accent: var(--color-blue-bright);
     --logo-knockout: var(--color-navy-deep);
+  }
+
+  /* Same idea one step darker, for the product panels. */
+  .on-panel {
+    --logo-ink: #f0f5fc;
+    --logo-accent: var(--color-viz-blue);
+    --logo-knockout: var(--color-panel);
   }
 
   * {
@@ -228,16 +261,69 @@
   .range:hover::-webkit-slider-thumb { transform: scale(1.12); }
   .range:focus-visible::-webkit-slider-thumb { outline: 2px solid var(--color-blue); outline-offset: 2px; }
 
+  /* A product panel: the dark surface the dashboards are drawn on. The inset
+     top highlight is what sells it as a physical screen rather than a div —
+     one hairline of light along the edge that catches the page. */
+  .panel {
+    background-color: var(--color-panel);
+    border-radius: var(--radius-panel);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.08),
+      0 0 0 1px rgba(10, 23, 41, 0.6),
+      var(--shadow-panel);
+    color: #e8eef8;
+  }
+
+  /* Rows and tiles inside a panel. */
+  .panel-tile {
+    background-color: var(--color-panel-raised);
+    border: 1px solid var(--color-panel-rule);
+    border-radius: 12px;
+  }
+
+  /* Faint plotting grid behind panel charts. */
+  .panel-grid {
+    background-image:
+      linear-gradient(var(--color-panel-rule) 1px, transparent 1px),
+      linear-gradient(90deg, var(--color-panel-rule) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+
+  /* Segmented control — the Personal / Business switch on the dashboards. */
+  .seg {
+    display: inline-flex;
+    padding: 3px;
+    border-radius: 999px;
+    background-color: rgba(255, 255, 255, 0.07);
+    border: 1px solid var(--color-panel-rule);
+  }
+
+  .seg button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    /* 44px of target inside a 3px-padded track. */
+    min-height: 44px;
+    border-radius: 999px;
+    padding: 0 1.05rem;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
   /* Text inside a viewBox scales with the chart, so a 12-unit label lands at
-     about 4px on a phone. Each chart declares --fs-sm in its own user units to
-     compensate, and thins out dense label sets at the same breakpoint. */
+     about 4px on a phone. Each chart declares its label size in its own user
+     units — --fs for the desktop size, --fs-sm for the phone — and thins out
+     dense label sets at the same breakpoint.
+
+     The mobile rule targets `text` rather than redefining --fs on .chart: a
+     chart that sets --fs inline for its desktop size would otherwise win over
+     the media query by specificity and never scale up on a phone. */
   .chart text {
     font-size: calc(var(--fs, 12) * 1px);
   }
 
   @media (max-width: 767px) {
-    .chart {
-      --fs: var(--fs-sm, 24);
+    .chart text {
+      font-size: calc(var(--fs-sm, 24) * 1px);
     }
 
     .chart .dense {
@@ -248,6 +334,11 @@
   /* Horizontally scrollable tables get a fade at the right edge so the
      affordance is visible before the reader tries to swipe. */
   .scroll-x {
+    /* Positioned so the scroller is a containing block. Without it, `overflow`
+       does not clip absolutely positioned descendants — an .sr-only label in a
+       wide table then extends the page itself and the whole document swipes
+       sideways on a phone. */
+    position: relative;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: thin;

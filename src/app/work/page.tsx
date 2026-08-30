@@ -10,7 +10,7 @@ import { Arrow, Button, PageHero } from "@/components/ui";
 export const metadata: Metadata = {
   title: "Our work",
   description:
-    "What an FP&A engagement actually produces: a driver-based forecast build, a variance bridge, cohort retention, a board KPI page, a six-day close calendar and unit economics.",
+    "What an ArthIQ engagement actually produces: a driver-based forecast build, a variance bridge, cohort retention, a board KPI page, a six-day close calendar and unit economics.",
 };
 
 type Item = {
@@ -109,10 +109,10 @@ export default function WorkPage() {
       >
         <div className="mt-9 flex flex-col gap-3 sm:flex-row">
           <Button href="/contact">
-            Book a diagnostic call
+            Book a call
             <Arrow />
           </Button>
-          <Button href="/services" variant="outline">
+          <Button href="/fpa" variant="outline">
             How the engagement runs
           </Button>
         </div>

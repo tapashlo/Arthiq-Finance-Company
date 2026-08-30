@@ -49,7 +49,7 @@ export function SiteHeader() {
           <Wordmark simplified className="h-8 w-auto md:h-9" />
         </Link>
 
-        <nav aria-label="Primary" className="hidden items-center gap-9 lg:flex">
+        <nav aria-label="Primary" className="hidden items-center gap-6 lg:flex xl:gap-9">
           {nav.map((item) => {
             const active = pathname.startsWith(item.href);
             return (
@@ -68,18 +68,20 @@ export function SiteHeader() {
           })}
         </nav>
 
-        <div className="hidden items-center gap-6 lg:flex">
+        <div className="hidden items-center gap-5 lg:flex xl:gap-6">
+          {/* Dropped first when the six nav items get tight; it is also in the
+              footer and on the mobile panel. */}
           <Link
             href="/portal"
-            className="label tap text-ink-soft transition-colors duration-300 hover:text-navy"
+            className="label tap hidden text-ink-soft transition-colors duration-300 hover:text-navy xl:inline-flex"
           >
-            Client login
+            Sign in
           </Link>
           <Link
             href="/contact"
             className="label rounded-lg bg-navy px-5 py-3.5 text-white transition-colors duration-300 hover:bg-blue"
           >
-            Book a call
+            Get started
           </Link>
         </div>
 
@@ -119,7 +121,7 @@ export function SiteHeader() {
             <Link
               key={item.href}
               href={item.href}
-              className="fade-up border-b border-rule-soft py-5 text-3xl text-navy"
+              className="fade-up border-b border-rule-soft py-4 text-[1.75rem] text-navy sm:py-5 sm:text-3xl"
               style={{ animationDelay: `${i * 60}ms` }}
             >
               {item.label}
@@ -130,13 +132,13 @@ export function SiteHeader() {
               href="/contact"
               className="label rounded-lg bg-navy px-6 py-4.5 text-center text-white"
             >
-              Book a call
+              Get started
             </Link>
             <Link
               href="/portal"
               className="label rounded-lg border border-rule px-6 py-4.5 text-center text-navy"
             >
-              Client login
+              Sign in
             </Link>
           </div>
         </div>

@@ -3,21 +3,17 @@
 import { useId, useState } from "react";
 import { Arrow } from "./ui";
 
-const ASSET_BANDS = [
-  "Under $1M",
-  "$1M – $2.5M",
-  "$2.5M – $5M",
-  "$5M – $10M",
-  "Over $10M",
+/** Deliberately answerable by a household and by a company. */
+const SIZE_BANDS = [
+  "Just my household",
+  "1–10 people",
+  "11–50 people",
+  "51–200 people",
+  "More than 200 people",
   "Prefer not to say",
 ];
 
-const TOPICS = [
-  "Investment management",
-  "Retirement & tax planning",
-  "Both",
-  "Not sure yet",
-];
+const TOPICS = ["Personal", "Business", "FP&A", "Not sure yet"];
 
 /**
  * Demonstration form. There is no backend wired up: submitting validates the
@@ -105,17 +101,17 @@ export function ContactForm() {
           />
         </Field>
 
-        <Field label="Investable assets" htmlFor={`${id}-assets`}>
+        <Field label="Household or company size" htmlFor={`${id}-size`}>
           <select
-            id={`${id}-assets`}
-            name="assets"
+            id={`${id}-size`}
+            name="size"
             defaultValue=""
             className={inputClass}
           >
             <option value="" disabled>
               Select a range
             </option>
-            {ASSET_BANDS.map((band) => (
+            {SIZE_BANDS.map((band) => (
               <option key={band} value={band}>
                 {band}
               </option>
@@ -126,7 +122,7 @@ export function ContactForm() {
 
       <fieldset className="mt-9">
         <legend className="label text-ink-faint">
-          What would you like help with?
+          Which are you asking about?
         </legend>
         <div className="mt-5 flex flex-wrap gap-2.5">
           {TOPICS.map((topic, i) => (

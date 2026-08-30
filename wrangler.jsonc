@@ -1,0 +1,36 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+
+  // Must match the Worker name in the Cloudflare project settings, and must
+  // match the WORKER_SELF_REFERENCE service below. When these disagree the
+  // deploy fails with "references Worker '<x>' which was not found" [10143].
+  "name": "arthiq-finance-company",
+
+  // Run the OpenNext build as part of `wrangler deploy`, so the deploy does
+  // not depend on how the build command happens to be set in the Cloudflare
+  // dashboard. Previously the adapter's `migrate` step did this implicitly on
+  // every build; it no longer runs now that this file is committed.
+  "build": {
+    "command": "npm run cf:build"
+  },
+
+  "main": ".open-next/worker.js",
+  "compatibility_date": "2026-08-28",
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS"
+  },
+
+  "services": [
+    {
+      "binding": "WORKER_SELF_REFERENCE",
+      "service": "arthiq-finance-company"
+    }
+  ],
+
+  "observability": {
+    "enabled": true
+  }
+}

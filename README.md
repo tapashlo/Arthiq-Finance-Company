@@ -1,8 +1,10 @@
 # ArthIQ
 
-Marketing site, free calculator suite and client-dashboard mockup for
-**ArthIQ**, a remote-first outsourced FP&A and fractional CFO team serving
-venture-backed startups across the United States, Seed to Series C.
+Marketing site and dashboard mock-ups for **ArthIQ**, positioned as a financial
+intelligence layer rather than an accounting firm: accounting, planning and
+money management brought together, for a household and for the company its
+owner runs. Three product lines — Personal, Business and FP&A — delivered by
+people but presented like a product.
 
 Built with Next.js 16 (App Router), TypeScript and Tailwind CSS v4. Every route
 is statically prerendered; there is no database, no API and no runtime
@@ -25,7 +27,7 @@ font — so it stays sharp at any size and needs no webfont to render.
 
 | Letters | Idea | How it is drawn |
 | --- | --- | --- |
-| **A** | A twin-summit peak | Filled paths with snow fissures knocked out, so it holds as a solid silhouette at favicon size. |
+| **A** | A single asymmetric peak | Filled paths with snow fissures knocked out, so it holds as a solid silhouette at favicon size. |
 | **rth** | lowercase, geometric | Flat terminals, monoline strokes. A rising line with plotted nodes and an arrowhead runs through the ascender band above it. |
 | **IQ** | uppercase, in the accent blue | The Q is a magnifying glass — bowl as lens, tail leaving at 45° as the handle. |
 
@@ -52,14 +54,24 @@ Tokens live in `src/app/globals.css` under `@theme`.
   figures. Both are variable and self-hosted by `next/font`, so no external font
   request is made at runtime.
 
-- **Charts** — all hand-authored SVG, no charting library. The hero is a
-  candlestick chart with volume and a five-quarter moving average; the home page
-  also carries a periodic-table-of-returns heatmap and a sparkline sheet, and
-  the portal has a performance area chart and an allocation ring. Every series
-  is generated deterministically at module scope so server and client agree.
+- **Two surfaces** — the document is light (white and pale blue grounds, navy
+  type); the product mock-ups are dark `.panel` surfaces that sit on top of it
+  like screens. Charts live on the panels, so the five-hue `--color-viz-*` set
+  is tuned for a dark ground first. `--color-gain` and `--color-loss` stay
+  reserved for figures that carry a sign in the light document.
+- **Charts** — all hand-authored SVG, no charting library. The hero is a tabbed
+  dashboard (net worth and cash flow on one side, revenue against budget on the
+  other); the product pages add cash flow, spend categories, goals, debt payoff,
+  a P&L against plan and a three-scenario runway chart. Every series is
+  generated deterministically at module scope so server and client agree.
+- **Figures agree with each other.** The invented household on `/personal` is
+  the one on the hero dashboard, and the category deltas are the ones the Ask
+  ArthIQ example explains. The scenario chart uses the same $6.3M of cash and
+  $332K base burn that the "what if revenue falls 10%" answer quotes. A reader
+  who checks finds one company rather than a set of unrelated mock-ups.
 - **Artwork** — `<Topography />` draws nested contour rings from fixed
   harmonics: an elevation map of the peak in the wordmark. No image requests.
-- **Photography** — six Unsplash images in `src/images/`, imported as modules
+- **Photography** — seven Unsplash images in `src/images/`, imported as modules
   so Next emits intrinsic dimensions and a blur placeholder (CLS stays at 0).
   See `ATTRIBUTION.md`.
 - **Motion** — `<Reveal>` fades sections in on scroll, photographs settle from a
@@ -68,13 +80,22 @@ Tokens live in `src/app/globals.css` under `@theme`.
   `prefers-reduced-motion: reduce`, verified in the browser rather than assumed.
 - **Touch targets** — the `.tap` utility guarantees 44px on controls whose text
   box is smaller. Inline links inside prose are exempt, per WCAG 2.5.8.
-- **Charts on mobile** — SVG text scales with the viewBox, so a 12-unit label
-  lands at about 4px on a phone. Each chart declares `--fs-sm` in its own user
-  units (28 for the 840-wide hero, 24 for the 640-wide examples, 32 for the
-  900-wide ARR chart) and `.chart text` reads it below 768px. Labels that would
-  then collide carry `.dense` and drop out at the same breakpoint. Verified by
-  measuring rendered font size and testing every label pair for overlap at 360,
-  390, 430 and 1440px.
+- **Chart labels are HTML, not SVG.** Text inside a viewBox scales with the
+  chart, so the same label renders at 6px in a two-column panel and 26px in a
+  full-width one. Compensating per placement is a losing game when the panels
+  are fluid, so the panel charts put their axis labels outside the SVG in an
+  `<Axis>` grid that lines up with the bands. Thinned labels use `invisible`
+  rather than `hidden`, or the surviving labels reflow and stop matching what
+  they label.
+- **The older `.chart` charts** (the six `/work` deliverables) still carry text
+  inside the viewBox at fixed frame widths, and declare `--fs` and `--fs-sm` in
+  their own user units; `.chart text` reads `--fs-sm` below 768px, and labels
+  that would then collide carry `.dense`.
+- **Horizontal scrollers are positioned.** `overflow` does not clip an
+  absolutely positioned descendant unless the scroller is its containing block,
+  so a `.sr-only` label inside a wide table used to extend the page itself and
+  make the whole document swipe sideways. `.scroll-x` is `position: relative`
+  for that reason.
 
 ---
 
@@ -83,26 +104,33 @@ Tokens live in `src/app/globals.css` under `@theme`.
 ```
 src/
 ├── app/
-│   ├── page.tsx              Home (hero, live tool, services, board)
+│   ├── page.tsx              Home (hero dashboard, lines, Ask ArthIQ, pricing)
+│   ├── personal/             Budgeting, cash flow, net worth, goals, debt
+│   ├── business/             Accounting, close, reporting, variance, KPIs
+│   ├── fpa/                  Planning, scenarios, the model, vs. hiring
+│   ├── pricing/             Three plans and the full comparison
 │   ├── work/                 Six deliverable examples
-│   ├── about/                Firm story, team, principles, process, the mark
-│   ├── services/             Investment management · Retirement & tax planning
+│   ├── about/                Story, team, principles, process, the mark
 │   ├── insights/             Index + [slug] article pages
 │   ├── contact/              Booking form
 │   ├── portal/               Client dashboard mockup
-│   ├── disclosures/          Regulatory, privacy, Form ADV
+│   ├── disclosures/          What we are, security, privacy, the limits
 │   ├── globals.css           Design tokens, base, components, motion
 │   └── icon.svg              Favicon
 ├── components/
+│   ├── product/              Dark panels: dashboard, Ask ArthIQ, line pages
 │   ├── showcase/             Frame + the six work examples
-│   └── …                     Logo, header, footer, charts, form, primitives
+│   └── …                     Logo, header, footer, form, primitives
 └── lib/
-    ├── site.ts               All marketing copy and data
+    ├── site.ts               Company copy: nav, team, process, FAQ, articles
+    ├── lines.ts              The three product lines, pricing, Ask ArthIQ
     └── portal.ts             Portal mock data
 ```
 
-Content is separated from layout: to change copy, services, team, FAQs or
-articles, edit `src/lib/site.ts` and nothing else.
+Content is separated from layout. Company copy — nav, stats, principles, team,
+process, testimonials, FAQs, articles, disclosures — lives in `src/lib/site.ts`;
+the three product lines, the plans and the Ask ArthIQ examples live in
+`src/lib/lines.ts`. Nothing else needs editing to change what the site says.
 
 ---
 
@@ -112,24 +140,24 @@ On a cold mobile visit (390px, throttling off), production build:
 
 | | |
 | --- | --- |
-| Total transferred | 439 KB |
-| — fonts | 167 KB |
-| — JavaScript | 150 KB |
-| — HTML | 66 KB |
-| — RSC payload | 46 KB |
-| — CSS | 10 KB |
-| First Contentful Paint | 212 ms |
+| Total transferred | 333 KB |
+| — JavaScript | 157 KB |
+| — fonts | 74 KB |
+| — HTML | 56 KB |
+| — RSC payload | 33 KB |
+| — CSS | 13 KB |
+| — images above the fold | under 1 KB |
+| First Contentful Paint | ~235 ms |
 | Cumulative Layout Shift | 0 |
 
-Images are lazy below the fold and served as WebP at the size each layout
-actually paints — 212 KB for the whole home page at 2× DPR.
+The hero carries no photograph: it is the dashboard, which is SVG and markup.
+Everything below the fold is lazy and served as WebP at the size each layout
+actually paints.
 
-Fonts are the largest single cost. Dropping Inter for a system sans stack would
-save roughly 50 KB; the labels are small uppercase tracked text where the
-difference is hard to see. It has been left in for cross-platform consistency.
-
-Checked at 360, 390, 430, 768, 1024, 1280 and 1440px across all eight routes:
-no horizontal overflow, no touch target under 44px.
+Checked at 390, 768 and 1440px across twelve routes — home, the three product
+lines, pricing, about, work, insights, an article, contact, portal and
+disclosures: no horizontal overflow, no text under 10px, no touch target under
+44px, and no chart label rendering below legible size.
 
 ---
 
@@ -170,11 +198,17 @@ This is a **design demonstration**. Everything below needs real work first.
 - [ ] **Build a real dashboard.** `/portal` is static markup with no
       authentication, no accounting-system connection and no data. It is a
       visual reference, not a foundation.
-- [ ] **Legal review.** ArthIQ is positioned as a consulting firm, not a
-      registered investment adviser, so the SEC marketing rules that govern an
-      RIA do not apply — but the testimonials, the fee figures and the tools all
-      still want a lawyer's eye. The disclosure text here is illustrative
-      drafting, not legal advice.
+- [ ] **Legal review.** The site claims read-only connections, no custody, no
+      commissions, no data sale, and that ArthIQ is not a registered investment
+      adviser or a licensed public accounting firm. Those are the load-bearing
+      claims, and every one of them has to be true of the real operation before
+      launch. Bookkeeping for clients, personal money management and anything
+      resembling planning advice each bring their own regime. The disclosure
+      text here is illustrative drafting, not legal advice.
+- [ ] **Build Ask ArthIQ, or drop the claim.** The five example answers are
+      hand-written over invented data. The site says an answer shows its
+      sources; a real implementation has to actually do that, and has to be
+      honest about being wrong.
 - [ ] **Add real portraits.** The team grid currently uses initials plates.
 - [ ] Set the production domain in `site.url` (`src/lib/site.ts`) so canonical
       and Open Graph URLs resolve, and add an OG image.

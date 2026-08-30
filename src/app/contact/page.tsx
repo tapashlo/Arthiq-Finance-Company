@@ -9,7 +9,7 @@ import { process, site } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Contact",
   description:
-    "Book a 45-minute diagnostic call with ArthIQ. No documents required, and no obligation.",
+    "Book a 30-minute call with ArthIQ — personal, business or FP&A. No documents required, and no obligation.",
 };
 
 export default function ContactPage() {
@@ -22,8 +22,9 @@ export default function ContactPage() {
             Start with a conversation.
           </h1>
           <p className="mt-9 max-w-2xl text-xl leading-relaxed text-ink-soft md:text-2xl">
-            Forty-five minutes, no documents, no obligation. If we are not the
-            right firm for what you are deciding, we will say so and point you
+            Thirty minutes, no documents, no obligation. Tell us whether this is
+            for your household, your business or both. If we are not the right
+            team for what you are deciding, we will say so and point you
             somewhere better.
           </p>
         </div>
@@ -109,7 +110,7 @@ export default function ContactPage() {
                   href="/portal"
                   className="label link-reveal tap mt-3 text-navy hover:text-blue"
                 >
-                  Client login
+                  Sign in
                 </a>
               </div>
             </Reveal>
