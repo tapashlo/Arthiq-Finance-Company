@@ -1,5 +1,11 @@
 /**
- * Site content.
+ * Company content.
+ *
+ * ArthIQ is positioned as a financial intelligence layer rather than an
+ * accounting firm: the same discipline applied to a household's money and to
+ * a company's, delivered by people but presented like a product. The three
+ * product lines live in `lines.ts`; everything here is the company around
+ * them.
  *
  * PLACEHOLDER — every name, figure, client and quote below is invented for
  * design purposes. Replace before launch.
@@ -7,152 +13,126 @@
 
 export const site = {
   name: "ArthIQ",
-  legalName: "ArthIQ Advisory, LLC",
-  tagline: "Financial planning and analysis for companies that move fast.",
+  legalName: "ArthIQ Financial Intelligence, LLC",
+  tagline: "Know your numbers. Plan what\u2019s next.",
+  subtitle: "Financial intelligence for your business and your life.",
   description:
-    "ArthIQ is an outsourced FP&A and fractional CFO team for venture-backed startups across the United States. Forecasting, board reporting, budgeting and unit economics — run by people who have sat in the seat.",
+    "ArthIQ brings accounting, budgeting, forecasting and money management together into one clear financial picture \u2014 for your household, your business, and the decisions in front of both.",
   url: "https://arthiq.com",
   founded: 2019,
-  /** Remote-first across the United States — no office to publish. */
+  /** Remote-first across the United States \u2014 no office to publish. */
   based: "Remote across the United States",
-  hours: "Monday to Friday, 8am–6pm in every US time zone",
+  hours: "Monday to Friday, 8am\u20136pm in every US time zone",
   phone: "(555) 018-2200",
   phoneHref: "tel:+15550182200",
   email: "hello@arthiq.com",
 } as const;
 
 export const nav = [
-  { href: "/services", label: "Services" },
-  { href: "/about", label: "How we work" },
+  { href: "/personal", label: "Personal" },
+  { href: "/business", label: "Business" },
+  { href: "/fpa", label: "FP&A" },
+  { href: "/pricing", label: "Pricing" },
   { href: "/insights", label: "Insights" },
-  { href: "/work", label: "Our work" },
+  { href: "/about", label: "About" },
 ] as const;
 
 /* ---------------------------------------------------------------- stats -- */
 
 export const stats = [
-  { value: "140+", label: "Startups supported", note: "in 34 states" },
-  { value: "$2.8B", label: "Capital raised by clients", note: "with our models in the room" },
-  { value: "6 days", label: "Median close", note: "down from 19 at onboarding" },
-  { value: "94%", label: "Forecast accuracy", note: "revenue, trailing 4 quarters" },
+  { value: "4,800+", label: "Households and companies", note: "in all fifty states" },
+  { value: "$1.9B", label: "Cash flow analysed", note: "in the last twelve months" },
+  { value: "6 days", label: "Median monthly close", note: "down from nineteen at onboarding" },
+  { value: "94%", label: "Forecast accuracy", note: "revenue, trailing four quarters" },
 ] as const;
 
-/* ------------------------------------------------------------- services -- */
+/* ----------------------------------------------------------- principles -- */
 
-export const services = [
+export const principles = [
   {
-    slug: "forecasting",
-    number: "01",
-    title: "Driver-based forecasting",
-    summary:
-      "A model that runs on the handful of drivers that actually move your business, so changing an assumption takes a minute rather than a weekend.",
-    detail:
-      "We rebuild your forecast around operating drivers — pipeline coverage, conversion, ramp, churn, headcount plan — instead of a grid of hardcoded numbers. One input change flows through revenue, headcount, cash and the balance sheet at once.",
-    points: [
-      { title: "Three-statement model", body: "P&L, balance sheet and cash flow that actually tie out, with a documented driver tree behind every line." },
-      { title: "Scenario branches", body: "Base, upside and downside held side by side, so board conversations start from a range rather than a single number." },
-      { title: "Hiring plan integration", body: "Headcount by role and start date, fully loaded with taxes and benefits, driving both cost and capacity." },
-      { title: "Rolling re-forecast", body: "Updated monthly against actuals, so the plan reflects the business as it is rather than as it was in January." },
-      { title: "Runway and raise timing", body: "Cash-out date under each scenario, and the milestones you need to hit before the next round." },
-      { title: "Sensitivity analysis", body: "Which assumptions actually matter, ranked — so you know where to spend management attention." },
-    ],
+    title: "One picture, not twelve logins",
+    body: "Money problems are usually assembly problems. The information exists \u2014 in a bank, a ledger, a payroll system, a spreadsheet somebody owns \u2014 and nobody has put it in one place. That assembly is the first thing we do and the thing everything else rests on.",
   },
   {
-    slug: "board-reporting",
-    number: "02",
-    title: "Board & investor reporting",
-    summary:
-      "The pack your board actually reads: a clear narrative, the metrics that matter, and no surprises in the room.",
-    detail:
-      "We build and run the monthly and quarterly reporting rhythm — the numbers, the commentary and the pre-read. Directors get the story before the meeting, so the meeting is about decisions.",
-    points: [
-      { title: "Monthly investor update", body: "A tight narrative with KPIs, cash position, hiring and asks — sent on a schedule your investors can rely on." },
-      { title: "Board deck and pre-read", body: "Financials, plan-versus-actual and the two or three decisions that need airtime, circulated 72 hours ahead." },
-      { title: "KPI definitions", body: "Every metric defined once and applied consistently, so numbers stop changing between decks." },
-      { title: "Data room readiness", body: "Historicals, cohorts and the model kept in diligence-ready shape year round, not assembled in a panic." },
-      { title: "Cap table and dilution", body: "Scenario modelling for the next round, option pool refreshes and what each outcome means for founders." },
-      { title: "Audit and diligence support", body: "We sit alongside your auditors and your acquirer's team so the process does not stall your operators." },
-    ],
+    title: "Plain language, defensible numbers",
+    body: "A number you cannot explain is a number you will not act on. We write in sentences, not jargon, and every figure traces back to a source you can open. Friendly and rigorous are not opposites.",
   },
   {
-    slug: "budgeting",
-    number: "03",
-    title: "Budgeting & variance analysis",
-    summary:
-      "Department owners who understand their numbers, and a monthly variance review that explains the gap instead of just reporting it.",
-    detail:
-      "Budgets fail when they are handed down. We build them with the people who spend the money, then close the loop every month with a variance review that gets to cause, not just size.",
-    points: [
-      { title: "Bottom-up build", body: "Department owners build their own budgets against agreed targets, so nobody is surprised by their own number." },
-      { title: "Monthly variance review", body: "Plan versus actual by department, with the drivers behind each gap and an owner for each action." },
-      { title: "Spend controls", body: "Approval thresholds and vendor review that slow down the right decisions and none of the others." },
-      { title: "Headcount governance", body: "Requisition tracking against the approved plan, so hiring drift is visible in week one rather than quarter three." },
-      { title: "Close calendar", body: "A documented close with owners and deadlines. Most clients go from three weeks to under one." },
-      { title: "Systems and data hygiene", body: "Chart of accounts, cost centres and integrations set up so the reporting builds itself." },
-    ],
+    title: "Definitions before dashboards",
+    body: "Most reporting problems are definition problems. What counts as revenue, as savings, as a fixed cost \u2014 we write it down once, then build the view. It is why our numbers stop moving between meetings.",
   },
   {
-    slug: "unit-economics",
-    number: "04",
-    title: "Metrics & unit economics",
-    summary:
-      "CAC, payback, cohort retention and the burn multiple — computed the way your investors compute them, and trusted because the definitions hold.",
-    detail:
-      "Most startups have metrics. Fewer have metrics they can defend under diligence. We rebuild them from source data with definitions written down, then benchmark you against the stage you are actually at.",
-    points: [
-      { title: "Cohort retention", body: "Logo and revenue retention by cohort, so expansion and churn stop cancelling each other out in the average." },
-      { title: "CAC and payback", body: "Fully loaded acquisition cost by channel and segment, with payback measured on gross profit rather than revenue." },
-      { title: "Burn multiple", body: "Net burn per dollar of net new ARR — the number that decides whether the next round is a conversation or a negotiation." },
-      { title: "Contribution margin", body: "Unit economics after support, hosting and payment costs, so pricing decisions rest on something real." },
-      { title: "Benchmarking", body: "Where you sit against comparable companies at your stage, and which gaps are worth closing before you raise." },
-      { title: "Metric definitions", body: "One written definition per metric, versioned, so a number means the same thing in March as it did in January." },
-    ],
+    title: "A person owns your account",
+    body: "The dashboards are the surface. Behind them is an accountant, an analyst and, at the FP&A tier, a CFO \u2014 people you know by name who answer on Thursday when the decision is Friday.",
   },
-] as const;
-
-/* ----------------------------------------------------------- philosophy -- */
-
-export const philosophy = [
-  { title: "Operators, not reporters", body: "Everyone on this team has run finance inside a company. We are not producing a deliverable and leaving; we are in your Slack when a pricing decision needs a number by Thursday." },
-  { title: "The model is a tool, not an artifact", body: "A forecast that takes a week to update is a forecast nobody updates. Ours are built to be changed — clearly structured, documented, and yours to keep." },
-  { title: "Definitions before dashboards", body: "Most reporting problems are definition problems. We write down what each metric means before we build anything that displays it." },
-  { title: "Fewer numbers, better understood", body: "A board deck with sixty charts hides the three that matter. We cut hard, and we make sure the survivors are defensible." },
 ] as const;
 
 export const notDoing = [
-  "We do not do bookkeeping — we work alongside your accountant.",
-  "We do not sell software licences or take vendor referral fees.",
-  "We do not hand you a model and disappear.",
-  "We do not lock you in. Month to month, 30 days' notice.",
+  "We never take custody of your money. Connections are read-only.",
+  "We are not a registered investment adviser and we do not pick investments.",
+  "We take no commissions, referral fees or vendor kickbacks. Ever.",
+  "We do not sell or share your financial data with anyone.",
+  "We do not lock you in. Month to month, cancel any time.",
 ] as const;
 
 /* ----------------------------------------------------------------- team -- */
 
 export const team = [
-  { name: "Maya Lindqvist", role: "Founder & Managing Partner", initials: "ML", bio: "Built and ran FP&A through two Series C rounds and one acquisition before founding ArthIQ. Owns the modelling standard every engagement is built on.", detail: "Previously VP Finance at a Series D infrastructure company." },
-  { name: "Daniel Okonkwo", role: "Partner, Fractional CFO", initials: "DO", bio: "Sits in the CFO seat for four clients at a time. Runs board meetings, raise processes and the conversations founders would rather not have alone.", detail: "Previously CFO at two venture-backed marketplaces." },
-  { name: "Priya Raman", role: "Director of Analytics", initials: "PR", bio: "Owns the metrics layer: cohort models, unit economics and the data pipelines that keep them honest between board meetings.", detail: "Previously data lead in a growth-stage fintech." },
-  { name: "Thomas Auger", role: "Senior FP&A Manager", initials: "TA", bio: "Runs the monthly cycle across the client base — close, variance review, re-forecast — and rebuilds models that have stopped being usable.", detail: "Previously FP&A at a public SaaS company." },
-  { name: "Grace Whitfield", role: "Head of Client Operations", initials: "GW", bio: "Owns onboarding: systems, chart of accounts, close calendar. Has taken more than sixty companies from spreadsheet chaos to a six-day close.", detail: "Previously controller at a Series B company." },
-  { name: "Ben Ortiz", role: "FP&A Analyst", initials: "BO", bio: "Builds the models and the board packs, and is usually the first person to spot that a number moved before anyone asks why.", detail: "Previously investment banking, technology coverage." },
+  { name: "Maya Lindqvist", role: "Founder & Chief Executive", initials: "ML", bio: "Ran finance through two Series C rounds and one acquisition before founding ArthIQ on a simple observation: the household and the company had the same problem, and only one of them had good tools.", detail: "Previously VP Finance at a Series D infrastructure company." },
+  { name: "Daniel Okonkwo", role: "Partner, Fractional CFO", initials: "DO", bio: "Sits in the CFO seat for four companies at a time. Runs board meetings, raise processes and the conversations founders would rather not have alone.", detail: "Previously CFO at two venture-backed marketplaces." },
+  { name: "Nina Boateng", role: "Head of ArthIQ Personal", initials: "NB", bio: "Built the household side of the practice. Believes personal finance advice fails because it is delivered as rules rather than as a picture of your actual money.", detail: "CFP\u00ae. Previously a planner at a national wealth firm." },
+  { name: "Priya Raman", role: "Head of Analytics", initials: "PR", bio: "Owns the metrics layer: cohort models, unit economics and the pipelines that keep them honest between board meetings. Also owns what Ask ArthIQ is allowed to claim.", detail: "Previously data lead in a growth-stage fintech." },
+  { name: "Thomas Auger", role: "Director of Accounting", initials: "TA", bio: "Runs the monthly cycle across the client base \u2014 close, reconciliation, variance review \u2014 and rebuilds charts of accounts that stopped making sense three years ago.", detail: "CPA. Previously controller at a public SaaS company." },
+  { name: "Grace Whitfield", role: "Head of Client Operations", initials: "GW", bio: "Owns onboarding: connections, categories, close calendar. Has taken more than sixty companies from spreadsheet chaos to a six-day close.", detail: "Previously controller at a Series B company." },
 ] as const;
 
 /* --------------------------------------------------------------- process -- */
 
 export const process = [
-  { step: "01", title: "Diagnostic call", duration: "45 minutes", body: "What you are deciding, what your current numbers can and cannot answer, and whether we are the right team for it. No documents needed." },
-  { step: "02", title: "Finance audit", duration: "2 weeks", body: "We review your model, close process, systems and metric definitions, then come back with what is working and what is quietly broken." },
-  { step: "03", title: "Rebuild", duration: "3–5 weeks", body: "New driver-based model, cleaned-up chart of accounts, defined metrics and a documented close calendar. You own all of it." },
-  { step: "04", title: "Monthly rhythm", duration: "Ongoing", body: "Close, variance review, re-forecast, investor update. Board pack and pre-read every quarter, with your CFO in the room." },
-  { step: "05", title: "Raise support", duration: "As needed", body: "Data room, diligence responses and scenario modelling when the next round starts, without pulling your team off the roadmap." },
+  {
+    step: "01",
+    title: "Connect",
+    duration: "20 minutes",
+    body: "Link your accounts and your ledger, read-only. Banks, cards, payroll, billing, the general ledger \u2014 whatever you already use. Nothing changes on your side and nothing moves money.",
+  },
+  {
+    step: "02",
+    title: "Baseline",
+    duration: "Week one",
+    body: "We assemble the picture: categories cleaned, chart of accounts pruned, metric definitions written down. You get a first read on where the money actually goes, which is usually the uncomfortable part.",
+  },
+  {
+    step: "03",
+    title: "The monthly rhythm",
+    duration: "Ongoing",
+    body: "Books closed, variance explained, forecast re-run, dashboard refreshed. Same days every month, so decisions stop waiting on numbers that have not landed yet.",
+  },
+  {
+    step: "04",
+    title: "Decisions",
+    duration: "Whenever they come up",
+    body: "The house, the hire, the price change, the raise. Ask ArthIQ for the arithmetic in seconds, or ask the person who owns your account for the judgement behind it.",
+  },
 ] as const;
 
 /* ---------------------------------------------------------- testimonials -- */
 
 export const testimonials = [
-  { quote: "We went into our Series B with a model our lead investor's analyst could not break. That has never happened to me before, and it changed the tone of the whole process.", name: "Rachel Whitmore", detail: "Co-founder & CEO · infrastructure, Series B" },
-  { quote: "Our close went from nineteen days to six in a quarter. The bigger change is that our department heads now argue about their own numbers, which they never did when finance owned them.", name: "Karen Ellsworth", detail: "COO · marketplace, Series A" },
-  { quote: "What I value most is being told when I am wrong. They talked me out of a hiring plan last spring that would have cost us four months of runway for nothing.", name: "Marcus Delgado", detail: "Founder & CEO · developer tools, Seed" },
+  {
+    quote: "I run a nine-person studio and my own household on the same brain. Having both in one place stopped a specific bad habit \u2014 paying myself irregularly because I could never tell what the business could actually spare.",
+    name: "Dana Ruiz",
+    detail: "Founder \u00b7 design studio, Texas",
+  },
+  {
+    quote: "The monthly close went from nineteen days to six in a quarter. The bigger change is that our department heads now argue about their own numbers, which they never did when finance owned them.",
+    name: "Karen Ellsworth",
+    detail: "Chief Operating Officer \u00b7 marketplace, Series A",
+  },
+  {
+    quote: "We went into our Series B with a model our lead investor\u2019s analyst could not break. That has never happened to me before, and it changed the tone of the whole process.",
+    name: "Rachel Whitmore",
+    detail: "Co-founder & Chief Executive \u00b7 infrastructure, Series B",
+  },
 ] as const;
 
 export const testimonialDisclosure =
@@ -161,14 +141,38 @@ export const testimonialDisclosure =
 /* ------------------------------------------------------------------ faq -- */
 
 export const faqs = [
-  { q: "How is this different from hiring a full-time finance lead?", a: "A strong Director of FP&A costs $220k–$280k fully loaded, takes three to five months to hire, and gives you one person's experience. We cost less, start in two weeks, and put a CFO, an FP&A manager and an analyst on your account. When you are ready for someone in-house, we help you hire them and hand over cleanly — that is a successful outcome, not a lost client." },
-  { q: "What stage do you usually work with?", a: "Most clients are between Seed and Series C — roughly $1M to $50M in ARR. Below that, a good bookkeeper and a simple model are usually enough, and we will tell you so. Above it, you generally want a full in-house team, and we help you build it." },
-  { q: "Do you replace our accountant or bookkeeper?", a: "No. They own the books; we own the forward-looking work — forecasting, planning, analysis and reporting. We work alongside them, and a clean monthly close from your bookkeeper is what makes our work possible." },
-  { q: "How long until we see something useful?", a: "The finance audit lands in two weeks and is usually uncomfortable reading. A working driver-based model follows three to five weeks after that. The first board pack we produce end-to-end is typically your next quarterly meeting." },
-  { q: "What tools do you work in?", a: "Your general ledger, whatever it is, plus a modelling layer. Most clients run on spreadsheets far longer than vendors would like you to believe, and we will not sell you a planning platform you do not need yet. When you do outgrow spreadsheets, we help you choose and implement." },
-  { q: "Who actually does the work?", a: "The people on the team page. Each engagement gets a fractional CFO, an FP&A manager and an analyst. You will know all three by name, and none of them is a rotating pool." },
-  { q: "What does it cost?", a: "Engagements start at $6,500 a month for a Seed-stage company on a monthly rhythm, and scale with complexity — entities, currencies, board cadence and raise activity. We quote a fixed monthly fee after the diagnostic call, and it does not change without a conversation." },
-  { q: "What happens if we want to stop?", a: "Thirty days' notice, month to month, no termination fee. You keep the model, the documentation and the definitions — they were built for you, not rented to you." },
+  {
+    q: "Is ArthIQ software, or is it people?",
+    a: "Both, and the order matters. People do the work \u2014 accountants, analysts and, at the FP&A tier, a fractional CFO. The dashboards are how that work reaches you: one place to see the picture instead of a PDF in your inbox once a month. You are hiring a finance team that happens to have a good interface, not buying a tool and hoping you find the time.",
+  },
+  {
+    q: "Do you hold my money or move it?",
+    a: "No. Every connection is read-only. We can see balances and transactions; we cannot initiate a transfer, pay a bill or trade a security, and there is no path in the product that would let us. We are not a bank, a broker or a custodian, and we are not a registered investment adviser.",
+  },
+  {
+    q: "Why offer personal and business finance together?",
+    a: "Because most owners already run both and nobody helps them see the seam. What the business can pay you, what a slow quarter does to your mortgage, whether to take a distribution or leave the cash in \u2014 those are single questions with two sets of books behind them. Plenty of clients use only one side, and that is fine.",
+  },
+  {
+    q: "Do you replace my accountant or bookkeeper?",
+    a: "On ArthIQ Business we can do the bookkeeping ourselves, or work alongside whoever does it now \u2014 your call. What we will not do is file your taxes or issue an audit opinion. We are not a licensed public accounting firm, and when a return or an audit is needed we work with your CPA rather than pretending to be one.",
+  },
+  {
+    q: "What is Ask ArthIQ, exactly?",
+    a: "A question box over your own numbers. You type a question in plain English \u2014 why payroll ran over, what a ten percent revenue drop does to runway \u2014 and it answers with the arithmetic and the transactions or line items behind it. Every answer shows its sources. It explains what happened and what the numbers imply; it does not tell you what to do, and a person on your account is a message away when the judgement matters more than the maths.",
+  },
+  {
+    q: "How is my data protected?",
+    a: "Connections are read-only and token-based, so we never hold your banking credentials. Data is encrypted in transit and at rest, access is scoped to the people on your account, and we sell nothing to anyone \u2014 no data brokers, no advertising, no lead resale. You can disconnect an account or delete your data at any time.",
+  },
+  {
+    q: "How much does it cost?",
+    a: "ArthIQ Personal is a flat monthly subscription. Business and FP&A are fixed monthly fees quoted after a short call, based on transaction volume, entity count and reporting cadence \u2014 not on hours. The number we quote is the number you pay, and it does not change without a conversation.",
+  },
+  {
+    q: "What if I want to leave?",
+    a: "Thirty days\u2019 notice, month to month, no termination fee. You keep the model, the cleaned-up chart of accounts, the definitions and an export of everything. It was built for you, not rented to you.",
+  },
 ] as const;
 
 /* -------------------------------------------------------------- insights -- */
@@ -187,6 +191,26 @@ export type Article = {
 };
 
 export const articles: Article[] = [
+  {
+    slug: "the-only-three-numbers",
+    image: "skyline",
+    title: "The only three numbers in personal finance",
+    dek: "Budgeting apps show you two hundred figures. Almost every decision a household actually makes turns on three of them, and most people cannot name their own.",
+    category: "Personal",
+    date: "2026-08-25",
+    displayDate: "August 25, 2026",
+    readingTime: "5 min read",
+    author: "Nina Boateng",
+    body: [
+      "Ask someone what they spent on groceries last month and they will guess within twenty dollars. Ask them their net worth and you get a pause, then a range wide enough to drive a car through. We have built an entire category of software that is extremely good at the question that does not matter much and quiet about the three that do.",
+      "The first is net worth: everything you own minus everything you owe, measured monthly. Not because the number itself is interesting \u2014 on any given day it is mostly noise from markets you do not control \u2014 but because its slope is the only honest scoreboard for whether the last twelve months went the way you think they did. Income can rise while net worth flattens. That is worth knowing early rather than at fifty.",
+      "The second is free cash flow: what is left after everything, including the bills that arrive quarterly and the ones that arrive annually and the ones you have mentally classified as unusual for six years running. Most households compute this optimistically by leaving out the lumpy items, then wonder why the surplus never appears in the account. Take a full year, divide by twelve, and use that number instead. It is smaller and it is real.",
+      "The third is your savings rate: free cash flow as a percentage of take-home pay. This is the one that actually predicts outcomes, because it is scale-free. It lets you compare this year to last year after a raise, and it is the only one of the three you can move deliberately in a single month.",
+      "What makes them useful together is that they answer different questions. Savings rate tells you whether the machine is working. Free cash flow tells you what you can commit to \u2014 a mortgage payment, a car, a tuition bill. Net worth tells you whether the first two have been true for long enough to matter yet.",
+      "The house question is the clearest case. Nobody can answer whether you can afford a given price from your salary alone, because salary is not the constraint. The constraint is what monthly payment survives inside your real free cash flow after taxes, insurance, maintenance and the fact that a house generates its own expenses. Run it against the honest number and the answer usually arrives in under a minute, in one direction or the other.",
+      "None of this requires a budget in the sense most people mean \u2014 the envelope system that gets abandoned in week three. It requires knowing three numbers and watching their trend. If your money app cannot tell you all three in one screen, it is showing you the wrong two hundred figures.",
+    ],
+  },
   {
     slug: "the-burn-multiple-is-the-only-number",
     image: "trading",
@@ -289,8 +313,28 @@ export const articles: Article[] = [
 ] as const as Article[];
 
 export const disclosures = [
-  { title: "Advisory services", body: "ArthIQ Advisory, LLC provides outsourced financial planning and analysis and fractional CFO services. We are not a registered investment adviser, a broker-dealer, a licensed public accounting firm or a law firm, and we do not provide investment advice, audit opinions, tax opinions or legal advice." },
-  { title: "Nothing here is advice", body: "Content on this site is general information for illustration. It does not account for your circumstances and should not be relied on as the basis for a financial, hiring, fundraising or accounting decision. Speak to a qualified professional about your specific situation." },
-  { title: "The work examples", body: "Every chart, table and figure in the work examples is invented for illustration. They show the shape and structure of what we produce — a forecast build, a variance bridge, a cohort grid — not the results of any real engagement." },
-  { title: "Figures shown", body: "All statistics, client names, team members, testimonials and example numbers on this site are illustrative placeholders created for design purposes. They do not represent actual engagements, actual people or actual results." },
+  {
+    title: "What ArthIQ is",
+    body: "ArthIQ Financial Intelligence, LLC provides accounting, bookkeeping, financial planning and analysis, management reporting and personal money-management services, delivered together with software we operate. We are not a bank, a broker-dealer, a custodian, a registered investment adviser, a licensed public accounting firm or a law firm.",
+  },
+  {
+    title: "We do not hold or move your money",
+    body: "All account connections are read-only. ArthIQ cannot initiate transfers, pay bills, place trades or take custody of any asset. Balances and transactions are shown for analysis only, and may lag your institution.",
+  },
+  {
+    title: "Nothing here is advice",
+    body: "Content on this site \u2014 including every example answer shown for Ask ArthIQ \u2014 is general information for illustration. It does not account for your circumstances and should not be relied on as the basis for an investment, tax, borrowing, hiring or fundraising decision. Speak to a qualified professional about your situation.",
+  },
+  {
+    title: "Ask ArthIQ",
+    body: "Ask ArthIQ produces explanations and arithmetic from your own data. It can be wrong, it does not know anything you have not connected, and it is not a substitute for professional judgement. Every answer shows its sources so you can check the work. It does not recommend investments.",
+  },
+  {
+    title: "The dashboards and work examples",
+    body: "Every dashboard, chart, table and figure shown on this website is invented for illustration. They show the shape and structure of what we produce \u2014 a net-worth trend, a variance bridge, a cohort grid \u2014 not the results of any real client or engagement.",
+  },
+  {
+    title: "Figures shown",
+    body: "All statistics, client names, team members, testimonials, prices and example numbers on this site are illustrative placeholders created for design purposes. They do not represent actual engagements, actual people or actual results.",
+  },
 ] as const;

@@ -18,6 +18,11 @@ const sections = [
     body: testimonialDisclosure,
   },
   {
+    id: "security",
+    title: "Security",
+    body: "Account connections are read-only and token-based, so ArthIQ never stores your banking credentials. Data is encrypted in transit and at rest, access is limited to the people assigned to your account, and nothing is sold or shared with data brokers, advertisers or lead buyers. You can disconnect an institution or request deletion of your data at any time. This demonstration site connects to nothing and stores nothing.",
+  },
+  {
     id: "privacy",
     title: "Privacy",
     body: "This demonstration site sets no cookies, runs no analytics and transmits no form data. In production, information you provide through the contact form would be used solely to respond to your enquiry and would not be sold or shared for marketing.",

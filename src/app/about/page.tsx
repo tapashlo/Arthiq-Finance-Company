@@ -5,12 +5,12 @@ import { Wordmark } from "@/components/Logo";
 import { Figure, ImageBand } from "@/components/Media";
 import { images } from "@/lib/images";
 import { Eyebrow, PageHero, SectionHeading, Stat } from "@/components/ui";
-import { notDoing, philosophy, process, site, stats, team } from "@/lib/site";
+import { notDoing, principles, process, site, stats, team } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "About",
   description:
-    "ArthIQ is a remote-first outsourced FP&A and fractional CFO team serving venture-backed startups across the United States. Meet the team and how we work.",
+    "ArthIQ is a remote-first team bringing accounting, planning and money management together for households and companies across the United States. Meet the people and how we work.",
 };
 
 export default function AboutPage() {
@@ -25,7 +25,7 @@ export default function AboutPage() {
             purpose.
           </>
         }
-        lede="ArthIQ was founded in 2019 on a straightforward premise: that most startups do not need a full finance team, but every one of them needs the work a finance team does."
+        lede="ArthIQ was founded in 2019 on a straightforward premise: almost nobody needs a full finance team, and almost everybody needs the work one does."
       />
 
       {/* ---------------------------------------------------------- story */}
@@ -41,26 +41,30 @@ export default function AboutPage() {
               <div className="max-w-2xl space-y-7 text-xl leading-relaxed text-ink-soft md:text-[1.375rem]">
                 <p className="text-navy">
                   Our founder ran finance inside two venture-backed companies
-                  before starting this one, and kept meeting the same problem
-                  from the other side.
+                  before starting this one, and noticed something slightly
+                  absurd on the way home from work.
                 </p>
                 <p>
-                  A Series A company needs a forecast it can defend, a close it
-                  can trust and metrics that survive diligence. What it does not
-                  need — and usually cannot afford — is a VP of Finance, a
-                  controller and an analyst on payroll to produce them.
+                  At the office there was a team, a model and a monthly rhythm
+                  that could answer almost any question about the company&rsquo;s
+                  money in an afternoon. At home, the same person could not have
+                  told you their savings rate.
                 </p>
                 <p>
-                  So it falls to a founder at 11pm, or to a bookkeeper who was
-                  never hired to forecast, or to nobody at all until the week
-                  the round opens. Then the model gets built in a panic and the
-                  diligence questions arrive.
+                  It is the same problem in both places, and it is almost never
+                  a maths problem. The information already exists — in a bank, a
+                  ledger, a payroll system, a spreadsheet somebody owns — and
+                  nobody has assembled it. So the household guesses, and the
+                  company waits three weeks for a close and then makes decisions
+                  on numbers that are already stale.
                 </p>
                 <p>
-                  ArthIQ exists to put a real finance function behind those
-                  companies at a tenth of the payroll cost — and to hand it over
-                  cleanly when they are ready to bring it in-house. That is a
-                  successful outcome, not a lost client.
+                  ArthIQ does the assembling, keeps it current, and puts a
+                  person behind it who can tell you what it means. For a
+                  household that is one subscription. For a company it is a
+                  finance function at a fraction of the payroll cost — handed
+                  over cleanly when they are ready to bring it in-house, which is
+                  a successful outcome rather than a lost client.
                 </p>
               </div>
             </Reveal>
@@ -71,8 +75,8 @@ export default function AboutPage() {
       <ImageBand
         image={images.screens}
         height="short"
-        eyebrow="Est. 2016"
-        title="Patient capital, plainly managed."
+        eyebrow={`Est. ${site.founded}`}
+        title="One standard of proof, both sides of your life."
       />
 
       {/* ---------------------------------------------------------- stats */}
@@ -93,7 +97,7 @@ export default function AboutPage() {
             <SectionHeading
               eyebrow="The team"
               title="Six people, and no call centre."
-              lede="Every engagement gets a fractional CFO, an FP&A manager and an analyst. You will know all three by name, and none of them is a rotating pool."
+              lede="Personal accounts get a planner. Business gets a named accountant and an analyst. FP&A adds someone in the CFO seat. You will know them by name, and none of them is a rotating pool."
             />
           </Reveal>
 
@@ -124,7 +128,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ------------------------------------------------------ philosophy */}
+      {/* ------------------------------------------------------ principles */}
       <section className="border-y border-rule bg-navy text-white">
         <div className="shell py-24 md:py-36">
           <Reveal>
@@ -135,7 +139,7 @@ export default function AboutPage() {
           </Reveal>
 
           <div className="mt-20 grid gap-x-14 gap-y-14 md:mt-28 md:grid-cols-2">
-            {philosophy.map((p, i) => (
+            {principles.map((p, i) => (
               <Reveal key={p.title} delay={i * 80}>
                 <div className="border-t border-rule-invert pt-8">
                   <h3 className="text-2xl leading-snug text-white md:text-[1.75rem]">
