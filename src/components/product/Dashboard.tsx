@@ -287,7 +287,7 @@ export function Dashboard({ className = "" }: { className?: string }) {
 
       <div className="p-4 sm:p-6">
         {tab === "personal" ? (
-          <div role="tabpanel" id="dash-panel-personal" aria-labelledby="dash-tab-personal">
+          <div key="personal" className="panel-in" role="tabpanel" id="dash-panel-personal" aria-labelledby="dash-tab-personal">
             <div className="flex flex-wrap items-end justify-between gap-x-6 gap-y-2">
               <div>
                 <div className="label-sm text-white/45">Net worth</div>
@@ -312,7 +312,7 @@ export function Dashboard({ className = "" }: { className?: string }) {
             </div>
           </div>
         ) : (
-          <div role="tabpanel" id="dash-panel-business" aria-labelledby="dash-tab-business">
+          <div key="business" className="panel-in" role="tabpanel" id="dash-panel-business" aria-labelledby="dash-tab-business">
             <div className="grid grid-cols-2 gap-2 sm:grid-cols-4 sm:gap-3">
               {BUSINESS_TILES.map((t) => (
                 <Tile key={t.label} {...t} />

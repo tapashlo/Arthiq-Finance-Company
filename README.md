@@ -183,6 +183,83 @@ home page.
 
 ---
 
+## The model
+
+`/model` is a live three-statement projection. Assumptions in; a P&L, a cash
+flow and a balance sheet out, month by month, plus the SaaS metrics an investor
+computes before the second meeting. It runs entirely in the browser — nothing
+typed there is sent anywhere unless a signed-in visitor saves a scenario.
+
+The engine is `src/lib/model.ts`, pure and deterministic. Two properties it
+exists to hold:
+
+- **The balance sheet balances.** Not approximately. Working-capital balances
+  are computed first and the change in cash is derived from net income and
+  those same deltas, so assets and liabilities-plus-equity move by identical
+  amounts by algebra rather than by luck. The balance-sheet view draws the two
+  sides as paired columns for exactly this reason: the check is visible.
+- **It is honest about what it leaves out.** No depreciation, interest, tax or
+  financing; net income equals EBITDA. Listed on the page, not buried.
+
+```bash
+npm run check:model
+```
+
+Runs `scripts/check-model.ts` over 400+ randomised assumption sets plus the
+degenerate ones (zero revenue, zero churn, negative margin, no cash). It
+asserts the balance sheet balances every month, the cash bridge explains the
+change in cash exactly, the P&L ties, the revenue build ties, runway agrees
+with the cash curve, scenarios stay ordered, nothing is NaN, and the projection
+is deterministic. Worst observed relative imbalance is around 1e-12 — floating
+point, nothing else.
+
+Two modelling decisions worth knowing about, both made because the naive
+version produces numbers that are wrong in a flattering direction:
+
+- **S&M is a share of revenue, not a fixed monthly figure.** Holding it flat in
+  dollars while revenue compounds makes acquisition look free: implied CAC
+  falls every month and the magic number climbs past five. That is an artifact
+  of the model, not a property of a business.
+- **LTV caps the customer lifetime at five years.** A 0.5% monthly churn rate
+  implies a seventeen-year customer, which nobody underwrites.
+
+---
+
+## Sign-in
+
+Supabase, with email and password plus Google and Microsoft. The design
+constraint is that **the site builds and deploys unchanged when it is not
+configured** — the marketing site was live before auth existed and must not
+depend on it.
+
+- `src/lib/supabase/client.ts` exports `authConfigured`, read at module scope
+  from the statically-inlined `NEXT_PUBLIC_*` values, so it is the same answer
+  on the server and in the browser and cannot cause a hydration mismatch.
+  Every accessor returns `null` when unset; nothing throws.
+- With no env vars the sign-in page renders a "not configured" panel, the
+  header shows no account controls at all, and the saved-scenarios card
+  explains itself. Every route still prerenders statically.
+- The OAuth exchange happens in the browser (`/auth/callback` is a client
+  page), not in a route handler, which is what keeps the whole site static on
+  Workers.
+
+Set up:
+
+1. Create a Supabase project. Copy the URL and anon key into Cloudflare under
+   Workers & Pages → your Worker → Settings → Variables, as plaintext build
+   variables. `NEXT_PUBLIC_*` is inlined at build time, so they must be set
+   before the build, not at runtime. See `.env.example`.
+2. Run `supabase/migrations/0001_scenarios.sql` in the SQL editor. It creates
+   the `scenarios` table, enables row-level security **before** adding the
+   policy, and adds a per-account row cap.
+3. Enable the Google and Azure providers in Supabase Auth, and add
+   `https://your-domain/auth/callback` to the allowed redirect URLs.
+
+The anon key is public by design — it grants only what the row-level security
+policies allow, which here is "your own rows and nobody else's".
+
+---
+
 ## Deploying
 
 The site runs on **Cloudflare Workers** via the OpenNext adapter. Not Vercel —

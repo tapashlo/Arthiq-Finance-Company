@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { AccountNav } from "./auth/AccountNav";
 import { Wordmark } from "./Logo";
 import { nav } from "@/lib/site";
 
@@ -49,7 +50,7 @@ export function SiteHeader() {
           <Wordmark simplified className="h-8 w-auto md:h-9" />
         </Link>
 
-        <nav aria-label="Primary" className="hidden items-center gap-6 lg:flex xl:gap-9">
+        <nav aria-label="Primary" className="hidden items-center gap-4 lg:flex xl:gap-7">
           {nav.map((item) => {
             const active = pathname.startsWith(item.href);
             return (
@@ -69,17 +70,14 @@ export function SiteHeader() {
         </nav>
 
         <div className="hidden items-center gap-5 lg:flex xl:gap-6">
-          {/* Dropped first when the six nav items get tight; it is also in the
-              footer and on the mobile panel. */}
-          <Link
-            href="/portal"
-            className="label tap hidden text-ink-soft transition-colors duration-300 hover:text-navy xl:inline-flex"
-          >
-            Sign in
-          </Link>
+          {/* Hidden first when the nav items get tight; it is also on the
+              mobile panel and in the footer. */}
+          <span className="hidden xl:block">
+            <AccountNav />
+          </span>
           <Link
             href="/contact"
-            className="label rounded-lg bg-navy px-5 py-3.5 text-white transition-colors duration-300 hover:bg-blue"
+            className="label shrink-0 rounded-lg bg-navy px-5 py-3.5 text-white transition-colors duration-300 hover:bg-blue"
           >
             Get started
           </Link>
@@ -134,12 +132,7 @@ export function SiteHeader() {
             >
               Get started
             </Link>
-            <Link
-              href="/portal"
-              className="label rounded-lg border border-rule px-6 py-4.5 text-center text-navy"
-            >
-              Sign in
-            </Link>
+            <AccountNav variant="panel" />
           </div>
         </div>
       </div>

@@ -8,7 +8,7 @@ const company = [
   { href: "/insights", label: "Insights" },
   { href: "/work", label: "Our work" },
   { href: "/contact", label: "Contact" },
-  { href: "/portal", label: "Sign in" },
+  { href: "/portal", label: "Dashboard demo" },
 ];
 
 const legal = [
@@ -53,6 +53,7 @@ export function SiteFooter() {
                   {l.name}
                 </FooterLink>
               ))}
+              <FooterLink href="/model">Model your business</FooterLink>
               <FooterLink href="/pricing">Pricing</FooterLink>
             </FooterCol>
 

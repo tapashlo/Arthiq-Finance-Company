@@ -117,15 +117,24 @@ export function Tile({
 export function Axis({
   labels,
   align = "band",
-  everyOnMobile = 1,
+  every = 1,
+  everyOnMobile,
 }: {
   labels: readonly string[];
   /** "band" centres each label under its bar; "edge" pins the first and last. */
   align?: "band" | "edge";
+  /** Show every nth label on a wide screen. */
+  every?: number;
+  /** And every nth on a narrow one. Defaults to the wide-screen setting. */
   everyOnMobile?: number;
 }) {
+  const narrow = everyOnMobile ?? every;
   const cls = (i: number) =>
-    i % everyOnMobile === 0 ? "text-white/40" : "invisible text-white/40 sm:visible";
+    [
+      "text-white/40",
+      i % narrow === 0 ? "" : "invisible",
+      i % every === 0 ? "sm:visible" : "sm:invisible",
+    ].join(" ");
 
   if (align === "edge") {
     return (

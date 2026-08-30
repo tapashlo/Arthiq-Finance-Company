@@ -52,7 +52,7 @@ export function AskArthiq() {
         </p>
 
         {/* Re-keyed so a new answer animates in rather than swapping silently. */}
-        <div key={answer.q} className="fade-up mt-5">
+        <div key={answer.q} className="panel-in mt-5">
           <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
             <span className="tnum display text-3xl leading-none text-white sm:text-4xl">
               {answer.headline}

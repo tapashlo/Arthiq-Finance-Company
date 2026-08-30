@@ -32,6 +32,7 @@ export const nav = [
   { href: "/personal", label: "Personal" },
   { href: "/business", label: "Business" },
   { href: "/fpa", label: "FP&A" },
+  { href: "/model", label: "Model" },
   { href: "/pricing", label: "Pricing" },
   { href: "/insights", label: "Insights" },
   { href: "/about", label: "About" },
