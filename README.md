@@ -183,6 +183,64 @@ home page.
 
 ---
 
+## Deploying
+
+The site runs on **Cloudflare Workers** via the OpenNext adapter. Not Vercel —
+`vercel.json` is a leftover from an earlier detour and is not used.
+
+Everything the deploy needs is committed, which is the point: `wrangler.jsonc`
+pins the Worker name, the assets binding, the compatibility flags and the
+self-reference binding, and it declares its own `build.command`. Without a
+committed config, `wrangler deploy` falls back to running the adapter's
+`migrate` wizard on every build — non-interactively, auto-answering its own
+prompts and regenerating a config from scratch. That is how the Worker name and
+the `WORKER_SELF_REFERENCE` binding drifted apart and broke a deploy.
+
+**Three names must agree.** The Worker in your Cloudflare account, `name` in
+`wrangler.jsonc`, and the `service` under `WORKER_SELF_REFERENCE`. If they ever
+disagree the deploy fails with:
+
+```
+Service binding 'WORKER_SELF_REFERENCE' references Worker '<x>' which was not found. [code: 10143]
+```
+
+### From your machine
+
+```bash
+npx wrangler login
+npm run cf:preview   # wrangler dev — the real Workers runtime, on localhost
+npm run cf:deploy    # wrangler deploy
+```
+
+Both build first: `build.command` in `wrangler.jsonc` runs the OpenNext build,
+so there is no separate build step to forget or to run twice.
+
+### From Cloudflare Workers Builds (git-connected)
+
+A push to `main` deploys. Two settings matter:
+
+| Setting | Value | Why |
+| --- | --- | --- |
+| Deploy command | `npx wrangler deploy` | Reads the committed config; builds via `build.command`. |
+| Build command | leave empty, or `npm ci` | The app build already happens inside the deploy. Anything that runs `opennextjs-cloudflare build` here just builds twice. |
+
+Node is pinned in `.nvmrc` and `engines` so the builder cannot quietly pick a
+version too old for Next 16.
+
+### Verifying before you push
+
+`wrangler dev` runs the real thing — your Worker on workerd, with the assets
+binding — rather than Next's own server. `next start` will happily serve pages
+that the Workers runtime would reject, so check there before a release:
+
+```bash
+npm run cf:preview
+```
+
+All twelve routes, the RSC payloads and the static assets were verified this way.
+
+---
+
 ## Before this goes live
 
 This is a **design demonstration**. Everything below needs real work first.
